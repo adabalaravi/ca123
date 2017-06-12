@@ -1,0 +1,147 @@
+/* General Menu */
+
+.consoleMenuBarClass{
+	
+}
+
+.consoleMenuBarClassSubMenu{
+	width: 262px;
+}
+
+
+.iceMnuBarItem a, .smallMenuItem a{
+	width: 250px;
+}
+
+.smallMenuItem a{
+	width: 82px;
+}
+
+.consoleMenuClass{
+	width: 230px;
+	
+}
+.subConsoleMenuClass{
+	width: 262px;
+}
+
+.adminBlankMenuItem-dis a {
+	width: 110px;
+}
+
+.operatorBlankMenuItem-dis a {
+	width: 634px;
+}
+
+/* Platform Operation Menu */
+
+.operationMenuBarClass{
+	right: 5px;
+	
+}
+.operationMenuBarClassSubMenu{
+	width: 200px;
+}
+
+.operationMenu{
+	background: transparent;
+}
+
+.operationMenuItem a{
+	background: transparent;
+	width: 1px;
+	height: 8px;
+	padding: 0px;
+}
+.operationMenuItem a:HOVER{
+	background: transparent;
+	width: 1px;
+	height: 8px;
+	padding: 0px;
+}
+
+.operationMenuSubItem{
+	width: 200px;
+}
+
+.operationMenuSubItem a{
+	width: 200px;
+}
+
+
+
+.operationMenuSubMenu{
+	width: 200px;
+}
+
+.operationMenuItemLabel{
+	background: transparent;
+}
+
+.operationMenuItemImage{
+	position:relative;
+	top: -2px;
+	left: -8px;
+}
+
+
+.subOperationMenu{
+	width: 200px;
+}
+
+.subOperationMenu a{
+	width: 200px;
+}
+
+
+.subOperationMenuDis{
+	text-decoration: line-through;
+	width: 200px;
+}
+
+.subOperationMenuDis a{
+	width: 200px;
+}
+
+.subOperationMenuItem{
+	width: 200px;
+}
+
+.subOperationMenuItem a{
+	width: 200px;
+}
+.subOperationMenuItem-dis{
+	width: 200px;
+}
+
+.subOperationMenuItem-dis a{
+	width: 200px;
+}
+
+
+/* View Profile Style */
+
+
+.viewProfileMenuItem{
+	text-align:center;
+	border: none;
+	text-decoration: none;
+	width: 22px;
+	height: 20px;
+	padding: 0px;
+}
+
+.viewProfileMenuItem a{
+	background: transparent;
+	width: 20px;
+	height: 20px;
+	padding: 0px;
+	margin: 0px;
+}
+.viewProfileMenuItem a:HOVER{
+	background: transparent;
+	width: 20px;
+	height: 16px;
+	padding: 0px;
+	margin: 0px;
+}

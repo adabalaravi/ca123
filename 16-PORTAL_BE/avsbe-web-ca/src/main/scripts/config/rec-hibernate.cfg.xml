@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- Database connection settings using datasource -->
+		
+			<property name="hibernate.connection.datasource">java:/RecomDataSource</property>
+
+		<!-- DEV Database connection settings -->
+		<!--
+			<property
+			name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+			<property
+			name="connection.url">jdbc:oracle:thin:@192.168.7.174:1521:AVSRecommDB</property>
+			<property name="connection.username">RECOM_ENGINE</property>
+			<property name="connection.password">HAaiOlp</property>
+		-->
+
+<!-- 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property> -->
+<!-- 		<property name="connection.url">jdbc:mysql://192.168.7.182:3306/recom_engine</property> -->
+<!-- 		<property name="connection.username">RECOM_ENGINE</property> -->
+<!-- 		<property name="connection.password">HAaiOlp</property> -->
+
+
+		<!-- MYSQL dialect -->
+		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+
+
+		<!--
+			ORACLE dialect <property
+			name="dialect">org.hibernate.dialect.OracleDialect</property>
+		-->
+
+		<!-- Enable Hibernate's automatic session context management -->
+		<!-- property name="current_session_context_class">thread</property -->
+		<!-- Disable the second-level cache -->
+		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+		<property name="hibernate.cache.use_query_cache">false</property>
+		<property name="hibernate.cache.use_second_level_cache">false</property>
+		<!-- Echo all executed SQL to stdout -->
+		<property name="show_sql">true</property>
+		<!-- Drop and re-create the database schema on startup -->
+		<property name="hbm2ddl.auto">none</property>
+
+		<property name="hibernate.connection.autocommit">false</property>
+
+		<property name="hibernate.validator.apply_to_ddl">false</property>
+		<property name="hibernate.validator.autoregister_listeners">false</property>
+
+		<mapping class="com.accenture.avs.rec.domain.Action" />
+		<mapping class="com.accenture.avs.rec.prefs.ImpContentPref" />
+		<mapping class="com.accenture.avs.rec.prefs.ImpActionPref" />
+		<mapping class="com.accenture.avs.rec.prefs.Preference" />
+
+
+	</session-factory>
+</hibernate-configuration>
+
+

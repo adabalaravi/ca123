@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>AVS</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>AccountMgmtService</display-name>
+    <servlet-name>AccountMgmtService</servlet-name>
+    <servlet-class>
+			com.accenture.ams.accountmgmtservice.AccountMgmtService_AccountMgmtServicePortImpl
+		</servlet-class>
+  </servlet>
+  <servlet>
+    <description></description>
+    <display-name>PackageIngestorService</display-name>
+    <servlet-name>PackageIngestorService</servlet-name>
+    <servlet-class>
+			com.accenture.ams.pkgingestor.impl.PackageIngestorPortImpl
+		</servlet-class>
+  </servlet>
+
+	<servlet>
+		<description></description>
+		<display-name>GetPriceByUserService</display-name>
+		<servlet-name>GetPriceByUserService</servlet-name>
+		<servlet-class>
+			com.accenture.ams.getpricebyuserservice.impl.GetPriceByUserPortImpl
+		</servlet-class>	
+	</servlet>
+		
+  <servlet>
+    <servlet-name>ReloadDS</servlet-name>
+    <servlet-class>
+			com.accenture.ams.servlet.ReloadDS
+		</servlet-class>
+  </servlet>
+	
+  <servlet-mapping>
+    <servlet-name>ReloadDS</servlet-name>
+    <url-pattern>/ReloadDS</url-pattern>
+  </servlet-mapping>
+	
+  <servlet-mapping>
+    <servlet-name>AccountMgmtService</servlet-name>
+    <url-pattern>/AccountMgmtService</url-pattern>
+  </servlet-mapping>
+	
+  <servlet-mapping>
+    <servlet-name>PackageIngestorService</servlet-name>
+    <url-pattern>/PackageIngestorService</url-pattern>
+  </servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>GetPriceByUserService</servlet-name>
+		<url-pattern>/GetPriceByUserService</url-pattern>
+	</servlet-mapping>
+		
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  <!-- <servlet>
+    <display-name>AccountMgmtPort</display-name>
+    <servlet-name>AccountMgmtPort</servlet-name>
+    <servlet-class>com.accenture.avs.be.ws.accountmgmtservice_v1.impl.AccountMgmtPortImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AccountMgmtPort</servlet-name>
+    <url-pattern>/AccountMgmtPort</url-pattern>
+  </servlet-mapping> -->
+</web-app>

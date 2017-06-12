@@ -1,0 +1,1 @@
+update sys_messages set message_text='Invalid parameter in_merchant_number' where message_key='ERROR_4001_INVALID_MERCHANT_ID';

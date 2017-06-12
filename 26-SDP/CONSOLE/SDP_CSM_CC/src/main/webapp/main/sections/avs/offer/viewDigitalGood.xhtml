@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<p:outputPanel>
+	<h:form id="mainForm">
+	<h:outputText value="Digital Goods" styleClass="pageTitle"/>
+			<div id="barDataGrid" > 
+			   <div class="barButtomOpenFilter" style="margin: 0 0 0 14px;"> Filter </div> 
+			 </div>
+			
+		<p:dataTable id="digitalGoodList" var="item"
+			value="#{offerManager.selectedBean.digitalGoods}"
+			rowKey="#{item.id}" paginator="true" rows="10" dynamic="true"
+			paginatorTemplate="#{msgs['paginator.paginatorTemplate']}"
+			rowsPerPageTemplate="#{msgs['paginator.rowsPerPageTemplate']}"
+			pageLinks="3" paginatorPosition="bottom" styleClass="fixedTableStyle">
+			<p:column filterBy="#{item.name}" sortBy="#{item.name}"
+				headerText="#{msgs['column.name']}">
+				<h:outputText value="#{item.name}" title="#{item.name}" />
+			</p:column>
+			<p:column headerText="#{msgs['column.description']}">
+				<h:outputText value="#{item.description}"
+					title="#{item.description}" />
+			</p:column>
+			<p:column sortBy="#{item.type}" filterBy="#{item.type}"
+				headerText="#{msgs['column.type']}">
+				<h:outputText styleClass="statusColumnStyle" value="#{item.type}"
+					title="#{item.type}" />
+			</p:column>
+			<p:column sortBy="#{item.offerCreationDate}"
+				headerText="#{msgs['column.creationDate']}" styleClass="alignCenter">
+				<h:outputText styleClass="creationDateColumnStyle"
+					value="#{item.creationDate}">
+					<f:convertDateTime timeZone="#{msgs['application.timeZone']}"
+						pattern="#{msgs['date.pattern']}" />
+				</h:outputText>
+			</p:column>
+		</p:dataTable>
+		<!-- 
+		<center>
+			<p:commandButton value="#{msgs['button.cancelLabel']}"
+				action="#{menuBean.dispatchRequest}" update=":appContent">
+				<f:param name="breadParam" value="technicalPackage.view" />
+			</p:commandButton>
+		</center>
+		 -->
+	</h:form>
+</p:outputPanel>
+</html>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory >
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+		<property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
+		<!-- <property name="current_session_context_class">thread</property> -->
+		<property name="hibernate.connection.datasource">AVSDataSource</property>
+<!-- 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property> -->
+<!-- 		<property name="connection.url">jdbc:mysql://192.168.7.41:3306/avs_be</property> -->
+<!-- 		<property name="connection.username">AVS_BE</property> -->
+<!-- 		<property name="connection.password">GRIRAxfu</property> -->
+		<property name="hibernate.bytecode.use_reflection_optimizer">true</property>
+		<property name="hibernate.connection.autocommit">false</property>
+		<property name="hibernate.format_sql">false</property>
+		<property name="hibernate.show_sql">false</property>
+		<property name="hibernate.cache.use_query_cache">false</property>
+		<property name="hibernate.cache.use_second_level_cache">false</property>
+		<property name="hibernate.connection.useUnicode">true</property>
+		<property name="hibernate.connection.characterEncoding">UTF-8</property>
+		<property name="hibernate.connection.charSet">UTF-8</property>
+		<property name="hibernate.validator.apply_to_ddl">false</property>
+		<property name="hibernate.validator.autoregister_listeners">false</property>
+		<mapping class="com.accenture.avs.be.db.bean.ProductPriceInfoBean" />
+		<mapping class="com.accenture.avs.be.db.bean.DiscountPriceInfoBean" />
+		<mapping resource="com/accenture/avs/be/db/bean/Channel.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/PersonalMessage.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/Extra.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/Bookmark.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/AccountUser.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/AccountUserBean.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/AccountAttribute.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/AccountProduct.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/AccountProductBean.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/AccountPromo.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/AccountTechnicalPkg.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/Product.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/PromoOffer.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/AttributeDetail.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/Promo.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/VoucherPromo.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/CommercialCategory.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/RelPackageCommCat.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/RefTechnicalPackage.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/TechnicalPackage.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/ChannelTechnicalPkg.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/RelContentTechnical.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/ContentExtension.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/TeckPkgType.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/CrmAccount.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/CrmAccountBean.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/ChannelPlatform.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/MostWanted.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/Content.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/ContentPlatform.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/VlcContent.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/AccContentAttr.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/StatusType.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/LiveContent.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/PriceCategory.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/RelContentExtra.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/Favourite.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/Category.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/CategoryAggregation.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/Chapter.hbm.xml" />
+		<!--<mapping resource="com/accenture/avs/be/db/bean/CategoryContents.hbm.xml" 
+			/> -->
+		<mapping resource="com/accenture/avs/be/db/bean/CategoryTree.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/CategoryTreeQa.hbm.xml" />
+		<!--<mapping resource="com/accenture/avs/be/db/bean/BaseDataContent.hbm.xml" 
+			/> -->
+		<mapping resource="com/accenture/avs/be/db/bean/BaseDataCategory.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/DalPage.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/ContentCas.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/ExtraCas.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/AppBeVersion.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/AccountContent.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/DeviceRegistry.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/DeviceCategory.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/DecryptKeyRepository.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/SysParameter.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/SysMessages.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/SysParameterGroup.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/Currency.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/ContentCategory.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/Profile.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/RelContentExtRat.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/RelLiveContentExtrat.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/PcExtendedRating.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/PcLevel.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/LiveContentEPG.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/ChannelEPG.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/IdServiceOperation.hbm.xml" />
+		<mapping
+			resource="com/accenture/avs/be/db/bean/AccountAttributeProfile.hbm.xml" />
+		<mapping
+			resource="com/accenture/avs/be/db/bean/AccountTechnicalPkgProfile.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/AttributeDetailProfile.hbm.xml" />
+		<mapping
+			resource="com/accenture/avs/be/db/bean/TechnicalPackageProfile.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/Platform.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/DeviceIdType.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/AccountDevice.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/RetailerDomain.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/CountryLangCode.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/AccountDeviceAMS.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/LivePPV.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/AccountPPV.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/AdUnit.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/AdUnitType.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/AdvTemplate.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/CategoryAdvTemplate.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/ContentAdvTemplate.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/PublisherPoint.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/ShortContentPlatform.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/ShortContent.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/RecordingOrder.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/SerialRecRules.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/NPVRChannel.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/PurchaseTransaction.hbm.xml" />
+		<mapping
+			resource="com/accenture/avs/be/db/bean/PurchaseTransactionType.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/GeoBlockingIpRange.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/UserPurchases.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/SdpOfferView.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/SdpPackageView.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/SdpSolutionOfferView.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/SdpSolutionView.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/PaymentType.hbm.xml" />
+		<mapping
+			resource="com/accenture/avs/be/db/bean/LnkSolutionOfferPartyGroup.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/LnkPartyPartyGroupView.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/Audiolang.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/Subtitles.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/SdpPackagePriceView.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/RefPriceCatalogView.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/RefPartyGroupView.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/RefCurrencyTypeView.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/SdpDiscountView.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/RefFrequencyType.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/SolutionOfferDetails.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/PackagePriceView.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/Discount.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/UserTicket.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/LoginAttempt.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/LiveContentEPGMobile.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/CategoryTreeMobile.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/UserRating.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/SdpVoucherView.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/SdpVoucherCampaignView.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/Carousel.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/PublisherPointRule.hbm.xml" />
+		<mapping resource="com/accenture/avs/be/db/bean/SdpSolutionOfferExternalId.hbm.xml" />
+				
+		<!-- For CA -->
+		<mapping resource="com/accenture/avs/ca/be/db/bean/SdpSolutionOfferinclDurationView.hbm.xml" />
+		
+		<mapping resource="com/accenture/avs/ca/be/db/bean/ActivePurchaseSubscriptionsCA.hbm.xml" />
+		<mapping resource="com/accenture/avs/ca/be/db/bean/UserConcurrentStreamingCA.hbm.xml" />
+		
+	</session-factory>
+</hibernate-configuration>

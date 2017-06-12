@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.accenture.ams.db.bean.AccountTechnicalPkgProfile"
+		lazy="false" table="ACCOUNT_TECHNICAL_PKG">
+		<composite-id>
+			<key-property name="techPackageId" type="string"
+				column="TECH_PACKAGE_ID" length="30" />
+			<key-property name="userId" type="long" column="USER_ID"
+				length="38" />
+		</composite-id>
+		<!-- Associations -->
+		<!-- bi-directional many-to-one association to Technical Package  -->
+		<many-to-one name="technicalPackage"
+			class="com.accenture.ams.db.bean.TechnicalPackageProfile" update="false"
+			insert="false" not-found="ignore" lazy="false">
+			<column name="TECH_PACKAGE_ID" not-null="true" length="22" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

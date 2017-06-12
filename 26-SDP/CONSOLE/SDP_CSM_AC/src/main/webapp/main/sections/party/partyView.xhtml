@@ -1,0 +1,71 @@
+<h:panelGroup xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:outputPanel id="partyView">
+	<h:outputText value="#{msgs['breadcrumb.resultList']}" styleClass="pageTitle"/>
+		<h:form>
+		  <div id="barDataGrid" > 
+              <div class="barButtomOpenFilter" style="margin: 0 0 0 14px;"> Filter </div> 
+          </div>
+		
+			<p:dataTable id="listOfParties" var="item" 
+				value="#{partyManager.parties}" rowKey="#{item.crmAccountId}"
+				paginator="true" paginatorPosition="bottom"
+				rows="#{msgs['paginator.rowsPerPageDefault']}"
+				selection="#{partyManager.selectedBean}"
+				paginatorTemplate="#{msgs['paginator.paginatorTemplate']}"
+				rowsPerPageTemplate="#{msgs['paginator.rowsPerPageTemplate']}"
+				pageLinks="3" styleClass="fixedTableStyle" >
+				<!-- selectionMode="single" paginatorAlwaysVisible="true"-->
+				<p:column id="organizationName" sortBy="#{item.crmAccountId}"
+					headerText="#{msgs['avsuser.crmAccountId']}"
+					styleClass="viewColumn" width="100">
+					<h:outputText value="#{item.crmAccountId}"
+						title="#{item.crmAccountId}" />
+				</p:column>
+				<p:column headerText="#{msgs['avsuser.username']}">
+					<h:outputText value="#{item.username}" title="#{item.username}" />
+				</p:column>
+				<p:column headerText="#{msgs['avsuser.firstName']}">
+					<h:outputText value="#{item.firstName}" title="#{item.firstName}" />
+				</p:column>
+				<p:column headerText="#{msgs['avsuser.lastName']}">
+					<h:outputText value="#{item.lastName}" title="#{item.lastName}" />
+				</p:column>
+				<p:column headerText="#{msgs['avsuser.email']}">
+					<h:outputText value="#{item.email}" title="#{item.email}" />
+				</p:column>
+				<p:column id="emailColumn"
+					headerText="#{msgs['avsuser.userStatus']}" styleClass="statusColumn">
+					<h:outputText
+						value="#{item.statusName}" title="#{item.statusName}" />
+				</p:column>
+				<p:column id="operationMenu" styleClass="operationsColumn">
+					<center>
+						<!-- <p:commandButton id="menuButton" icon="ui-icon-triangle-1-s" /> -->
+						<p:commandButton id="menuButton" value="Actions" styleClass="actionButton"/>
+						<p:menu overlay="true" trigger="menuButton" my="left top"
+							at="left bottom" styleClass="menuOption">
+							<p:menuitem id="update" value="#{msgs['operationMenu.details']}"
+								actionListener="#{partyManager.goToDetailPage}"
+								oncomplete="handlePopupVisibility(xhr, status, args)"
+								update=":appContent" process="@this">
+								<f:attribute name="item" value="#{item}" />
+							</p:menuitem>
+							<p:menuitem id="clusterUpdate"
+								value="#{msgs['breadcrumb.clusterUpdateUser']}"
+								actionListener="#{partyManager.goToUpdateClusters}"
+								rendered="#{infoSessionBean.operator.role.assuranceWrite}"
+								update=":appContent" process="@this">
+								<f:attribute name="item" value="#{item}" />
+							</p:menuitem>
+						</p:menu>
+					</center>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</p:outputPanel>
+</h:panelGroup>

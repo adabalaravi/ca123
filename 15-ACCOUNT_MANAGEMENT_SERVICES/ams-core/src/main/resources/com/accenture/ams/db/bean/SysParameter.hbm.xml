@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<class 
+    name="com.accenture.avs.be.db.bean.SysParameter" 
+    table="SYS_PARAMETERS"
+    lazy="false"
+>
+    <composite-id name="compId" class="com.accenture.avs.be.db.bean.SysParameterPK">
+        <key-property 
+            name="paramGroup" 
+            type="string"
+            column="PARAM_GROUP" 
+            length="30"
+        />
+        <key-property 
+            name="paramId" 
+            type="long"
+            column="PARAM_ID" 
+            length="22"
+        />
+        <key-property 
+            name="paramName" 
+            type="string"
+            column="PARAM_NAME" 
+            length="100"
+        />
+    </composite-id>
+    <property
+        name="creationDate"
+        type="java.util.Date"
+        column="CREATION_DATE"
+        not-null="true"
+        length="7"
+    />
+    <property
+        name="paramDescription"
+        type="string"
+        column="PARAM_DESCRIPTION"
+        length="100"
+    />
+    <property
+        name="paramLabel"
+        type="string"
+        column="PARAM_LABEL"
+        not-null="true"
+        length="100"
+    />
+    <property
+        name="paramOrder"
+        type="long"
+        column="PARAM_ORDER"
+        length="22"
+    />
+    <property
+        name="paramPlatform"
+        type="string"
+        column="PARAM_PLATFORM"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="paramValue"
+        type="string"
+        column="PARAM_VALUE"
+        length="100"
+    />
+    <property
+        name="updateDate"
+        type="java.util.Date"
+        column="UPDATE_DATE"
+        not-null="true"
+        length="7"
+    />
+        <property
+        name="paramType"
+        type="string"
+        column="PARAM_TYPE"
+        not-null="true"
+        length="20"
+    />
+
+
+    <!-- Associations -->
+
+</class>
+</hibernate-mapping>

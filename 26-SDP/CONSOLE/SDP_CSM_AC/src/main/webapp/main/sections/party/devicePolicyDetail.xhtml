@@ -1,0 +1,96 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="devicePolicyDetailForm">
+	<h:panelGrid width = "100%" style = "text-align: right;">
+		<p:commandButton value="#{msgs['device.policy.detail.back.button']}" process="@this"  icon="ui-icon-arrowreturnthick-1-w"  styleClass="backResultButton"
+			update=":appContent" actionListener="#{menuBean.dispatchRequest}">
+			<f:param name="breadParam" value="partyDevice" />
+		</p:commandButton>
+	</h:panelGrid>
+	
+	<p:fieldset legend="#{devicePolicyManager.selectedBean.devicePolicyName}" disabled="true" toggleable = "false" styleClass = "extSetBorder">
+	
+	<h:panelGrid columns = "3"  rendered = "#{devicePolicyManager.toUpdate}">
+		<p:outputLabel for="policyName" value="#{msgs['device.policy.name']}: " />
+		<p:inputText value="#{devicePolicyManager.selectedBean.devicePolicyName}" 	
+			required = "true" id="policyName"/>
+		<p:message for="policyName" />
+	</h:panelGrid>
+		<p:dataTable value="#{devicePolicyManager.selectedBean.allowedDevices}" var="rule">
+				<f:facet name="header">
+					<p:outputLabel value="#{msgs['device.policy.detail.max.number.devices']} #{devicePolicyManager.selectedBean.maxNumberAllowedDevices}" />
+				</f:facet>
+				<p:column width = "200">
+					<f:facet name="header">
+						<p:outputLabel value="#{msgs['device.policy.detail.channel']}" />
+					</f:facet>
+					<h:outputText value="#{rule.channel}"/>
+				</p:column>
+				<p:column width = "200">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['device.policy.detail.number']}" />
+					</f:facet>
+					<p:outputLabel value="#{rule.number}" rendered = "#{!devicePolicyManager.toUpdate}"/>
+					<p:inputText value="#{rule.number}" rendered = "#{devicePolicyManager.toUpdate}"  
+						required = "true" for = "ruleNumber" 
+						style = "text-align:right;" id = "ruleNumber">
+						<f:validateLongRange minimum="0" />
+					</p:inputText>
+					<p:message for = "ruleNumber"/>
+				</p:column>
+			</p:dataTable>
+			
+			<br />
+			
+			<h:panelGrid columns="3" >
+				<p:outputLabel value="#{msgs['device.policy.detail.max.number.associations']}" for = "associations"/>
+				<p:outputLabel value="#{devicePolicyManager.selectedBean.maxNumberOfAssociations}" rendered = "#{!devicePolicyManager.toUpdate}"/>
+				<p:inputText value="#{devicePolicyManager.selectedBean.maxNumberOfAssociations}" required = "true"
+					rendered = "#{devicePolicyManager.toUpdate}" style = "text-align:right;" id = "associations">
+					<f:validateLongRange minimum="0" />
+				</p:inputText>
+				<p:message for = "associations"/>
+				
+				<p:outputLabel value="#{msgs['device.policy.detail.safety.period']}" for = "safetyPeriod"/>
+				<p:outputLabel value="#{devicePolicyManager.selectedBean.safetyPeriodInDays}" rendered = "#{!devicePolicyManager.toUpdate}"/>
+				<p:inputText value="#{devicePolicyManager.selectedBean.safetyPeriodInDays}" id = "safetyPeriod"
+					rendered = "#{devicePolicyManager.toUpdate}" style = "text-align:right;" required = "true">
+					<f:validateLongRange minimum="0"/>
+				</p:inputText>
+				<p:message for = "safetyPeriod"/>
+			</h:panelGrid>
+	</p:fieldset>
+
+	<center>
+		<h:panelGrid style="text-align: center;">
+			<h:panelGrid columns="3" styleClass="horizontalAlignClass">
+				<p:commandButton value="#{msgs['button.discard']}"
+					id="discardDetailsButton" process="@this" update="@form"
+					styleClass = "darkButtonSyle"
+					rendered = "#{devicePolicyManager.toUpdate}"
+					actionListener="#{devicePolicyManager.discard}">
+				</p:commandButton>
+				<p:commandButton value="#{msgs['button.updateLabel']}"
+					id="modifyDetailsButton" process="@form" update=":appContent"
+					styleClass = "actionButton"
+					oncomplete="handlePopupVisibility(xhr, status, args);"
+					rendered = "#{devicePolicyManager.toUpdate and infoSessionBean.operator.role.assuranceWrite}"
+					actionListener="#{devicePolicyManager.update}">
+				</p:commandButton>
+				<p:commandButton value="#{msgs['button.updateLabel']}"
+					id="saveDetailsButton" process="@this" update="@form"
+					disabled="#{not infoSessionBean.operator.role.assuranceWrite}"
+					styleClass = "actionButton"
+					rendered="#{!devicePolicyManager.toUpdate}"
+					actionListener="#{devicePolicyManager.updating}">
+				</p:commandButton>
+			</h:panelGrid>
+		</h:panelGrid>
+	</center>
+
+	</h:form>
+</ui:composition>

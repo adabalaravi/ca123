@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.accenture.ams.db.bean.Promo" lazy="false" table="PROMO">
+		<id name="promoId" type="integer" column="PROMO_ID" length="5">
+			<generator class="assigned" />
+		</id>
+		<!--<property name="creationDate" type="timestamp" column="CREATION_DATE" 
+			not-null="true" length="7" /> -->
+		<property name="promoName" type="string" column="PROMO_NAME"
+			length="1000" />
+		<property name="statusId" type="integer" column="STATUS_ID"
+			length="3" />
+		<!--<property name="updateDate" type="timestamp" column="UPDATE_DATE" not-null="true" 
+			length="7" /> -->
+		<property name="validity" type="integer" column="VALIDITY"
+			length="5" />
+
+		<!-- Associations -->
+		<!-- bi-directional many-to-one association to AccountPromo -->
+		<set name="accountPromos" inverse="true" lazy="false">
+			<key>
+				<column name="PROMO_ID" />
+				<!-- a foreign key in ACCOUNT_PROMO referencing the primary key of this 
+					table. -->
+			</key>
+			<one-to-many class="com.accenture.ams.db.bean.AccountPromo" />
+		</set>
+		<!-- bi-directional many-to-one association to PromoOffer -->
+		<set name="promoOffers" inverse="true" lazy="false">
+			<key>
+				<column name="PROMO_ID" />
+				<!-- a foreign key in PROMO_OFFER referencing the primary key of this 
+					table. -->
+			</key>
+			<one-to-many class="com.accenture.ams.db.bean.PromoOffer" />
+		</set>
+		<!-- bi-directional many-to-one association to VoucherPromo -->
+		<set name="voucherPromos" inverse="true" lazy="false">
+			<key>
+				<column name="PROMO_ID" />
+				<!-- a foreign key in VOUCHER_PROMO referencing the primary key of this 
+					table. -->
+			</key>
+			<one-to-many class="com.accenture.ams.db.bean.VoucherPromo" />
+		</set>
+
+	</class>
+</hibernate-mapping>

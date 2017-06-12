@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="mainForm">
+
+	<p:outputPanel>
+		<h:outputText value="#{msgs['solutionOffer.add.step1']}"
+			styleClass="pageTitle" />
+		<center>
+			<h:panelGrid columns="1" styleClass="GenericFormPanelClass">
+				<h:panelGroup>
+
+					<h:panelGrid columns="3" styleClass="alignLeftClass"
+						columnClasses="firstColumnFormClass">
+						<h:panelGroup>
+							<h:outputLabel for="solutionOfferName"
+								value="#{msgs['solutionOffer.name']}" />
+							<h:outputLabel value="#{msgs['validator.requiredMark']}" />
+						</h:panelGroup>
+						<p:inputText id="solutionOfferName"
+							value="#{solutionOfferMananger.selectedBean.solutionOfferName}"
+							required="false" size="50"
+							maxlength="#{msgs['form.field.name.size']}">
+							<f:validateLength minimum="0"
+								maximum="#{msgs['form.field.name.size']}" />
+						</p:inputText>
+						<p:message for="solutionOfferName" style="color:red;" />
+
+						<h:outputLabel for="solutionOfferDesc"
+							value="#{msgs['solutionOffer.description']}" />
+						<p:inputText id="solutionOfferDesc"
+							value="#{solutionOfferMananger.selectedBean.solutionOfferDesc}"
+							size="50" maxlength="#{msgs['form.field.description.size']}">
+							<f:validateLength minimum="0"
+								maximum="#{msgs['form.field.description.size']}" />
+						</p:inputText>
+						<p:message for="solutionOfferDesc" style="color:red;"></p:message>
+
+						<!--  							<h:outputLabel for="solutionOfferExtId" value="#{msgs['solutionOffer.addSolutionOffer.solutionOfferExtIdLbl']}" />
+							<p:inputText id="solutionOfferExtId" value="#{solutionOfferMananger.selectedBean.solutionOfferExtId}" size="50" maxlength="50">
+								<f:validateLength minimum="0" maximum="50" />
+							</p:inputText>
+							<p:message for="solutionOfferExtId" style="color:red;" />
+-->
+						<h:outputLabel for="startDate"
+							value="#{msgs['solutionOffer.startDate']}" />
+						<p:calendar
+							value="#{solutionOfferMananger.selectedBean.solutionOfferStartDate}"
+							id="startDate" showButtonPanel="true"
+							pattern="#{msgs['date.pattern']}"
+							timeZone="#{msgs['application.timeZone']}" navigator="true" />
+						<p:message for="startDate" style="color:red;" />
+
+						<h:outputLabel for="endDate"
+							value="#{msgs['solutionOffer.endDate']}" />
+						<p:calendar
+							value="#{solutionOfferMananger.selectedBean.solutionOfferEndDate}"
+							id="endDate" showButtonPanel="true"
+							pattern="#{msgs['date.pattern']}"
+							timeZone="#{msgs['application.timeZone']}" navigator="true" />
+						<p:message for="endDate" style="color:red;" />
+						
+						<h:outputLabel id="solutionOfferType" for="solutionOfferType"	value="#{msgs['solutionOffer.solutionOfferType']}" />
+							<p:selectOneMenu value="#{solutionOfferMananger.selectedBean.solutionOfferType}" 
+							partialSubmit="true" immediate="true" style="width:42%;">
+							<f:selectItems	value="#{solutionOfferMananger.solutionOfferTypes}" />
+						</p:selectOneMenu>
+						<p:message for="solutionOfferType" style="color:red;" />
+						
+						 <h:outputLabel for="duration" value="#{msgs['solutionOffer.duration']}" />
+							<p:inputText id="duration" value="#{solutionOfferMananger.selectedBean.solutionOfferDuration}" validatorMessage="#{msgs['javax.faces.validator.RegexValidator.NOT_MATCHED']}" 
+							size="50" maxlength="50">
+								<f:validateLongRange minimum="0"  />
+							</p:inputText>
+						<p:message for="duration" style="color:red;" /> 
+						<!--  		
+							<h:outputLabel  value="#{msgs['solutionOfferAVS.solutionOfferPrice']}" />
+							<h:selectOneMenu value="#{solutionOfferMananger.selectedBean.solutionOfferPriceId}" style="width:60px;" >
+								<f:selectItems value="#{solutionOfferMananger.business.priceList}" />
+							</h:selectOneMenu>
+							<p:message for="solutionOfferPriceId" style="color:red;" />
+
+							<h:outputLabel for="fruitionMaxNumber" value="#{msgs['solutionOfferAVS.fruitionMaxNumber']}" />
+							<p:inputText id="fruitionMaxNumber" value="#{solutionOfferMananger.selectedBean.fruitionMaxNumber}" size="50" maxlength="4095">
+								<f:validateLength minimum="0" maximum="10" />
+							</p:inputText>
+							<p:message for="fruitionMaxNumber" style="color:red;"></p:message>
+
+							<h:outputLabel for="bundleDuration" value="#{msgs['solutionOfferAVS.bundleDuration']}" />
+							<p:inputText id="bundleDuration" value="#{solutionOfferMananger.selectedBean.bundleDuration}" size="50" maxlength="50">
+								<f:validateLength minimum="0" maximum="50" />
+							</p:inputText>
+							<p:message for="bundleDuration" style="color:red;" />
+
+							<h:outputLabel for="bundleType" value="#{msgs['solutionOfferAVS.bundleType']}" />
+							<p:inputText id="bundleType" value="#{solutionOfferMananger.selectedBean.bundleType}" size="50" maxlength="50" />
+							<p:message for="bundleType" style="color:red;" />
+						-->
+					
+					</h:panelGrid>
+
+					<ui:repeat var="externalId"
+						value="#{solutionOfferMananger.selectedBean.externalId}">
+						<h:panelGrid columns="3" styleClass="alignLeftClass"
+							columnClasses="firstColumnFormClass">
+							<h:outputLabel for="extId"
+								value="#{msgs[externalId.externalPlatform]}" />
+							<p:inputText id="extId" value="#{externalId.externalId}"
+								size="50" maxlength="50" validator="#{externalId.validate}">
+							</p:inputText>
+							<p:message for="extId" style="color:red;" />
+						</h:panelGrid>
+					</ui:repeat>
+
+					<center>
+						<h:panelGrid columns="2">
+							<p:commandButton styleClass="darkButtonSyle"
+								value="#{msgs['button.cancelLabel']}" update=":appContent"
+								process="@this"
+								actionListener="#{solutionOfferMananger.gotoAddSubscriptionStep1}" />
+							<p:commandButton styleClass="actionButton"
+								value="#{msgs['button.nextLabel']}"
+								action="#{solutionOfferMananger.gotoAddSubscriptionStep2}"
+								update=":appContent" />
+
+						</h:panelGrid>
+						<h:outputText value="#{msgs['validator.requiredFields']}" />
+					</center>
+				</h:panelGroup>
+			</h:panelGrid>
+		</center>
+
+	</p:outputPanel>
+
+</h:form>
+</html>
+

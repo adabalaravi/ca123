@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+
+<p:outputPanel styleClass="minHeightPanelClass">
+<h:outputText value="#{msgs['offerDetail.addOfferDetail']}" styleClass="pageTitle"/>
+	<h:form id="mainForm">
+		<center>
+
+			<p:dataTable id="offerList" var="item" value="#{packageManager.formOfferDetails}" rowKey="#{item.offerName}">
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['offerDetail.offerName']}" />
+					</f:facet>
+					<p:selectOneMenu value="#{item.offerId}" partialSubmit="true" immediate="true" styleClass="offerNameStepClass">
+						<f:selectItems value="#{packageManager.formUtil.offerList}" />
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['offerDetail.nrc']}" />
+					</f:facet>
+					<p:selectOneMenu value="#{item.nrcPriceCatalogId}" partialSubmit="true" immediate="true" style="width:90px;">
+						<f:selectItems value="#{packageManager.formUtil.priceList}" />
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['offerDetail.rcPrice']}" />
+					</f:facet>
+					<p:selectOneMenu value="#{item.rcPriceCatalogId}" partialSubmit="true" immediate="true" style="width:90px;" >
+						<f:selectItems value="#{packageManager.formUtil.priceList}" />
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['offerDetail.currency']}" />
+					</f:facet>
+					<p:selectOneMenu value="#{item.currencyTypeId}" style="width:90px;" disabled="true" >
+						<f:selectItems value="#{packageManager.formUtil.currencyList}" />
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['offerDetail.rcFrequency']}" />
+					</f:facet>
+					<p:selectOneMenu value="#{item.rcFrequencyTypeId}" partialSubmit="true" immediate="true" valueChangeListener="#{item.selectFrequencyChangeListener}" disabled="true">
+						<f:selectItems value="#{packageManager.formUtil.frequencyList}" />
+					</p:selectOneMenu>
+				</p:column>
+				
+
+
+				<!--  
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['offerDetail.days']}" />
+					</f:facet>
+					<h:outputText value="#{item.frequencyDays}" />
+				</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{msgs['offerDetail.type']}" />
+							</f:facet>
+							<p:selectOneMenu value="#{item.mandatory}" partialSubmit="true" immediate="true" valueChangeListener="#{item.packageMandatoryChangeListener}"
+								style="width:110px;">
+								<f:selectItems value="#{packageManager.formUtil.typeList}" />
+							</p:selectOneMenu>
+						</p:column>
+			
+			<p:column>
+				<f:facet name="header">
+						<h:outputText	value="#{msgs['offerDetail.packageLink']}" />
+				</f:facet>
+				<ui:fragment rendered="${item.basicFlag == false}">
+					 <p:selectOneMenu value="#{item.basePackageId}" partialSubmit= "true" immediate="true"  >
+						<f:selectItems value="#{packageManager.formUtil.packageLinkList}" />
+					</p:selectOneMenu>
+				</ui:fragment>
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+						<h:outputText	value="#{msgs['offerDetail.offerGroupNameLabel']}" />
+				</f:facet>
+				<ui:fragment rendered="${item.basicFlag == false}">
+					 <p:selectOneMenu value="#{item.groupId}" partialSubmit= "true" immediate="true"  >
+						<f:selectItems value="#{packageManager.formUtil.offerGroupNameList}" />
+					</p:selectOneMenu>
+				</ui:fragment>
+			</p:column>
+			
+			-->
+			</p:dataTable>
+
+			<h:panelGrid columns="2">
+				<p:commandButton value="#{msgs['button.cancelLabel']}"  
+					styleClass="darkButtonSyle" 
+					action="#{menuBean.dispatchRequest}"
+					update=":appContent">
+					<f:param name="breadParam" value="solutionOffer.package.view" />
+				</p:commandButton>
+				<!-- action="#{menuBean.dispatchRequest}"  -->
+				<p:commandButton value="#{msgs['button.insertLabel']}"
+					styleClass="actionButton" 
+					action="#{packageManager.finishAddOfferDetail}"
+					oncomplete="handlePopupVisibility(xhr, status, args)" 
+					update=":appContent" />
+			</h:panelGrid>
+		</center>
+	</h:form>
+</p:outputPanel>
+
+</html>
+

@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+
+<p:outputPanel styleClass="minHeightPanelClass">
+	<h:form id="mainForm">
+
+		<h:panelGroup>
+			<h:outputText value="#{msgs['solutionOffer.package.view']}" styleClass="pageTitle"/>	
+			<div class="contentSubMenu">
+				<p:commandLink value="+ #{msgs['offerDetail.addOfferDetail']}" actionListener="#{packageManager.addOfferDetail}" update=":appContent"
+				rendered="#{infoSessionBean.operator.role.catalogueWrite}" />
+			</div>	
+			<h:panelGrid columns="4" styleClass="alignLeftClass">
+				<h:outputText value="#{msgs['solutionOffer.viewSolutionOffer.solutionOfferNameColumn']}:" />
+				<h:outputText value="#{infoSessionBean.solutionOfferBean.solutionOfferName}" styleClass="orange" />
+			</h:panelGrid>
+			<p:spacer height="10px" />
+			
+			<div id="barDataGrid" > 
+			   <div class="barButtomOpenFilter" style="margin: 0 0 0 14px;"> Filter </div> 
+			 </div>
+
+			<p:dataTable id="packageList" var="item" value="#{packageManager.offerDetails}" rowKey="#{item.offerName}" paginator="true" rows="10"
+				paginatorTemplate="#{msgs['paginator.paginatorTemplate']}" selection="#{packageManager.selectedList}"
+				rowsPerPageTemplate="#{msgs['paginator.rowsPerPageTemplate']}" pageLinks="3" paginatorPosition="bottom" filteredValue="#{packageManager.filteredList}"
+				styleClass="fixedTableStyle"	>
+				
+				<p:column selectionMode="multiple" styleClass="selectionCheckBox" disabledSelection="#{item.inactive}" /> 
+				
+				<p:column filterBy="#{item.offerName}" sortBy="#{item.offerName}">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['offerDetail.offerName']}" />
+					</f:facet>
+					<h:outputText value="#{item.offerName}" title="#{item.offerName}" />
+				</p:column>
+
+				<p:column sortBy="#{item.nrcPriceCatalog}">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['offerDetail.nrc']}" />
+					</f:facet>
+					<h:outputText value="#{item.nrcPriceCatalog}">
+						<f:convertNumber minFractionDigits="2" />
+					</h:outputText>
+					<f:facet name="footer">
+						#{msgs['total']}:
+						<h:outputText value="#{packageManager.nrcPriceTotal}">
+							<f:convertNumber minFractionDigits="2" currencySymbol="EUR" />
+						</h:outputText>
+						EUR
+                	</f:facet>
+				</p:column>
+				<p:column sortBy="#{item.rcPriceCatalog}">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['offerDetail.rcPrice']}" />
+					</f:facet>
+					<h:outputText value="#{item.rcPriceCatalog}">
+						<f:convertNumber minFractionDigits="2" currencySymbol="EUR" />
+					</h:outputText>
+					<f:facet name="footer">
+						#{msgs['total']}:
+						<h:outputText value="#{packageManager.rcPriceTotal}">
+							<f:convertNumber minFractionDigits="2" currencySymbol="EUR" />
+						</h:outputText>
+						EUR
+	                </f:facet>
+				</p:column>
+				<p:column sortBy="#{item.currencyPriceName}">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['offerDetail.currency']}" />
+					</f:facet>
+					<h:outputText value="#{item.currencyPriceName}" />
+				</p:column>
+				<p:column sortBy="#{item.frequencyName}">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['offerDetail.rcFrequency']}" />
+					</f:facet>
+					<h:outputText value="#{item.frequencyName}" />
+				</p:column>
+				<!--
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['offerDetail.days']}" />
+					</f:facet>
+					<h:outputText value="#{item.frequencyDays}" />
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">
+						<h:outputText
+							value="#{msgs['offerDetail.type']}" />
+					</f:facet>
+					<h:outputText value="#{item.type}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText
+							value="#{msgs['offerDetail.packageLink']}" />
+					</f:facet>
+					<ui:fragment rendered="${item.basicFlag == false}">
+						<h:outputText value="#{item.parentOfferName}"
+							title="#{item.parentOfferName}" />
+					</ui:fragment>
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:commandSortHeader columnName="offerGroupName"
+							actionListener="#{packageManager.sortTable}">
+							<h:outputText
+								value="#{msgs['offerDetail.offerGroupNameLabel']}" />
+						</h:commandSortHeader>
+					</f:facet>
+					<h:panelGrid columns="2" width="100%">
+						<h:outputText styleClass="packageGroupNameClass"
+							value="#{item.groupName}" title="#{item.groupName}" />
+						<h:panelGroup visible="#{item.selected}">
+							<h:menuBar rendered="true" styleClass="operationMenuBarClass">
+								<h:menuItem id="menuRoot" styleClass="operationMenu" value=""
+									icon="./images/down3.png">
+									<h:menuItem id="update" styleClass="subOperationMenu"
+										value="#{msgs['offerDetail.operations.update']}"
+										actionListener="#{packageManager.updateOfferDetail}">
+										<f:attribute name="item" value="#{item}" />
+									</h:menuItem>
+									<ui:include src="../../changeStatusMenu.xhtml"/>
+								</h:menuItem>
+							</h:menuBar>
+						</h:panelGroup>
+					</h:panelGrid>
+				</p:column>-->
+
+				<p:column sortBy="#{item.statusName}">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['offerDetail.status']}" />
+					</f:facet>
+					<h:outputText styleClass="statusColumn" value="#{item.statusName}" title="#{item.statusName}" />
+				</p:column>
+
+				<p:column styleClass="operationsColumn" rendered="#{infoSessionBean.operator.role.catalogueWrite}">
+					<center>
+						<p:commandButton id="menuButton" value="Actions" styleClass="actionButton"/>
+						<p:menu overlay="true" trigger="menuButton" my="left top" at="left bottom" styleClass="menuOption">
+							<p:menuitem value="#{msgs['offerDetail.operations.update']}" actionListener="#{packageManager.updateOfferDetail}" update=":appContent"
+								rendered="${item.active}">
+								<f:attribute name="item" value="#{item}" />
+							</p:menuitem>
+							<ui:include src="../../../changeStatusMenu.xhtml" />
+						</p:menu>
+					</center>
+				</p:column>
+			</p:dataTable>
+		</h:panelGroup>
+		
+		<p:commandButton value="#{msgs['operations.inactivate']}" rendered="#{infoSessionBean.operator.role.catalogueWrite}" styleClass="darkButton" 
+			actionListener="#{packageManager.askChangeStatus}" oncomplete="handlePopupVisibility(xhr, status, args)" update=":appContent" >
+				<f:attribute name="status" value="Inactive" />
+			</p:commandButton>
+
+
+<!--
+		<center>
+			<p:commandButton value="#{msgs['offerDetail.addOfferDetail']}" actionListener="#{packageManager.addOfferDetail}" update=":appContent"
+				rendered="#{infoSessionBean.operator.role.catalogueWrite}" />
+		</center>
+-->
+	
+		</h:form>
+</p:outputPanel>
+
+</html>

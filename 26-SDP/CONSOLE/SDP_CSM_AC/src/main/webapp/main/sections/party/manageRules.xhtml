@@ -1,0 +1,154 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="devicesRulesForm">
+	
+		<p:fieldset legend="Default"
+					styleClass="noPaddingPanelStyle extSetBorder">	
+			<center>	
+			<br />
+			<p:dataTable value = "#{deviceManager.deviceRules}" var = "rule" style = "width: 400px;">
+				<f:facet name = "header" >
+					<h:outputText value = "#{msgs['device.policy.detail.max.number.devices']}"/>
+				</f:facet>
+				<p:column>
+					<f:facet name = "header" >
+						<h:outputText value = "#{msgs['device.policy.detail.channel']}"/>
+					</f:facet>
+					<h:outputText value = "#{rule.type}"/>
+				</p:column>
+				<p:column>
+					<f:facet name = "header" >
+						<h:outputText value = "#{msgs['device.policy.detail.number']}"/>
+					</f:facet>
+					<h:outputText value = "#{rule.maxNumber}"/>
+				</p:column>
+				<p:column>
+					<f:facet name = "header" >
+						<h:outputText value = "Already Registered"/>
+					</f:facet>
+					<h:outputText value = "#{rule.alreadyRegistered}"/>
+				</p:column>
+				
+			</p:dataTable>
+			<br />
+			<br />
+			<h:panelGrid columns = "2">
+				<h:outputText value = "#{msgs['device.policy.detail.max.number.associations']}"/>
+				<p:inputText value = "23" disabled = "true"/>
+				<h:outputText value = "Current Association:"/>
+				<p:inputText value = "12" disabled = "true"/>
+				<h:outputText value = "Remaining Associations:"/>
+				<p:inputText value = "11" disabled = "true"/>
+				<h:outputText value = "Remaining Safety Period (Days):"/>
+				<p:inputText value = "30" disabled = "true"/>
+			</h:panelGrid>
+			</center>
+		</p:fieldset>		
+		
+		<br />
+	<center>	
+		<h:panelGrid columns="2" styleClass="horizontalAlignClass">
+			<p:commandButton styleClass = "actionButton"
+				value="Reset Current Associations"
+				id="resetCurAssButton" process="@this">
+			</p:commandButton>
+			<p:commandButton styleClass = "actionButton"
+				value="Reset Safety Period"
+				id="resetSafPerButton" process="@this">
+			</p:commandButton>
+		</h:panelGrid>
+	</center>
+		
+		<!--h:panelGrid id="devicesRulesContent"
+			styleClass="horizontalAlignClass wideTableStyle">
+			<p:dataGrid
+				rendered="#{not empty partyManager.selectedBean.info.crmAccountDeviceList}"
+				value="#{partyManager.selectedBean.info.crmAccountDeviceList}"
+				var="device" columns="3" binding="#{griglia}"
+				styleClass="fixedTableStyle noBorderDatagridStyle">
+				<p:panel header="#{msgs['avsuser.device']} #{griglia.rowIndex+1}"
+					styleClass="noPaddingPanelStyle">
+					<h:panelGrid id="devicesRulesPanel" columns="3"
+						styleClass="horizontalAlignClass alignLeftClass">
+						<f:facet name="footer">
+							<center>
+								<p:commandButton value="#{msgs['button.remove']}"
+									rendered="#{partyManager.selectedBean.editable}"
+									id="removeDeviceRulesButton" process="@this"
+									update=":tabset:devicesRulesForm:deviceContent"
+									actionListener="#{partyManager.selectedBean.removeDevice}">
+									<f:attribute value="#{device}" name="device" />
+								</p:commandButton>
+							</center>
+						</f:facet>
+						<p:outputLabel for="crmAccountDeviceId"
+							value="#{msgs['avsuser.crmAccountDeviceId']}" />
+						<p:inputText id="crmAccountDeviceRulesId"
+							disabled="#{not partyManager.selectedBean.editable}"
+							value="#{device.crmAccountDeviceId}" required="true" size="20"
+							maxlength="200" onchange="trim(this);">
+							<p:ajax />
+							<f:validateLength minimum="0" maximum="200" />
+						</p:inputText>
+						<p:message for="crmAccountDeviceId" />
+
+						<p:outputLabel for="channelRules" value="#{msgs['avsuser.channel']}" />
+						<p:selectOneMenu id="channelRules" value="#{device.channel}"
+							disabled="#{not partyManager.selectedBean.editable}"
+							style="margin-right: 20px">
+							<f:selectItems value="#{partyManager.channelList}" />
+							<p:ajax listener="#{device.channelChangeListener}"
+								update="crmAccountDeviceIdType" />
+						</p:selectOneMenu>
+						<p:message for="channel" />
+
+						<p:outputLabel for="crmAccountDeviceIdType"
+							value="#{msgs['avsuser.crmAccountDeviceIdType']}" />
+						<p:selectOneMenu id="crmAccountDeviceRulesIdType"
+							disabled="${not partyManager.selectedBean.editable}"
+							value="#{device.crmAccountDeviceIdType}"
+							style="margin-right: 20px">
+							<f:selectItems value="#{device.crmAccountDeviceIdTypeList}" />
+							<p:ajax />
+						</p:selectOneMenu>
+						<p:message for="crmAccountDeviceIdType" />
+					</h:panelGrid>
+				</p:panel>
+			</p:dataGrid>
+			<p:commandButton id="addDeviceRulesButton"
+				rendered="#{partyManager.selectedBean.editable}"
+				value="#{msgs['button.add']} #{msgs['avsuser.device']}"
+				process="@this" update="deviceContent"
+				actionListener="#{partyManager.selectedBean.addDevice}">
+			</p:commandButton>
+		</h:panelGrid>
+
+		<h:panelGrid styleClass="horizontalAlignClass">
+			<h:panelGrid columns="3" styleClass="horizontalAlignClass">
+				<p:commandButton value="#{msgs['button.updateLabel']}"
+					id="modifyDetailsRulesButton" process="@form" update=":appContent"
+					oncomplete="handlePopupVisibility(xhr, status, args);"
+					rendered="#{partyManager.selectedBean.editable and infoSessionBean.operator.role.assuranceWrite}"
+					actionListener="#{partyManager.selectedBean.updateAVSPartyUser}">
+				</p:commandButton>
+				<p:commandButton value="#{msgs['button.discard']}"
+					id="discardDetailsRulesButton" process="@this" update="@form"
+					rendered="#{partyManager.selectedBean.editable}"
+					actionListener="#{partyManager.selectedBean.editMode}">
+				</p:commandButton>
+				<p:commandButton value="#{msgs['button.updateLabel']}"
+					id="saveDetailsRulesButton" process="@this" update="@form"
+					disabled="#{not infoSessionBean.operator.role.assuranceWrite}"
+					rendered="#{not partyManager.selectedBean.editable}"
+					actionListener="#{partyManager.selectedBean.editMode}">
+				</p:commandButton>
+			</h:panelGrid>
+			<h:outputText value="#{msgs['validator.requiredFields']}"
+				rendered="#{partyManager.selectedBean.editable}" />
+		</h:panelGrid-->
+	</h:form>
+</ui:composition>

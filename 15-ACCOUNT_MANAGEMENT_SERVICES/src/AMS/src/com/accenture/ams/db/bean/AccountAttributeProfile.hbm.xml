@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.accenture.ams.db.bean.AccountAttributeProfile"
+		table="ACCOUNT_ATTRIBUTE">
+		<id name="userAttributeId" type="long" column="USER_ATTRIBUTE_ID"
+			length="38">
+			<generator class="assigned" />
+		</id>
+		<property name="attributeValue" type="string" column="ATTRIBUTE_VALUE"
+			length="512" />
+		<!-- bi-directional many-to-one association to AttributeDetail -->
+		<many-to-one name="attributeDetail"
+			class="com.accenture.ams.db.bean.AttributeDetailProfile" lazy="false">
+			<column name="ATTRIBUTE_DETAIL_ID" not-null="true" length="38" />
+		</many-to-one>
+
+	</class>
+</hibernate-mapping>

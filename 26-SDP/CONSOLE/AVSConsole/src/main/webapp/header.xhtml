@@ -1,0 +1,35 @@
+<h:panelGroup xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="formHeader">
+		<div id="appTitle">
+			<h:outputText value="#{msgs['header.title']}" />
+		
+		<ui:fragment rendered="#{not empty request.remoteUser}">
+			<div id="userDiv" align="center">
+				<!--  <span>
+					<h:outputText value="#{msgs['header.welcome']} #{infoSessionBean.operator.username}" />
+				</span>
+				-->
+				<p:spacer height="40px;"/>
+				<h:panelGrid columns="2" columnClasses="alignCenterClass, alignLeftClass">
+					<p:commandLink value="#{msgs['header.changePassword']}"
+						oncomplete="pwdDlg.show();"
+						actionListener="#{operatorManager.prepareChangePassword}"
+						update=":passwordForm" />
+					<!-- p:commandLink value="#{msgs['header.changePassword']}"
+						actionListener="#{menuController.menuListener}"
+						update=":wrappedContent">
+						<f:param name="menuAction" value="changePassword" />
+					</p:commandLink -->
+					<h:outputLink value="./logout.jsp">
+						<h:outputText value="#{msgs['header.logout']}" />
+					</h:outputLink>
+				</h:panelGrid>
+			</div>
+		</ui:fragment>
+		</div>
+	</h:form>
+</h:panelGroup>

@@ -1,0 +1,7 @@
+<classloading xmlns="urn:jboss:classloading:1.0"
+ name="AMS.ear"
+ domain="AMS.ear"
+ export-all="NON_EMPTY"
+ import-all="true"
+ parent-first="false">
+</classloading>

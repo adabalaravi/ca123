@@ -1,0 +1,4 @@
+INSERT INTO `avs_be`.`sys_parameters` (`param_id`, `param_group`, `param_name`, `param_value`, `param_label`, `param_platform`, `param_order`, `param_description`) VALUES (1000286, 'costpa', 'GIGYA_API_KEY', '3_02bvxzdstzi08HdaBhlrPRSrVqEQH_SLLGXKNwP_J8Dci5hPkm4dyzbQajIG6_s3', 'GIGYA_API_KEY', 'TDB', 1, 'Api Key for Gigya');
+INSERT INTO `avs_be`.`sys_parameters` (`param_id`, `param_group`, `param_name`, `param_value`, `param_label`, `param_platform`, `param_order`, `param_description`) VALUES (1000287, 'costpa', 'GIGYA_SECRET_KEY', 'sj1M3cGG8zFDcNw5EW9bCrtKCw87yVmXIqR6evXZQas=', 'GIGYA_SECRET_KEY', 'TDB', 1, 'Secret Key for Gigya');
+
+INSERT INTO `avs_be`.`attribute_detail` (`attribute_detail_id`, `attribute_detail_name`, `attribute_detail_description`) VALUES (62, 'gigyaNotifyResponse', 'gigyaNotifyResponse');

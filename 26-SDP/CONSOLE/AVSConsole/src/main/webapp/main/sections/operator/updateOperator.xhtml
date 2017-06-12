@@ -1,0 +1,82 @@
+<h:panelGroup xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:outputText value="#{msgs['operator.operations.update']}" styleClass="pageTitle"/>
+	<h:panelGrid styleClass="fixedHeightPanelClass horizontalAlignClass">
+		<h:form id="mainForm">
+			<h:panelGrid columns="3" styleClass="alignLeftClass"
+				columnClasses="firstColumnFormClass">
+				<p:outputLabel for="username" value="#{msgs['operator.username']}" />
+				<p:inputText id="username" readonly="true"
+					value="#{operatorManager.selectedBean.info.username}"
+					disabled="true" required="false" size="50" maxlength="50">
+					<f:validateLength minimum="0" maximum="50" />
+				</p:inputText>
+				<p:message for="username" />
+
+				<p:outputLabel for="lastName" value="#{msgs['operator.lastName']}" />
+				<p:inputText id="lastName"
+					value="#{operatorManager.selectedBean.info.lastName}" size="50"
+					maxlength="50" required="true" onchange="trim(this);">
+					<f:validateLength minimum="0" maximum="50" />
+				</p:inputText>
+				<p:message for="lastName" />
+
+				<p:outputLabel for="firstName" value="#{msgs['operator.firstName']}" />
+				<p:inputText id="firstName"
+					value="#{operatorManager.selectedBean.info.firstName}"
+					required="true" size="50" maxlength="50" onchange="trim(this);">
+					<f:validateLength minimum="0" maximum="50" />
+				</p:inputText>
+				<p:message for="firstName" />
+
+				<!-- i ruoli non esistono piu'
+				<p:outputLabel for="role" value="#{msgs['operator.role']}" />
+				<p:selectOneMenu id="role" required="true"
+					value="#{operatorManager.selectedBean.info.roleId}"
+					immediate="true" style="margin-right: 20px">
+					<f:selectItems value="#{operatorManager.roleList}" />
+				</p:selectOneMenu>
+				<p:message for="role" />
+			 -->
+
+				<p:outputLabel for="status" value="#{msgs['operator.status']}" />
+				<p:selectOneMenu id="status" required="true"
+					value="#{operatorManager.selectedBean.info.statusName}"
+					partialSubmit="true" immediate="true" style="margin-right: 20px">
+					<f:selectItems value="#{operatorManager.statusList}" />
+				</p:selectOneMenu>
+				<p:message for="status" />
+
+				<p:outputLabel for="email" value="#{msgs['operator.email']}" />
+				<p:inputText id="email"
+					value="#{operatorManager.selectedBean.info.email}" required="false"
+					size="50" maxlength="50" onchange="trim(this);">
+					<f:validateLength minimum="0" maximum="50" />
+					<f:validateRegex for="email"
+						pattern="[a-zA-Z0-9\._-]+@[a-zA-Z0-9\._-]+\.[a-zA-Z0-9]+" />
+				</p:inputText>
+				<p:message for="email" />
+			</h:panelGrid>
+			<h:panelGrid columns="2" styleClass="horizontalAlignClass">
+				
+				<!-- p:commandButton value="#{msgs['button.cancel']}" type="reset"
+					actionListener="#{operatorManager.selectedBean.resetOperator}" / -->
+					
+				<p:commandButton value="#{msgs['button.cancel']}" process="@this"
+					update=":appContent" action="#{menuController.dispatchRequest}" styleClass="darkButtonSyle">
+					<f:param name="menuAction" value="operatorManagement" />
+				</p:commandButton>
+				<p:commandButton value="#{msgs['button.update']}" type="submit"
+					update=":appContent"
+					oncomplete="handlePopupVisibility(xhr, status, args)"
+					actionListener="#{operatorManager.selectedBean.updateOperator}"  styleClass="actionButton" />
+			</h:panelGrid>
+			<h:outputText value="#{msgs['validator.requiredFields']}" />
+		</h:form>
+	</h:panelGrid>
+
+</h:panelGroup>

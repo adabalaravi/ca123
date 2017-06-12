@@ -1,0 +1,571 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="partyForm">
+		<!--p:accordionPanel id="userAccordion" widgetVar="accordion"
+			activeIndex="0" dynamic="true" multiple="true"
+			styleClass="horizontalAlignClass"-->
+			<p:fieldset legend="Main Settings" disabled="true" toggleable = "true" styleClass = "extSetBorder">
+				<h:panelGrid id="mainSettingsContent" columns="4"
+					styleClass="horizontalAlignClass alignLeftClass wideTableStyle fixedTableStyle"
+					columnClasses="firstColumnFormClass,inlineColumnStyle,firstColumnFormClass,inlineColumnStyle">
+
+					<p:outputLabel for="crmAccountId"
+						value="#{msgs['avsuser.crmAccountId']}" />
+					<h:panelGroup>
+						<p:inputText id="crmAccountId" disabled="true"
+							value="#{partyManager.selectedBean.crmAccountId}"
+							required="true" size="10" maxlength="50">
+							<f:validateLength maximum="50" />
+						</p:inputText>
+						<p:message for="crmAccountId" />
+					</h:panelGroup>
+
+					<p:outputLabel for="userType" value="#{msgs['avsuser.userType']}" />
+					<h:panelGroup>
+						<p:selectOneMenu id="userType" disabled="true"
+							value="#{partyManager.selectedBean.userType}">
+							<f:selectItem itemValue="1"
+								itemLabel="#{msgs['avsuser.usertype.default']}" />
+							<f:selectItem itemValue="2"
+								itemLabel="#{msgs['avsuser.usertype.qa']}" />
+							<f:selectItem itemValue="3"
+								itemLabel="#{msgs['avsuser.usertype.vip']}" />
+						</p:selectOneMenu>
+						<p:message for="userType" />
+					</h:panelGroup>
+
+					<!-- NON USATO
+					<p:outputLabel for="username" value="#{msgs['avsuser.username']}" />
+					<p:inputText id="username"
+						validatorMessage="#{msgs['message.format.invalid']}"
+						disabled="true"
+						value="#{partyManager.selectedBean.username}" required="true"
+						size="32" maxlength="32">
+						<f:validateLength for="username" minimum="4" maximum="32" />
+						<f:validateRegex for="username" pattern="^[a-zA-Z]+[a-zA-Z.-_]*$" />
+					</p:inputText>
+					<p:message for="username" />
+					 -->
+					<!-- NON PUO' ESSERE MODIFICATA COL RESTO DEI DATI 
+					<p:outputLabel for="password" value="#{msgs['avsuser.password']}" />
+					<p:password id="password"
+						disabled="#{not partyManager.editable}"
+						value="#{partyManager.selectedBean.password}" required="true"
+						size="20" maxlength="20">
+						<f:validateLength minimum="4" maximum="20" />
+					</p:password>
+					<p:message for="password" />
+ 					-->
+
+					<p:outputLabel for="firstName" value="#{msgs['avsuser.firstName']}" />
+					<h:panelGroup>
+						<p:inputText id="firstName"
+							disabled="#{not partyManager.editable}"
+							value="#{partyManager.selectedBean.firstName}"
+							required="true" size="32" maxlength="256" onchange="trim(this);">
+						</p:inputText>
+						<p:message for="firstName" />
+					</h:panelGroup>
+
+					<p:outputLabel for="lastName" value="#{msgs['avsuser.lastName']}" />
+					<h:panelGroup>
+						<p:inputText id="lastName"
+							disabled="#{not partyManager.editable}"
+							value="#{partyManager.selectedBean.lastName}"
+							required="true" size="32" maxlength="256" onchange="trim(this);">
+						</p:inputText>
+						<p:message for="lastName" />
+					</h:panelGroup>
+
+					<p:outputLabel for="birthDate" value="#{msgs['avsuser.birthDate']}" />
+					<h:panelGroup>
+						<p:calendar id="birthDate"
+							value="#{partyManager.selectedBean.birthDate}"
+							pattern="#{msgs['date.pattern']}" yearRange="c-100"
+							navigator="true"
+							disabled="#{not partyManager.editable}" />
+						<p:message for="birthDate" />
+					</h:panelGroup>
+
+					<p:outputLabel for="gender" value="#{msgs['avsuser.gender']}" />
+					<h:panelGroup>
+						<p:selectOneMenu id="gender"
+							disabled="#{not partyManager.editable}"
+							value="#{partyManager.selectedBean.gender}">
+							<f:selectItem itemValue="M"
+								itemLabel="#{msgs['avsuser.gender.male']}" />
+							<f:selectItem itemValue="F"
+								itemLabel="#{msgs['avsuser.gender.female']}" />
+						</p:selectOneMenu>
+						<p:message for="gender" />
+					</h:panelGroup>
+
+					<p:outputLabel for="email" value="#{msgs['avsuser.email']}" />
+					<h:panelGroup>
+						<p:inputText id="email"
+							validatorMessage="#{msgs['message.format.invalid']}"
+							disabled="#{not partyManager.editable}"
+							value="#{partyManager.selectedBean.email}" required="false"
+							size="32" maxlength="50"  onchange="trim(this);">
+							<f:validateRegex for="email"
+								pattern="[a-zA-Z0-9\._-]+@[a-zA-Z0-9\._-]+\.[a-zA-Z0-9]+" />
+						</p:inputText>
+						<p:message for="email" />
+					</h:panelGroup>
+
+					<p:outputLabel for="crmAccountMobileNumber"
+						value="#{msgs['avsuser.crmAccountMobileNumber']}" />
+					<h:panelGroup>
+						<p:inputText id="crmAccountMobileNumber"
+							validatorMessage="#{msgs['message.format.invalid']}"
+							disabled="#{not partyManager.editable}"
+							value="#{partyManager.selectedBean.crmAccountMobileNumber}"
+							size="16" maxlength="16"  onchange="trim(this);">
+							<f:validateRegex for="crmAccountMobileNumber"
+								pattern="^([0-9]|\+)[0-9]+$" />
+						</p:inputText>
+						<p:message for="crmAccountMobileNumber" />
+					</h:panelGroup>
+
+					<p:outputLabel for="userCountry"
+						value="#{msgs['avsuser.userCountry']}" />
+					<h:panelGroup>
+						<p:selectOneMenu id="userCountry" disabled="true" style = "width:200px"
+							value="#{partyManager.selectedBean.userCountry}">
+							<f:selectItems value="#{partyManager.countryLangCodeList}" />
+						</p:selectOneMenu>
+						<p:message for="userCountry" />
+					</h:panelGroup>
+
+					<p:outputLabel for="crmAccountZipCode"
+						value="#{msgs['avsuser.crmAccountZipCode']}" />
+					<h:panelGroup>
+						<p:inputText id="crmAccountZipCode"
+							disabled="#{not partyManager.editable}"
+							value="#{partyManager.selectedBean.crmAccountZipCode}"
+							size="5" maxlength="5">
+						</p:inputText>
+						<p:message for="crmAccountZipCode" />
+					</h:panelGroup>
+
+					<!-- CAMPO RIMOSSO PERCHE' NON PRESENTE LISTA
+					<p:outputLabel for="userLanguage"
+						value="#{msgs['avsuser.userLanguage']}" />
+					<p:inputText id="userLanguage"
+						disabled="#{not partyManager.editable}"
+						value="#{partyManager.selectedBean.userLanguage}" size="2"
+						maxlength="2">
+					</p:inputText>
+					<p:message for="userLanguage" />
+			 		-->
+
+					<p:outputLabel for="userPcLevel"
+						value="#{msgs['avsuser.userPcLevel']}" />
+					<h:panelGroup>
+						<p:selectOneMenu id="userPcLevel" disabled="true"
+							value="#{partyManager.selectedBean.userPcLevel}">
+							<f:selectItems value="#{partyManager.pcLevelList}" />
+						</p:selectOneMenu>
+						<p:message for="userPcLevel" />
+					</h:panelGroup>
+
+					<p:outputLabel for="userStatus"
+						value="#{msgs['avsuser.userStatus']}" />
+					<h:panelGroup>
+						<p:selectOneMenu id="userStatus" disabled="#{not partyManager.editable}"
+							value="#{partyManager.selectedBean.userStatus}">
+							<f:selectItems value="#{partyManager.userStatusList}" />
+						</p:selectOneMenu>
+						<p:message for="userStatus" />
+					</h:panelGroup>
+
+					<p:outputLabel for="userPinPurchase"
+						value="#{msgs['avsuser.userPinPurchase']}" />
+					<h:panelGroup>
+						<p:inputText id="userPinPurchase"
+							validatorMessage="#{msgs['message.format.invalid']}"
+							disabled="true"
+							value="#{partyManager.selectedBean.userPinPurchase}"
+							size="4" maxlength="4">
+							<f:validateRegex for="userPinPurchase" pattern="^[0-9]{4}$" />
+						</p:inputText>
+						<p:message for="userPinPurchase" />
+					</h:panelGroup>
+
+					<p:outputLabel for="userPinParentalControl"
+						value="#{msgs['avsuser.userPinParentalControl']}" />
+					<h:panelGroup>
+						<p:inputText id="userPinParentalControl"
+							validatorMessage="#{msgs['message.format.invalid']}"
+							disabled="true"
+							value="#{partyManager.selectedBean.userPinParentalControl}"
+							size="4" maxlength="4">
+							<f:validateRegex for="userPinParentalControl"
+								pattern="^[0-9]{4}$" />
+						</p:inputText>
+						<p:message for="userPinParentalControl" />
+					</h:panelGroup>
+
+					<p:outputLabel for="crmAccountRetailerDomain"
+						value="#{msgs['avsuser.crmAccountRetailerDomain']}" />
+					<h:panelGroup>
+						<p:selectOneMenu id="crmAccountRetailerDomain"
+							disabled="#{not partyManager.editable}"
+							value="#{partyManager.selectedBean.crmAccountRetailerDomain}">
+							<f:selectItems value="#{partyManager.retailerDomainList}" />
+						</p:selectOneMenu>
+						<p:message for="crmAccountRetailerDomain" />
+					</h:panelGroup>
+					<!--
+					<h:outputText value = "#{msgs['avsuser.user.blacklist']}" />
+					<p:selectBooleanCheckbox value="null"  disabled = "true"/>
+					<h:outputText value = "#{msgs['avsuser.user.device.policy']}" />
+					<p:selectOneMenu value = "default" disabled = "true" >
+						<f:selectItem itemValue="null" itemLabel="" />
+						<f:selectItem itemValue="default" itemLabel="Default" />
+					</p:selectOneMenu>
+					<h:outputText value = "#{msgs['avsuser.user.whitelist']}" />
+					<p:selectBooleanCheckbox value="null"  disabled = "true"/>
+					 -->
+					</h:panelGrid>
+					 
+			</p:fieldset>
+
+			<p:fieldset legend="Extended Settings" toggleable = "true"  styleClass = "extSetBorder" collapsed = "true">
+				<p:ajax event="toggle" update="extendedSettingsContent extendedSettingsContent2"/>
+				<h:panelGrid id="extendedSettingsContent" columns="4"
+					styleClass="horizontalAlignClass alignLeftClass wideTableStyle fixedTableStyle"
+					columnClasses="firstColumnFormClass,inlineColumnStyle,firstColumnFormClass,inlineColumnStyle">
+					<!-- rimosso per qualche motivo
+					<p:outputLabel for="qualitySetting"
+						value="#{msgs['avsuser.qualitySetting']}" />
+					<p:selectOneMenu id="qualitySetting"
+						disabled="#{not partyManager.editable}"
+						value="#{partyManager.selectedBean.qualitySetting}"
+						>
+						<f:selectItem itemValue="1"
+							itemLabel="#{msgs['avsuser.quality.standard']}" />
+						<f:selectItem itemValue="2"
+							itemLabel="#{msgs['avsuser.quality.high']}" />
+					</p:selectOneMenu>
+					<p:message for="qualitySetting" />
+					 -->
+					<p:outputLabel for="userPaymentMethod"
+						value="#{msgs['avsuser.userPaymentMethod']}" />
+					<h:panelGroup>
+						<p:selectOneMenu id="userPaymentMethod"
+							disabled="#{not partyManager.editable}"
+							value="#{partyManager.selectedBean.userPaymentMethod}">
+							<f:selectItems value="#{partyManager.paymentMethodList}" />
+						</p:selectOneMenu>
+						<p:message for="userPaymentMethod" />
+					</h:panelGroup>
+
+					<p:outputLabel for="userRememberPinFlag"
+						value="#{msgs['avsuser.userRememberPinFlag']}" />
+					<h:panelGroup>
+						<p:selectOneMenu id="userRememberPinFlag" disabled="true"
+							value="#{partyManager.selectedBean.userRememberPinFlag}">
+							<f:selectItem itemValue="N" itemLabel="#{msgs['avsuser.no']}" />
+							<f:selectItem itemValue="Y" itemLabel="#{msgs['avsuser.yes']}" />
+						</p:selectOneMenu>
+						<p:message for="userRememberPinFlag" />
+					</h:panelGroup>
+
+					<p:outputLabel for="userPcExtendedRatings"
+						style="white-space: normal;"
+						value="#{msgs['avsuser.userPcExtendedRatings']}" />
+					<p:selectManyMenu style="width: 200px; height:120px;"
+						disabled="#{not partyManager.editable}"
+						id="userPcExtendedRatings"
+						value="#{partyManager.selectedBean.userPcExtendedRatings}">
+						<f:selectItems value="#{partyManager.userPcExtendedRatingsList}" />
+					</p:selectManyMenu>
+					<p:message for="userPcExtendedRatings" />
+				</h:panelGrid>
+
+				<h:panelGrid id="extendedSettingsContent2" columns="2" styleClass="wideTableStyle fixedTableStyle">
+					<p:fieldset legend="Purchase Settings" toggleable="false" styleClass = "extSetInner">
+						<h:panelGrid id="purchaseSettingsContent" columns="2"
+							styleClass="horizontalAlignClass alignLeftClass"
+							columnClasses="firstColumnFormClass,inlineColumnStyle">
+							<p:outputLabel for="crmAccountPurchaseValue"
+								value="#{msgs['avsuser.crmAccountPurchaseValue']}" />
+							<h:panelGroup>
+								<p:inputText id="crmAccountPurchaseValue"
+									disabled="#{not partyManager.editable}"
+									value="#{partyManager.selectedBean.crmAccountPurchaseValue}"
+									size="10" maxlength="10" />
+								<p:message for="crmAccountPurchaseValue" />
+							</h:panelGroup>
+
+							<p:outputLabel for="crmAccountPurchaseBlockingFlag"
+								value="#{msgs['avsuser.crmAccountPurchaseBlockingFlag']}" />
+							<h:panelGroup>
+								<p:selectOneMenu id="crmAccountPurchaseBlockingFlag"
+									disabled="#{not partyManager.editable}"
+									value="#{partyManager.selectedBean.crmAccountPurchaseBlockingFlag}">
+									<p:ajax event="change"
+										update="crmAccountPurchaseBlockingThresholdValue crmAccountPurchaseBlockingThresholdPeriod" />
+									<f:selectItem itemValue="N" itemLabel="#{msgs['avsuser.no']}" />
+									<f:selectItem itemValue="Y" itemLabel="#{msgs['avsuser.yes']}" />
+								</p:selectOneMenu>
+								<p:message for="crmAccountPurchaseBlockingFlag" />
+							</h:panelGroup>
+
+							<!-- deve essere fisso EUR - messo nel service
+							<p:outputLabel for="crmAccountPurchaseBlockingThresholdCurrency"
+								value="#{msgs['avsuser.crmAccountPurchaseBlockingThresholdCurrency']}" />
+							<p:inputText id="crmAccountPurchaseBlockingThresholdCurrency"
+								disabled="${(not partyManager.editable) or partyManager.selectedBean.crmAccountPurchaseBlockingFlag!='Y'}"
+								value="#{partyManager.selectedBean.crmAccountPurchaseBlockingThresholdCurrency}"
+								required="true" size="3" maxlength="3" />
+							<p:message for="crmAccountPurchaseBlockingThresholdCurrency" />
+							-->
+
+							<p:outputLabel for="crmAccountPurchaseBlockingThresholdValue"
+								value="#{msgs['avsuser.crmAccountPurchaseBlockingThresholdValue']}" />
+							<h:panelGroup>
+								<p:inputText id="crmAccountPurchaseBlockingThresholdValue"
+									disabled="${(not partyManager.editable) or partyManager.selectedBean.crmAccountPurchaseBlockingFlag!='Y'}"
+									value="#{partyManager.selectedBean.crmAccountPurchaseBlockingThresholdValue}"
+									required="true" size="10" maxlength="10" />
+								<p:message for="crmAccountPurchaseBlockingThresholdValue" />
+							</h:panelGroup>
+
+							<p:outputLabel for="crmAccountPurchaseBlockingThresholdPeriod"
+								value="#{msgs['avsuser.crmAccountPurchaseBlockingThresholdPeriod']}" />
+							<h:panelGroup>
+								<p:selectOneMenu id="crmAccountPurchaseBlockingThresholdPeriod"
+									disabled="${(not partyManager.editable) or partyManager.selectedBean.crmAccountPurchaseBlockingFlag!='Y'}"
+									value="#{partyManager.selectedBean.crmAccountPurchaseBlockingThresholdPeriod}"
+									required="true">
+									<f:selectItem itemValue="1" itemLabel="#{msgs['avsuser.year']}" />
+									<f:selectItem itemValue="2"
+										itemLabel="#{msgs['avsuser.month']}" />
+									<f:selectItem itemValue="3" itemLabel="#{msgs['avsuser.week']}" />
+									<f:selectItem itemValue="4" itemLabel="#{msgs['avsuser.day']}" />
+								</p:selectOneMenu>
+								<p:message for="crmAccountPurchaseBlockingThresholdPeriod" />
+							</h:panelGroup>
+
+							<p:outputLabel for="crmAccountPurchaseBlockingAlertEnabledFlag"
+								value="#{msgs['avsuser.crmAccountPurchaseBlockingAlertEnabledFlag']}" />
+							<h:panelGroup>
+								<p:selectOneMenu id="crmAccountPurchaseBlockingAlertEnabledFlag"
+									disabled="#{not partyManager.editable}"
+									value="#{partyManager.selectedBean.crmAccountPurchaseBlockingAlertEnabledFlag}">
+									<p:ajax event="change"
+										update="crmAccountPurchaseBlockingAlertChannel crmAccountPurchaseBlockingAlertMode" />
+									<f:selectItem itemValue="N" itemLabel="#{msgs['avsuser.no']}" />
+									<f:selectItem itemValue="Y" itemLabel="#{msgs['avsuser.yes']}" />
+								</p:selectOneMenu>
+								<p:message for="crmAccountPurchaseBlockingThresholdPeriod" />
+							</h:panelGroup>
+
+							<p:outputLabel for="crmAccountPurchaseBlockingAlertChannel"
+								value="#{msgs['avsuser.crmAccountPurchaseBlockingAlertChannel']}" />
+							<h:panelGroup>
+								<p:selectOneMenu id="crmAccountPurchaseBlockingAlertChannel"
+									disabled="${(not partyManager.editable) or partyManager.selectedBean.crmAccountPurchaseBlockingAlertEnabledFlag!='Y'}"
+									value="#{partyManager.selectedBean.crmAccountPurchaseBlockingAlertChannel}"
+									required="true">
+									<f:selectItem itemValue="1"
+										itemLabel="#{msgs['avsuser.alert.mail']}" />
+									<f:selectItem itemValue="2"
+										itemLabel="#{msgs['avsuser.alert.sms']}" />
+									<f:selectItem itemValue="3"
+										itemLabel="#{msgs['avsuser.alert.both']}" />
+								</p:selectOneMenu>
+								<p:message for="crmAccountPurchaseBlockingAlertChannel" />
+							</h:panelGroup>
+
+							<p:outputLabel for="crmAccountPurchaseBlockingAlertMode"
+								value="#{msgs['avsuser.crmAccountPurchaseBlockingAlertMode']}" />
+							<h:panelGroup>
+								<p:selectOneMenu id="crmAccountPurchaseBlockingAlertMode"
+									disabled="${(not partyManager.editable) or partyManager.selectedBean.crmAccountPurchaseBlockingAlertEnabledFlag!='Y'}"
+									value="#{partyManager.selectedBean.crmAccountPurchaseBlockingAlertMode}"
+									required="true">
+									<f:selectItem itemValue="1"
+										itemLabel="#{msgs['avsuser.alertMode.1']}" />
+									<f:selectItem itemValue="2"
+										itemLabel="#{msgs['avsuser.alertMode.2']}" />
+									<f:selectItem itemValue="3"
+										itemLabel="#{msgs['avsuser.alertMode.3']}" />
+								</p:selectOneMenu>
+								<p:message for="crmAccountPurchaseBlockingAlertMode" />
+							</h:panelGroup>
+
+							<p:outputLabel
+								for="crmAccountPurchaseBlockingIntermediateThreshold"
+								value="#{msgs['avsuser.crmAccountPurchaseBlockingIntermediateThreshold']}" />
+							<h:panelGroup>
+								<p:inputText
+									id="crmAccountPurchaseBlockingIntermediateThreshold"
+									disabled="#{not partyManager.editable}"
+									value="#{partyManager.selectedBean.crmAccountPurchaseBlockingIntermediateThreshold}"
+									size="10" maxlength="10" />
+								<p:message for="crmAccountPurchaseBlockingIntermediateThreshold" />
+							</h:panelGroup>
+						</h:panelGrid>
+					</p:fieldset>
+
+					<p:fieldset legend="Consumption Settings" toggleable="false"  styleClass = "extSetInner">
+						<h:panelGrid id="consumptionSettingsContent" columns="2"
+							styleClass="horizontalAlignClass alignLeftClass"
+							columnClasses="firstColumnFormClass,inlineColumnStyle">
+							<p:outputLabel for="crmAccountConsumption"
+								value="#{msgs['avsuser.crmAccountConsumption']}" />
+							<h:panelGroup>
+								<p:inputText id="crmAccountConsumption"
+									disabled="#{not partyManager.editable}"
+									value="#{partyManager.selectedBean.crmAccountConsumption}"
+									size="10" maxlength="10" />
+								<p:message for="crmAccountConsumption" />
+							</h:panelGroup>
+
+							<p:outputLabel for="crmAccountConsumptionBlockingFlag"
+								value="#{msgs['avsuser.crmAccountConsumptionBlockingFlag']}" />
+							<h:panelGroup>
+								<p:selectOneMenu id="crmAccountConsumptionBlockingFlag"
+									disabled="#{not partyManager.editable}"
+									value="#{partyManager.selectedBean.crmAccountConsumptionBlockingFlag}">
+									<p:ajax event="change"
+										update="crmAccountConsumptionBlockingThresholdValue crmAccountConsumptionBlockingThresholdPeriod" />
+									<f:selectItem itemValue="N" itemLabel="#{msgs['avsuser.no']}" />
+									<f:selectItem itemValue="Y" itemLabel="#{msgs['avsuser.yes']}" />
+								</p:selectOneMenu>
+								<p:message for="crmAccountConsumptionBlockingFlag" />
+							</h:panelGroup>
+
+							<p:outputLabel for="crmAccountConsumptionBlockingThresholdValue"
+								value="#{msgs['avsuser.crmAccountConsumptionBlockingThresholdValue']}" />
+							<h:panelGroup>
+								<p:inputText id="crmAccountConsumptionBlockingThresholdValue"
+									disabled="${(not partyManager.editable) or partyManager.selectedBean.crmAccountConsumptionBlockingFlag!='Y'}"
+									value="#{partyManager.selectedBean.crmAccountConsumptionBlockingThresholdValue}"
+									required="true" size="10" maxlength="10" />
+								<p:message for="crmAccountConsumptionBlockingThresholdValue" />
+							</h:panelGroup>
+
+							<p:outputLabel for="crmAccountConsumptionBlockingThresholdPeriod"
+								value="#{msgs['avsuser.crmAccountConsumptionBlockingThresholdPeriod']}" />
+							<h:panelGroup>
+								<p:selectOneMenu
+									disabled="${(not partyManager.editable) or partyManager.selectedBean.crmAccountConsumptionBlockingFlag!='Y'}"
+									id="crmAccountConsumptionBlockingThresholdPeriod"
+									value="#{partyManager.selectedBean.crmAccountConsumptionBlockingThresholdPeriod}"
+									required="true">
+									<f:selectItem itemValue="1" itemLabel="#{msgs['avsuser.year']}" />
+									<f:selectItem itemValue="2"
+										itemLabel="#{msgs['avsuser.month']}" />
+									<f:selectItem itemValue="3" itemLabel="#{msgs['avsuser.week']}" />
+									<f:selectItem itemValue="4" itemLabel="#{msgs['avsuser.day']}" />
+								</p:selectOneMenu>
+								<p:message for="crmAccountConsumptionBlockingThresholdValue" />
+							</h:panelGroup>
+
+							<p:outputLabel for="crmAccountConsumptionBlockingEnabledFlag"
+								value="#{msgs['avsuser.crmAccountConsumptionBlockingEnabledFlag']}" />
+							<h:panelGroup>
+								<p:selectOneMenu id="crmAccountConsumptionBlockingEnabledFlag"
+									disabled="#{not partyManager.editable}"
+									value="#{partyManager.selectedBean.crmAccountConsumptionBlockingEnabledFlag}">
+									<p:ajax event="change"
+										update="crmAccountConsumptionBlockingAlertChannel crmAccountConsumptionBlockingAlertMode" />
+									<f:selectItem itemValue="N" itemLabel="#{msgs['avsuser.no']}" />
+									<f:selectItem itemValue="Y" itemLabel="#{msgs['avsuser.yes']}" />
+								</p:selectOneMenu>
+								<p:message for="crmAccountConsumptionBlockingEnabledFlag" />
+							</h:panelGroup>
+
+							<p:outputLabel for="crmAccountConsumptionBlockingAlertChannel"
+								value="#{msgs['avsuser.crmAccountConsumptionBlockingAlertChannel']}" />
+							<h:panelGroup>
+								<p:selectOneMenu id="crmAccountConsumptionBlockingAlertChannel"
+									disabled="${(not partyManager.editable) or partyManager.selectedBean.crmAccountConsumptionBlockingEnabledFlag!='Y'}"
+									value="#{partyManager.selectedBean.crmAccountConsumptionBlockingAlertChannel}"
+									required="true">
+									<f:selectItem itemValue="1"
+										itemLabel="#{msgs['avsuser.alert.mail']}" />
+									<f:selectItem itemValue="2"
+										itemLabel="#{msgs['avsuser.alert.sms']}" />
+									<f:selectItem itemValue="3"
+										itemLabel="#{msgs['avsuser.alert.both']}" />
+								</p:selectOneMenu>
+								<p:message for="crmAccountConsumptionBlockingAlertChannel" />
+							</h:panelGroup>
+
+							<p:outputLabel for="crmAccountConsumptionBlockingAlertMode"
+								value="#{msgs['avsuser.crmAccountConsumptionBlockingAlertMode']}" />
+							<h:panelGroup>
+								<p:selectOneMenu id="crmAccountConsumptionBlockingAlertMode"
+									disabled="${(not partyManager.editable) or partyManager.selectedBean.crmAccountConsumptionBlockingEnabledFlag!='Y'}"
+									value="#{partyManager.selectedBean.crmAccountConsumptionBlockingAlertMode}"
+									required="true">
+									<f:selectItem itemValue="1"
+										itemLabel="#{msgs['avsuser.alertMode.1']}" />
+									<f:selectItem itemValue="2"
+										itemLabel="#{msgs['avsuser.alertMode.2']}" />
+									<f:selectItem itemValue="3"
+										itemLabel="#{msgs['avsuser.alertMode.3']}" />
+								</p:selectOneMenu>
+								<p:message for="crmAccountConsumptionBlockingAlertMode" />
+							</h:panelGroup>
+
+							<p:outputLabel
+								for="crmAccountConsumptionBlockingIntermediateThreshold"
+								value="#{msgs['avsuser.crmAccountConsumptionBlockingIntermediateThreshold']}" />
+							<h:panelGroup>
+								<p:inputText
+									id="crmAccountConsumptionBlockingIntermediateThreshold"
+									disabled="#{not partyManager.editable}"
+									value="#{partyManager.selectedBean.crmAccountConsumptionBlockingIntermediateThreshold}"
+									size="10" maxlength="10" />
+								<p:message
+									for="crmAccountConsumptionBlockingIntermediateThreshold" />
+							</h:panelGroup>
+						</h:panelGrid>
+					</p:fieldset>
+				</h:panelGrid>
+			</p:fieldset>
+		<!--/p:accordionPanel-->
+
+		<h:panelGrid styleClass="horizontalAlignClass">
+			<h:panelGrid columns="3" styleClass="horizontalAlignClass">
+				<p:commandButton value="#{msgs['button.discard']}"
+					id="discardDetailsButton" process="@this" update="@form"
+					styleClass = "darkButtonSyle"
+					rendered="#{partyManager.editable}"
+					actionListener="#{partyManager.editMode}">
+				</p:commandButton>
+				<p:commandButton value="#{msgs['button.updateLabel']}"
+					id="modifyDetailsButton" process="@form" update=":appContent"
+					styleClass = "actionButton"
+					oncomplete="handlePopupVisibility(xhr, status, args);"
+					rendered="#{partyManager.editable and infoSessionBean.operator.role.assuranceWrite}"
+					actionListener="#{partyManager.updateChildParty}">
+				</p:commandButton>
+				<!-- p:commandButton value="#{msgs['button.cancelLabel']}"
+				id="restoreDetailsButton" process="@this" update="@form"
+				rendered="#{partyManager.editable}"
+				actionListener="#{partyManager.selectedBean.resetDetails}"
+			</p:commandButton-->
+				<p:commandButton value="#{msgs['button.updateLabel']}"
+					id="saveDetailsButton" process="@this" update="@form"
+					disabled="#{not infoSessionBean.operator.role.assuranceWrite}"
+					styleClass = "actionButton"
+					rendered="#{not partyManager.editable}"
+					actionListener="#{partyManager.editMode}">
+				</p:commandButton>
+			</h:panelGrid>
+			<h:outputText value="#{msgs['validator.requiredFields']}"
+				rendered="#{partyManager.editable}" />
+		</h:panelGrid>
+	</h:form>
+</ui:composition>

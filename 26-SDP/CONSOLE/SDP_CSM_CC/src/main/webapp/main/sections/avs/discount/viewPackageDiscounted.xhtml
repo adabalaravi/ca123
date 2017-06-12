@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<p:outputPanel styleClass="minHeightPanelClass">
+	<h:form id="mainForm">
+		<h:panelGroup>
+			<h:outputText value="#{msgs['solutionOffer.discount.package.view']}"
+				styleClass="pageTitle" />
+			<div id="barDataGrid">
+				<div class="barButtomOpenFilter" style="margin: 0 0 0 14px;">
+					Filter</div>
+			</div>
+
+
+			<p:dataTable id="offerList" var="item"
+				value="#{solutionOfferDiscountedManager.selectedBean.offerDetailList}"
+				rowKey="#{item.offerName}" paginator="true" rows="10"
+				rowsPerPageTemplate="#{msgs['paginator.rowsPerPageTemplate']}"
+				paginatorTemplate="#{msgs['paginator.paginatorTemplate']}"
+				pageLinks="3" paginatorPosition="bottom"
+				styleClass="normalTableStyle">
+
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column rowspan="2" headerText="#{msgs['offerDetail.offerName']}" />
+						<p:column rowspan="2" headerText="#{msgs['offerDetail.status']}" />
+						<p:column rowspan="2" headerText="#{msgs['offerDetail.nrc']}" />
+						<p:column rowspan="2" headerText="#{msgs['offerDetail.rcPrice']}" />
+						<p:column rowspan="2" headerText="#{msgs['offerDetail.currency']}" />
+						<p:column rowspan="2" headerText="#{msgs['offerDetail.rcFrequency']}" />
+						<p:column colspan="4" headerText="#{msgs['offerDetail.discount']}" />
+					</p:row>
+
+					<p:row>
+						<p:column headerText="#{msgs['offerDetail.setupFeeDiscount']}" />
+						<p:column headerText="#{msgs['offerDetail.recurringFeeDiscount']}" />
+						<p:column
+							headerText="#{msgs['offerDetail.setupFeeDiscountPercentage']}" />
+						<p:column
+							headerText="#{msgs['offerDetail.recurringFeeDiscountPercentage']}" />
+					</p:row>
+				</p:columnGroup>
+
+
+				<p:column sortBy="#{item.offerName}">
+					<h:outputText styleClass="offerNameStepClass" value="#{item.offerName}" />
+				</p:column>
+				<p:column sortBy="#{item.statusName}" styleClass="alignCenter">
+					<h:outputText value="#{item.statusName}" title="#{item.statusName}" />
+				</p:column>
+				<p:column sortBy="#{item.newSetupFee}" styleClass="alignCenter">
+					<h:outputText value="#{item.newSetupFee}">
+						<f:convertNumber minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column sortBy="#{item.newRecurringFee}" styleClass="alignCenter">
+					<h:outputText value="#{item.newRecurringFee}">
+						<f:convertNumber minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column sortBy="#{item.currencyPriceName}" styleClass="currencyRow" >
+					<h:outputText value="#{item.currencyPriceName}" />
+				</p:column>
+				<p:column sortBy="#{item.frequencyName}"
+					headerText="#{msgs['offerDetail.rcFrequency']}">
+					<h:outputText value="#{item.frequencyName}" />
+				</p:column>
+
+				<!--  CAMPI NASCOSTI
+				<p:column rendered="#{subscriptionOfferTableBean.selectedBean.type=='technical'}">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['offerDetail.days']}" />
+					</f:facet>
+					<h:outputText value="#{item.frequencyDays}" />
+				</p:column>
+						<p:column sortBy="#{item.solutionOfferDesc}">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['offerDetail.type']}" />
+							</f:facet>
+							<ice:selectOneMenu value="#{item.mandatory}" style="width:80px;" disabled="true">
+								<f:selectItems value="#{subscriptionOfferTableBean.formUtil.typeList}" />
+							</ice:selectOneMenu>
+						</p:column>
+			
+						<p:column sortBy="#{item.solutionOfferDesc}">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['offerDetail.packageLink']}" />
+							</f:facet>
+							<ui:fragment rendered="${item.basicFlag == false}">
+								<ice:selectOneMenu value="#{item.basePackageId}" partialSubmit="true" immediate="true">
+									<f:selectItems value="#{subscriptionOfferTableBean.formUtil.packageLinkList}" />
+								</ice:selectOneMenu>
+							</ui:fragment>
+						</p:column>
+						<p:column sortBy="#{item.solutionOfferDesc}">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['offerDetail.offerGroupNameLabel']}" />
+							</f:facet>
+							<ui:fragment rendered="${item.basicFlag == false}">
+								<ice:selectOneMenu value="#{item.groupId}" partialSubmit="true" immediate="true">
+									<f:selectItems value="#{subscriptionOfferTableBean.formUtil.offerGroupNameList}" />
+								</ice:selectOneMenu>
+							</ui:fragment>
+						</p:column>
+			-->
+				<!-- DISCOUNTS -->
+
+				<p:column sortBy="#{item.setupFeeDiscount}"
+					headerText="#{msgs['offerDetail.setupFeeDiscount']}">
+					<h:outputText id="setupFeeDiscount"
+						value="#{item.setupFeeDiscount}" />
+				</p:column>
+
+				<p:column sortBy="#{item.recurringFeeDiscount}"
+					headerText="#{msgs['offerDetail.recurringFeeDiscount']}">
+					<h:outputText id="recurringFeeDiscount"
+						value="#{item.recurringFeeDiscount}" />
+				</p:column>
+
+				<p:column sortBy="#{item.setupFeeDiscountPercentage}"
+					headerText="#{msgs['offerDetail.setupFeeDiscountPercentage']}">
+					<h:panelGroup
+						rendered="#{not empty item.setupFeeDiscountPercentage}">
+						<h:outputText id="setupFeeDiscountPercentage"
+							value="#{item.setupFeeDiscountPercentage}" />
+						<p:spacer width="10px" />
+						<h:outputText value="%" />
+					</h:panelGroup>
+				</p:column>
+
+				<p:column sortBy="#{item.recurringFeeDiscountPercentage}"
+					headerText="#{msgs['offerDetail.recurringFeeDiscountPercentage']}">
+					<h:panelGroup
+						rendered="#{not empty item.recurringFeeDiscountPercentage}">
+						<h:outputText id="recurringFeeDiscountPercentage"
+							value="#{item.recurringFeeDiscountPercentage}" />
+						<p:spacer width="10px" />
+						<h:outputText value="%" />
+					</h:panelGroup>
+				</p:column>
+
+			</p:dataTable>
+		</h:panelGroup>
+	</h:form>
+</p:outputPanel>
+</html>

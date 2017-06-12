@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<class name="com.accenture.ams.db.bean.RetailerDomain" mutable="false" table="RETAILER_DOMAIN">
+		<composite-id>
+			<key-property 
+           		name="retailerId" 
+            	type="string"
+            	column="RETAILER_ID" 
+            	length="128"
+        	/>
+			<key-property 
+            	name="hostDomain" 
+            	type="string"
+            	column="HOST_DOMAIN" 
+            	length="50"
+        	/>
+		</composite-id>
+
+</class>
+</hibernate-mapping>

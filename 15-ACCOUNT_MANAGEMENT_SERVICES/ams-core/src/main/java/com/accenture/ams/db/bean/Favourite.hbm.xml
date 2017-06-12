@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<class name="com.accenture.ams.db.bean.Favourite" lazy="false" table="FAVOURITE">
+	<composite-id name="compId" class="com.accenture.ams.db.bean.FavouritePK">
+		<key-property 
+            name="contentId" 
+            type="long"
+            column="CONTENT_ID" 
+            length="22"
+        />
+		<key-property 
+            name="rowId" 
+            type="string"
+            column="CRM_ACCOUNT_ID" 
+            length="22"
+        />
+	</composite-id>
+	<property
+        name="NOrder"
+        type="long"
+        column="N_ORDER"
+        not-null="true"
+        length="22"
+    />
+
+	<!-- Associations -->
+
+</class>
+</hibernate-mapping>

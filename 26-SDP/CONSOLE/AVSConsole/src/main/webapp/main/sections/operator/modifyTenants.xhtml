@@ -1,0 +1,50 @@
+<h:panelGroup xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:outputText value="#{msgs['operator.operations.modifytenant']}" styleClass="pageTitle"/>
+	<h:panelGrid styleClass="fixedHeightPanelClass horizontalAlignClass">
+		<h:form id="mainForm">
+			<h:outputText value="#{msgs['operator.tenantsToSelect']}" />
+			
+			<h:panelGrid columns="3">
+				<p:selectManyMenu
+					style="width: 330px; height: 330px; overflow:scroll;"
+					value="#{operatorManager.selectedBean.tenantListUnselected}">
+					<f:selectItems
+						value="#{operatorManager.selectedBean.tenantListUnselectedAll}" />
+				</p:selectManyMenu>
+				<h:panelGrid columns="1" style="text-align:center;">
+					<p:commandButton value="&gt;&gt;" update="@form"
+						action="#{operatorManager.selectedBean.toRightAll}" />
+					<p:commandButton value="&gt;" update="@form"
+						action="#{operatorManager.selectedBean.toRight}" />
+					<p:commandButton value="&lt;" update="@form"
+						action="#{operatorManager.selectedBean.toLeft}" />
+					<p:commandButton value="&lt;&lt;" update="@form"
+						action="#{operatorManager.selectedBean.toLeftAll}" />
+				</h:panelGrid>
+				<p:selectManyMenu
+					style="width: 330px; height: 330px; overflow:scroll;"
+					value="#{operatorManager.selectedBean.tenantListSelected}">
+					<f:selectItems
+						value="#{operatorManager.selectedBean.tenantListSelectedAll}" />
+				</p:selectManyMenu>
+			</h:panelGrid>
+
+			<h:panelGrid columns="2" styleClass="horizontalAlignClass">
+				<p:commandButton value="#{msgs['button.cancel']}" process="@this"
+					styleClass="darkButtonSyle"
+					update=":appContent" action="#{menuController.dispatchRequest}">
+					<f:param name="menuAction" value="operatorManagement" />
+				</p:commandButton>
+				<p:commandButton value="#{msgs['button.confirm']}"
+					styleClass="actionButton"
+					update=":appContent"
+					oncomplete="handlePopupVisibility(xhr, status, args)"
+					actionListener="#{operatorManager.selectedBean.updateOperatorTenants}" />
+			</h:panelGrid>
+		</h:form>
+	</h:panelGrid>
+</h:panelGroup>

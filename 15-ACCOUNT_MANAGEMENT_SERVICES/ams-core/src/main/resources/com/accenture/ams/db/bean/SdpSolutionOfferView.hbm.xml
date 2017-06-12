@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="true" default-lazy="false">
+<class name="com.accenture.ams.db.bean.SdpSolutionOfferView" table="SDP_SOLUTION_OFFER_VIEW" mutable="false">
+	<id
+        name="solutionOfferID"
+        type="java.lang.Long"
+        column="SOLUTION_OFFER_ID"
+      
+    >
+		<generator class="assigned" />
+	</id>
+	
+<property
+        name="parentSolutionOfferID"
+        type="java.lang.Long"
+        column="PARENT_SOLUTION_OFFER_ID"
+      
+    />
+    
+    <property
+        name="solutionID"
+        type="java.lang.Long"
+        column="SOLUTION_ID"
+       
+    />
+    
+   <property
+        name="solutionOfferName"
+        type="java.lang.String"
+        column="SOLUTION_OFFER_NAME"
+      
+    />
+   
+    <property
+        name="isBasicProfile"
+        type="java.lang.String"
+        column="IS_BASIC_PROFILE"
+      
+    />
+    
+    <property
+        name="solutionOfferDescription"
+        type="java.lang.String"
+        column="SOLUTION_OFFER_DESCRIPTION"
+       />
+
+    
+    <property
+        name="statusID"
+        type="java.lang.Long"
+        column="STATUS_ID"
+       />
+    
+    
+    <property
+        name="solutionOfferProfile"
+        type="java.lang.String"
+        column="SOLUTION_OFFER_PROFILE"
+       />
+    
+    <property
+        name="externalID"
+        type="java.lang.String"
+        column="EXTERNAL_ID"
+       />
+    
+    
+    <property
+        name="startDate"
+        type="java.util.Date"
+        column="START_DATE"
+        />
+    
+    <property
+        name="endDate"
+        type="java.util.Date"
+        column="END_DATE"
+        
+    />
+    
+    <property
+        name="createdByID"
+        type="java.lang.String"
+        column="CREATED_BY_ID"
+
+    />
+
+    <property
+        name="createdDate"
+        type="java.util.Date"
+        column="CREATED_DATE"
+      />
+          <property
+        name="updatedByID"
+        type="java.lang.String"
+        column="UPDATED_BY_ID"
+      />
+    
+        <property
+        name="updatedDate"
+        type="java.util.Date"
+        column="UPDATED_DATE"
+      />
+    
+        <property
+        name="deletedByID"
+        type="java.lang.String"
+        column="DELETED_BY_ID"
+      />
+    
+        <property
+        name="deletedDate"
+        type="java.util.Date"
+        column="DELETED_DATE"
+      />
+    
+        <property
+        name="chgStatusByID"
+        type="java.lang.String"
+        column="CHG_STATUS_BY_ID"
+      />
+    
+        <property
+        name="chgStatusDate"
+        type="java.util.Date"
+        column="CHG_STATUS_DATE"
+      />
+    
+            <property
+        name="duration"
+        type="java.lang.Long"
+        column="DURATION"
+      />
+      
+              <property
+        name="solutionOfferType"
+        type="java.lang.String"
+        column="SOLUTION_OFFER_TYPE"
+      />
+	<!-- Associations -->
+
+</class>
+</hibernate-mapping>

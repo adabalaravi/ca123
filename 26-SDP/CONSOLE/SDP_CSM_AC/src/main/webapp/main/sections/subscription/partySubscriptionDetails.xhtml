@@ -1,0 +1,118 @@
+<h:panelGroup xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<!-- <p:panel> -->
+	<p:fieldset legend = "#{msgs['breadcrumb.subscriptions.details']}" styleClass="noPaddingPanelStyle detailBorder">
+		<h:panelGrid id="nothingUserSub" columns="4" style="width:100%;"
+			styleClass="horizontalAlignClass alignLeftClass fixedTableStyle"
+			cellpadding="5">
+			<h:outputText styleClass="propertylabelForm formColumn"
+				value="#{msgs['subscriptions.organizationName']}:" />
+			<h:outputText styleClass="formColumn"
+				value="#{subscriptionManager.selectedBean.partyName}" />
+			<h:outputText styleClass="propertylabelForm formColumn"
+				value="#{msgs['subscriptions.solutionOffer']}:" />
+			<h:outputText styleClass="formColumn"
+				value="#{subscriptionManager.selectedBean.solutionOfferName}" />
+
+			<h:outputText styleClass="propertylabelForm formColumn"
+				value="#{msgs['subscriptions.ownerAccountName']}:" />
+			<h:outputText styleClass="formColumn"
+				value="#{subscriptionManager.selectedBean.ownerAccountName}" />
+			<h:outputText styleClass="propertylabelForm formColumn"
+				value="#{msgs['subscriptions.payeeAccountName']}:" />
+			<h:outputText styleClass="formColumn"
+				value="#{subscriptionManager.selectedBean.payeeAccountName}" />
+
+			<h:outputText styleClass="propertylabelForm formColumn"
+				value="#{msgs['subscriptions.credential']}:" />
+			<h:outputText styleClass="formColumn"
+				value="#{subscriptionManager.selectedBean.username}" />
+			<h:outputText styleClass="propertylabelForm formColumn"
+				value="#{msgs['subscriptions.role']}:" />
+			<h:outputText styleClass="formColumn"
+				value="#{subscriptionManager.selectedBean.roleName}" />
+
+			<h:outputText styleClass="propertylabelForm formColumn"
+				value="#{msgs['subscriptions.site']}:" />
+			<h:outputText styleClass="formColumn"
+				value="#{subscriptionManager.selectedBean.siteName}" />
+			<h:outputText styleClass="propertylabelForm formColumn"
+				value="#{msgs['subscriptions.externalId']}:" />
+			<h:outputText styleClass="formColumn"
+				value="#{subscriptionManager.selectedBean.externalId}" />
+
+			<h:outputText styleClass="propertylabelForm formColumn"
+				value="#{msgs['subscriptions.startDate']}:" />
+			<h:outputText styleClass="formColumn"
+				value="#{subscriptionManager.selectedBean.startDate}">
+				<f:convertDateTime timeZone="#{msgs['application.timeZone']}" pattern="dd/MM/yyyy" />
+			</h:outputText>
+			<h:outputText styleClass="propertylabelForm formColumn"
+				value="#{msgs['subscriptions.endDate']}:" />
+			<h:outputText styleClass="formColumn"
+				value="#{subscriptionManager.selectedBean.endDate}">
+				<f:convertDateTime timeZone="#{msgs['application.timeZone']}" pattern="dd/MM/yyyy" />
+			</h:outputText>
+
+			<h:outputText styleClass="propertylabelForm formColumn"
+				value="#{msgs['subscriptions.nrc']}:" />
+			<h:outputText styleClass="formColumn"
+				value="#{subscriptionManager.selectedBean.nrcPrice}">
+				<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+			</h:outputText>
+			<h:outputText styleClass="propertylabelForm formColumn"
+				value="#{msgs['subscriptions.rc']}:" />
+			<h:panelGroup>
+				<h:outputText styleClass="formColumn"
+					value="#{subscriptionManager.selectedBean.rcPrice}">
+					<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+				</h:outputText>
+				<h:outputText styleClass="formColumn"
+					value=" #{subscriptionManager.selectedBean.frequency}" />
+			</h:panelGroup>
+
+			<h:outputText styleClass="propertylabelForm formColumn"
+				value="#{msgs['subscriptions.nrc.discounted']}:"
+				rendered="#{subscriptionManager.selectedBean.discounted}" />
+			<h:outputText styleClass="formColumn"
+				value="#{subscriptionManager.selectedBean.nrcDiscountedPrice}"
+				rendered="#{subscriptionManager.selectedBean.discounted}">
+				<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+			</h:outputText>
+			<h:outputText styleClass="propertylabelForm formColumn"
+				value="#{msgs['subscriptions.rc.discounted']}:"
+				rendered="#{subscriptionManager.selectedBean.discounted}" />
+			<h:panelGroup
+				rendered="#{subscriptionManager.selectedBean.discounted}">
+				<h:outputText styleClass="formColumn"
+					value="#{subscriptionManager.selectedBean.rcDiscountedPrice}">
+					<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+				</h:outputText>
+				<h:outputText styleClass="formColumn"
+					value=" #{subscriptionManager.selectedBean.frequency}" />
+			</h:panelGroup>
+
+			<h:outputText styleClass="propertylabelForm formColumn"
+				value="#{msgs['subscriptions.status']}:" />
+			<h:outputText styleClass="formColumn"
+				value="#{subscriptionManager.selectedBean.status}" />
+			<h:outputText styleClass="propertylabelForm formColumn"
+				value="#{msgs['voucher.code']}:"
+				rendered="#{not empty subscriptionManager.selectedBean.voucherCode}" />
+			<h:outputText styleClass="formColumn"
+				value="#{subscriptionManager.selectedBean.voucherCode}"
+				rendered="#{not empty subscriptionManager.selectedBean.voucherCode}" />
+		</h:panelGrid>
+		</p:fieldset>
+	<!-- </p:panel> -->
+	<h:panelGrid styleClass="horizontalAlignClass">
+		<p:commandButton value="#{msgs['button.backLabel']}" process="@this"
+			update=":appContent" actionListener="#{menuBean.dispatchRequest}" styleClass="darkButtonSyle">
+			<f:param name="breadParam" value="partyDetailsView" />
+		</p:commandButton>
+	</h:panelGrid>
+</h:panelGroup>

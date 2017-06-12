@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<class name="com.accenture.ams.db.bean.ContentExtension" lazy="false"  table="CONTENT_EXTENSION">
+	<id
+        name="externalId"
+        type="string"
+        column="EXTERNAL_ID"
+        length="50"
+    >
+		<generator class="assigned" />
+	</id>
+	<!--<property
+        name="creationDate"
+        type="timestamp"
+        column="CREATION_DATE"
+        not-null="true"
+        length="7"
+    />
+	--><property
+        name="price"
+        type="long"
+        column="PRICE"
+        not-null="true"
+        length="22"
+    />
+	<!--<property
+        name="updateDate"
+        type="timestamp"
+        column="UPDATE_DATE"
+        not-null="true"
+        length="7"
+    />
+
+	--><!-- Associations -->
+	<!-- bi-directional many-to-one association to Content -->
+	<many-to-one
+        name="content"
+        class="com.accenture.ams.db.bean.Content"
+        lazy="false"
+    >
+		<column name="CONTENT_ID" not-null="true" length="22"/>
+	</many-to-one>
+	<!-- bi-directional many-to-one association to RelContentTechnical -->
+	<set
+        name="relContentTechnicals"
+        inverse="true"
+        lazy="true"
+    >
+		<key>
+			<column name="EXTERNAL_ID" />
+			 <!-- a foreign key in REL_CONTENT_TECHNICAL referencing the primary key of this table. -->
+		</key>
+		<one-to-many class="com.accenture.ams.db.bean.RelContentTechnical" />
+	</set>
+
+</class>
+</hibernate-mapping>

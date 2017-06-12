@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="SDP_CSM_PU" transaction-type="RESOURCE_LOCAL">
+		<jta-data-source>java:/csmdb_conf</jta-data-source>
+		<non-jta-data-source>java:/csmdb_conf</non-jta-data-source>
+		<class>com.accenture.sdp.csm.model.jpa.RefPartyType</class>
+		<class>com.accenture.sdp.csm.model.jpa.RefStatusType</class>
+		<class>com.accenture.sdp.csm.model.jpa.RefCsmConstants</class>
+
+		<class>com.accenture.sdp.csm.model.jpa.RefTenant</class>
+		<class>com.accenture.sdp.csm.model.jpa.RefOperatorResource</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpOperator</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpOperatorRight</class>
+
+		<class>com.accenture.sdp.csm.model.jpa.LnkOperatorOperatorRight</class>
+		<class>com.accenture.sdp.csm.model.jpa.LnkOperatorOperatorRightPK</class>
+		<class>com.accenture.sdp.csm.model.jpa.LnkTenantOperator</class>
+		<class>com.accenture.sdp.csm.model.jpa.LnkTenantOperatorPK</class>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"></property>
+			<!-- property name="hibernate.cache.region.factory_class"
+				value="org.hibernate.cache.infinispan.JndiInfinispanRegionFactory" />
+			<property name="hibernate.cache.infinispan.cachemanager"
+				value="java:CacheManager/entity" />
+			<property name="hibernate.cache.use_second_level_cache"
+				value="true" />
+			<property name="hibernate.cache.use_query_cache" value="true" />
+			<property name="hibernate.cache.infinispan.statistics"
+				value="true" / -->
+		</properties>
+	</persistence-unit>
+
+	<persistence-unit name="SDP_TENANT_1_PU"
+		transaction-type="RESOURCE_LOCAL">
+		<jta-data-source>java:/csmdb_tenant_1</jta-data-source>
+		<non-jta-data-source>java:/csmdb_tenant_1</non-jta-data-source>
+		<class>com.accenture.sdp.csm.model.jpa.RefCsmConstants</class>
+		
+		<class>com.accenture.sdp.csm.model.jpa.AvsCountryLangCode</class>
+		<class>com.accenture.sdp.csm.model.jpa.AvsDeviceIdType</class>
+		<class>com.accenture.sdp.csm.model.jpa.AvsPaymentType</class>
+		<class>com.accenture.sdp.csm.model.jpa.AvsPcExtendedRating</class>
+		<class>com.accenture.sdp.csm.model.jpa.AvsPcLevel</class>
+		<class>com.accenture.sdp.csm.model.jpa.AvsPlatform</class>
+		<class>com.accenture.sdp.csm.model.jpa.AvsRetailerDomain</class>
+		<class>com.accenture.sdp.csm.model.jpa.AvsLnkPlatformDeviceIdType</class>
+		<class>com.accenture.sdp.csm.model.jpa.AvsLnkPlatformDeviceIdTypePK</class>
+		<class>com.accenture.sdp.csm.model.jpa.AvsDigitalGood</class>
+		<class>com.accenture.sdp.csm.model.jpa.AvsLnkOfferDigitalGood</class>
+		<class>com.accenture.sdp.csm.model.jpa.AvsLnkOfferDigitalGoodPK</class>
+
+		<class>com.accenture.sdp.csm.model.jpa.RefTokenProvider</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpToken</class>
+
+		<class>com.accenture.sdp.csm.model.jpa.RefStatusType</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpStatusVariation</class>
+
+		<class>com.accenture.sdp.csm.model.jpa.RefSolutionType</class>
+		<class>com.accenture.sdp.csm.model.jpa.RefSolutionOfferType</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpSolution</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpSolutionOffer</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpDiscount</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpOffer</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpOfferGroup</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpPackage</class>
+
+		<class>com.accenture.sdp.csm.model.jpa.SdpPackagePrice</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpPriceCatalog</class>
+		<class>com.accenture.sdp.csm.model.jpa.RefFrequencyType</class>
+		<class>com.accenture.sdp.csm.model.jpa.RefCurrencyType</class>
+
+		<class>com.accenture.sdp.csm.model.jpa.SdpPlatform</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpServiceVariant</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpServiceVariantOperation</class>
+		<class>com.accenture.sdp.csm.model.jpa.RefServiceType</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpServiceTemplate</class>
+
+		<class>com.accenture.sdp.csm.model.jpa.SdpPartyGroup</class>
+		<class>com.accenture.sdp.csm.model.jpa.RefPartyType</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpParty</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpPartyData</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpSite</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpAccount</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpCredential</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpSecretQuestion</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpRole</class>
+
+		<class>com.accenture.sdp.csm.model.jpa.SdpSubscription</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpSubscriptionDetail</class>
+
+		<class>com.accenture.sdp.csm.model.jpa.LnkSolutionPartyGroupPK</class>
+		<class>com.accenture.sdp.csm.model.jpa.LnkSolutionPartyGroup</class>
+		<class>com.accenture.sdp.csm.model.jpa.LnkPartyPartyGroup</class>
+		<class>com.accenture.sdp.csm.model.jpa.LnkPartyPartyGroupPK</class>
+
+		<class>com.accenture.sdp.csm.model.jpa.SdpVoucher</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpVoucherCampaign</class>
+		
+		<class>com.accenture.sdp.csm.model.jpa.RefDeviceBrand</class>
+		<class>com.accenture.sdp.csm.model.jpa.RefDeviceChannel</class>
+		<class>com.accenture.sdp.csm.model.jpa.RefDeviceModel</class>
+		<class>com.accenture.sdp.csm.model.jpa.RefDeviceUuidType</class>
+		<class>com.accenture.sdp.csm.model.jpa.RefItemType</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpDevice</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpDeviceCounterConfig</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpDeviceCounterConfigPK</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpDevicePolicy</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpDevicePolicyConfig</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpDevicePolicyConfigPK</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpPartyDeviceExt</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpShoppingCart</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpShoppingCartItem</class>
+		
+		<class>com.accenture.sdp.csm.model.jpa.RefExternalPlatform</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpSolutionOfferExternalId</class>
+		<class>com.accenture.sdp.csm.model.jpa.SdpSolutionOfferExternalIdPK</class>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"></property>
+			<!-- property name="hibernate.cache.region.factory_class"
+				value="org.hibernate.cache.infinispan.JndiInfinispanRegionFactory" />
+			<property name="hibernate.cache.infinispan.cachemanager"
+				value="java:CacheManager/entity" />
+			<property name="hibernate.cache.use_second_level_cache"
+				value="true" />
+			<property name="hibernate.cache.use_query_cache" value="true" />
+			<property name="hibernate.cache.infinispan.statistics"
+				value="true" / -->
+		</properties>
+	</persistence-unit>
+</persistence>

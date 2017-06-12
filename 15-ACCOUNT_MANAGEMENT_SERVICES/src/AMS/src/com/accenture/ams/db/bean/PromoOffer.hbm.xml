@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<class name="com.accenture.ams.db.bean.PromoOffer" lazy="false"  table="PROMO_OFFER">
+	<composite-id name="compId" class="com.accenture.ams.db.bean.PromoOfferPK">
+		<key-property 
+            name="promoId" 
+            type="integer"
+            column="PROMO_ID" 
+            length="5"
+        />
+		<key-property 
+            name="solutionOfferId" 
+            type="long"
+            column="SOLUTION_OFFER_ID" 
+            length="38"
+        />
+	</composite-id>
+	<!--<property
+        name="creationDate"
+        type="timestamp"
+        column="CREATION_DATE"
+        not-null="true"
+        length="7"
+    />
+	<property
+        name="updateDate"
+        type="timestamp"
+        column="UPDATE_DATE"
+        not-null="true"
+        length="7"
+    />
+
+	--><!-- Associations -->
+	<!-- bi-directional many-to-one association to Product -->
+	<many-to-one
+        name="product"
+        class="com.accenture.ams.db.bean.Product"
+        update="false"
+        insert="false"
+        lazy="false"
+    >
+		<column name="SOLUTION_OFFER_ID" not-null="true" length="38"/>
+	</many-to-one>
+	<!-- bi-directional many-to-one association to Promo -->
+	<many-to-one
+        name="promo"
+        class="com.accenture.ams.db.bean.Promo"
+        update="false"
+        insert="false"
+        lazy="false"
+    >
+		<column name="PROMO_ID" not-null="true" length="5"/>
+	</many-to-one>
+
+</class>
+</hibernate-mapping>

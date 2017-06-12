@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:outputText value="#{msgs['pageName.devicePolicy']}"
+	styleClass="pageTitle" />
+
+<div id="barDataGrid">
+	<div class="barButtomOpenFilter" style="margin: 0 0 0 14px;">Filter</div>
+</div>
+<h:form id="partyForm">
+
+	<p:dataTable id="devicePolicyList" var="item"
+		value="#{devicePolicyManager.devicePolicies}"
+		rowKey="#{item.devicePolicyName}" paginator="true" rows="10"
+		paginatorTemplate="#{msgs['paginator.paginatorTemplate']}"
+		rowsPerPageTemplate="#{msgs['paginator.rowsPerPageTemplate']}"
+		pageLinks="3" paginatorPosition="bottom" styleClass="fixedTableStyle">
+		<!--selection="#{devicePolicyMananger.selectedList}" filteredValue="#{devicePolicyMananger.filteredList}"-->
+
+		<p:column headerText="#{msgs['device.policy.name']}" width="200">
+			<h:outputText value="#{item.devicePolicyName}" />
+		</p:column>
+		<p:column width="150" style="text-align:center;">
+			<f:facet name="header">
+				<h:outputText value="#{msgs['device.policy.max.number.devices']}"
+					escape="false" />
+			</f:facet>
+			<h:outputText value="#{item.maxNumberAllowedDevices}" />
+		</p:column>
+		<p:column width="150" style="text-align:center;">
+			<f:facet name="header">
+				<h:outputText
+					value="#{msgs['device.policy.max.number.associations']}"
+					escape="false" />
+			</f:facet>
+			<h:outputText value="#{item.maxNumberOfAssociations}" />
+		</p:column>
+		<p:column width="100" style="text-align:center;">
+			<f:facet name="header">
+				<h:outputText value="#{msgs['device.policy.safety.period']}"
+					escape="false" />
+			</f:facet>
+			<h:outputText value="#{item.safetyPeriodInDays}" />
+		</p:column>
+		<p:column width="60" style="text-align:right;">
+			<p:commandButton id="menuButton"
+				value="#{msgs['device.policy.action.button']}"
+				styleClass="actionButton" />
+			<p:menu overlay="true" trigger="menuButton" my="left top"
+				at="left bottom" styleClass="menuOption">
+				<p:menuitem id="relatedDetails"
+					value="#{msgs['device.policy.detail']}"
+					actionListener="#{devicePolicyManager.goToDetailPage}"
+					update=":appContent">
+					<f:attribute name="item" value="#{item}" />
+				</p:menuitem>
+				<p:menuitem id="removePolicy"
+					value="#{msgs['device.policy.remove']}"
+					actionListener="#{devicePolicyManager.removePolicy}"
+					update=":appContent">
+					<f:attribute name="item" value="#{item}" />
+				</p:menuitem>
+			</p:menu>
+		</p:column>
+	</p:dataTable>
+
+
+		<div class="updateButton" style="text-align: left;">
+			<p:commandButton value="#{msgs['device.policy.add.new.policy.button']}"
+				disabled="#{not infoSessionBean.operator.role.assuranceWrite}"
+				id="addPolicy" actionListener="#{menuBean.dispatchRequest}"
+				update=":appContent" process="@this" styleClass="actionButton">
+				<f:param name="breadParam" value="addPolicy" />
+			</p:commandButton>
+		</div>
+
+
+</h:form>
+</html>

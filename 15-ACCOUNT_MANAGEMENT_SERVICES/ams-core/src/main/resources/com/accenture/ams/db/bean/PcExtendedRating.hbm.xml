@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<class name="com.accenture.ams.db.bean.PcExtendedRating" lazy="false"  table="PC_EXTENDED_RATING">
+	<id
+        name="pcId"
+        type="long"
+        column="PC_ID"
+        length="22"
+    >
+		<generator class="assigned" />
+	</id>
+	<!--<property
+        name="creationDate"
+        type="timestamp"
+        column="CREATION_DATE"
+        not-null="true"
+        length="7"
+    />
+	--><property
+        name="pcDescription"
+        type="string"
+        column="PC_DESCRIPTION"
+        length="256"
+    />
+	<property
+        name="pcValue"
+        type="string"
+        column="PC_VALUE"
+        not-null="true"
+        length="50"
+    />
+	<!--<property
+        name="updateDate"
+        type="timestamp"
+        column="UPDATE_DATE"
+        not-null="true"
+        length="7"
+    />
+
+	--><!-- Associations -->
+	<!-- bi-directional many-to-one association to RelContentExtRat-->
+	<set
+        name="relContentExtRats"
+        inverse="true"
+        lazy="true"
+    >
+		<key>
+			<column name="PC_ID" />
+			
+		</key>
+		<one-to-many class="com.accenture.ams.db.bean.RelContentExtRat" />
+	</set>
+	
+	<set
+        name="relLiveContentExtrats"
+        inverse="true"
+        lazy="true"
+    >
+		<key>
+			<column name="PC_ID" />
+			 
+		</key>
+		<one-to-many class="com.accenture.ams.db.bean.RelLiveContentExtrat" />
+	</set>
+ 
+</class>
+</hibernate-mapping>

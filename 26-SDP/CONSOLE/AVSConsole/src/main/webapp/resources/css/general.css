@@ -1,0 +1,8 @@
+body {
+	overflow: hidden;
+}
+
+iframe#content {
+	width: 100%;
+	margin: 0;
+}

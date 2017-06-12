@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="partyForm">
+		<p:fieldset legend="Device Detail" styleClass = "extSetBorder">
+			<h:panelGrid id="nothingUserSub" columns="4" style="width:100%;"
+				styleClass="horizontalAlignClass alignLeftClass wideTableStyle fixedTableStyle"
+				columnClasses="firstColumnFormClass,inlineColumnStyle,firstColumnFormClass,inlineColumnStyle"
+				cellpadding="5">
+				<h:outputText value = "Id:"/>
+				<h:outputText value = "#{deviceManager.selectedDevice.id}"/>
+				<h:outputText value = "Paired:"/>
+				<p:selectBooleanCheckbox value="#{deviceManager.selectedDevice.paired}" title="Paired" />
+				<h:outputText value = "Channel:"/>
+				<p:selectOneMenu value = "#{deviceManager.selectedDevice.type}" >
+					<f:selectItem itemValue="iPhone" itemLabel="iPhone" />
+					<f:selectItem itemValue="smartPhone" itemLabel="Smartphone" />
+					<f:selectItem itemValue="TV" itemLabel="TV" />
+					<f:selectItem itemValue="xBox" itemLabel="XBox" />
+				</p:selectOneMenu>
+				<h:outputText value = "Brand:"/>
+				<p:selectOneMenu value = "#{deviceManager.selectedDevice.brand}" >
+					<f:selectItem itemValue="apple" itemLabel="Apple" />
+					<f:selectItem itemValue="samsung" itemLabel="Samsung" />
+					<f:selectItem itemValue="motorola" itemLabel="Motorola" />
+					<f:selectItem itemValue="microsoft" itemLabel="Microsoft" />
+				</p:selectOneMenu>
+				<h:outputText value = "Model:"/>
+				<p:inputText value = "#{deviceManager.selectedDevice.model}"/>
+				<h:outputText value = "Alias:"/>
+				<p:inputText value = "#{deviceManager.selectedDevice.alias}"/>
+				<h:outputText value = "Blacklist:"/>
+				<p:selectBooleanCheckbox value="#{deviceManager.selectedDevice.blackList}"  />
+				<h:outputText value = "Whitelist:"/>
+				<p:selectBooleanCheckbox value="#{deviceManager.selectedDevice.whiteList}"  />
+			</h:panelGrid>	
+		</p:fieldset>
+	<br />
+	<h:panelGrid styleClass="horizontalAlignClass">
+	
+		<h:panelGrid columns="3" styleClass="horizontalAlignClass">
+			<p:commandButton value="#{msgs['button.backLabel']}" process="@this" styleClass = "darkButtonSyle"
+				update=":appContent" actionListener="#{menuBean.dispatchRequest}">
+				<f:param name="breadParam" value="partyDetailsView" />
+			</p:commandButton>
+			<p:commandButton value="#{msgs['button.discard']}"  styleClass = "darkButtonSyle"
+				id="discardDetailsRulesButton" process="@form" update=":appContent"
+				rendered="#{deviceManager.editable}"
+				actionListener="#{partyManager.discard}">
+			</p:commandButton>
+		
+			<p:commandButton value="#{msgs['button.updateLabel']}"  styleClass = "actionButton"
+				id="modifyDetailsRulesButton" process="@form" update=":appContent"
+				oncomplete="handlePopupVisibility(xhr, status, args);"
+				rendered="#{not deviceManager.editable}"
+				actionListener="#{deviceManager.updateDeviceDatas}">
+			</p:commandButton>
+			<p:commandButton value="#{msgs['button.updateLabel']}" styleClass = "actionButton"
+				id="saveDetailsRulesButton" process="@form" update=":appContent"
+				rendered="#{deviceManager.editable}"
+				actionListener="#{partyManager.edit}">
+			</p:commandButton>
+			
+			
+			
+		</h:panelGrid>
+		<h:outputText value="#{msgs['validator.requiredFields']}"
+			rendered="#{deviceManager.editable}" />
+	</h:panelGrid>
+	
+	</h:form>
+</ui:composition>

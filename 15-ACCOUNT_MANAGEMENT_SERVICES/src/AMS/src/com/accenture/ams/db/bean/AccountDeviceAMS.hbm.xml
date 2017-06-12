@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.accenture.ams.db.bean.AccountDeviceAMS" lazy="false"
+		table="ACCOUNT_DEVICE">
+		<composite-id>
+			<key-property name="deviceId" type="string" column="DEVICE_ID"
+				length="50" />
+			<key-property name="userId" type="long" column="USER_ID"
+				length="38" />
+		</composite-id>
+		<property name="platformId" type="string" column="PLATFORM_ID"
+			not-null="true" length="10" />
+		<property name="type" type="long" column="TYPE_ID" not-null="true"
+			length="38" />
+		<many-to-one name="user"
+			class="com.accenture.ams.db.bean.AccountUser" update="false"
+			insert="false" lazy="false">
+			<column name="USER_ID" not-null="true" length="38" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

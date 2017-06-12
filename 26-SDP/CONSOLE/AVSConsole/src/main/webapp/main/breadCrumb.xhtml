@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form id="breadCrumbForm">
+	<ui:fragment rendered="#{layoutController.menuVisible}">
+		<div
+			class="ui-breadcrumb ui-module ui-widget ui-widget-header ui-helper-clearfix ui-corner-all">
+			<h:panelGroup styleClass="breadCrumbStyle">
+				<ui:repeat value="#{infoSessionBean.breadCrumbController.breadCrumb}" var="t"
+					varStatus="status">
+
+					<ui:fragment rendered="${!status.first}">
+						<h:outputText value=" &#9658;" style="color: #AED0EA" />
+					</ui:fragment>
+
+					<ui:fragment rendered="${t.link == null}">
+						<h:outputText value="#{t.title}" />
+					</ui:fragment>
+
+					<ui:fragment rendered="${t.link != null}">
+						<p:commandLink id="bread" value="#{t.title}" update=":appContent"
+							action="#{menuController.dispatchRequest}">
+							<f:param name="menuAction" value="#{t.link}" />
+						</p:commandLink>
+					</ui:fragment>
+				</ui:repeat>
+			</h:panelGroup>
+		</div>
+	</ui:fragment>
+</h:form>
+</html>

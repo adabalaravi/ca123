@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.8.2
+Created-By: 1.6.0_24-b07 (Sun Microsystems Inc.)
+Built-By: SDP Team
+
+Name: SDP CSM FE
+Specification-Title: SDP CSM Catalogue Console
+Specification-Version: v.1.0.0
+Specification-Vendor: Accenture Software
+Implementation-Title: SDP CSM FE
+Implementation-Version: v.1.0.0
+Implementation-Vendor: Accenture Software
+

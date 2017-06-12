@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping auto-import="true" default-lazy="false">
+	<class name="com.accenture.ams.db.bean.SdpVoucherCampaignView" table="SDP_VOUCHER_CAMPAIGN_VIEW" >
+
+		<id name="voucherType" type="java.lang.String" column="VOUCHER_TYPE">
+			<generator class="assigned" />
+		</id>
+		<property name="solutionOfferID" type="java.lang.Long" column="SOLUTION_OFFER_ID" />
+		<property name="validityPeriod" type="java.lang.Long" column="VALIDITY_PERIOD" />
+		<property name="startDate" type="java.sql.Timestamp" column="START_DATE" />
+		<property name="endDate" type="java.sql.Timestamp" column="END_DATE" />
+		<property name="createdByID" type="java.lang.String" column="CREATED_BY_ID" />
+		<property name="createdDate" type="java.sql.Timestamp" column="CREATED_DATE" />
+		<property name="updateByID" type="java.lang.String" column="UPDATED_BY_ID" />
+		<property name="updateDate" type="java.sql.Timestamp" column="UPDATED_DATE" />
+
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.accenture.ams.db.bean.AccountProduct" lazy="false"
+		table="ACCOUNT_PRODUCT">
+		<composite-id name="compId"
+			class="com.accenture.ams.db.bean.AccountProductPK">
+			<key-property name="solutionOfferId" type="long"
+				column="SOLUTION_OFFER_ID" length="38" />
+			<key-property name="username" type="long" column="USER_ID"
+				length="38" />
+		</composite-id>
+		<!-- bi-directional many-to-one association to AccountUser -->
+		<many-to-one name="accountUser"
+			class="com.accenture.ams.db.bean.AccountUser" update="false"
+			insert="false" lazy="false">
+			<column name="USER_ID" not-null="true" length="38" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

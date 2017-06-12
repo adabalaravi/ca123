@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.accenture.ams.db.bean.PaymentType" lazy="false"
+		table="PAYMENT_TYPE">
+		<id name="paymentTypeId" type="long" column="PAYMENT_TYPE_ID"
+			length="22">
+			<generator class="assigned" />
+		</id>
+		<!--<property name="creationDate" type="timestamp" column="CREATION_DATE" 
+			not-null="true" length="7" /> -->
+		<property name="paymentMethod" type="string" column="PAYMENT_METHOD"
+			not-null="true" length="200" />
+		<!--<property name="updateDate" type="timestamp" column="UPDATE_DATE" not-null="true" 
+			length="7" /> --><!-- Associations -->
+
+	</class>
+</hibernate-mapping>

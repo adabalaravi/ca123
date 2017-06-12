@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+<p:outputPanel styleClass="minHeightPanelClass">
+	<h:form id="mainForm">
+		<h:outputText value="#{msgs['solutionOffer.view']}" styleClass="pageTitle" />
+		<div class="contentSubMenu">
+			<p:commandLink value="+ #{msgs['solutionOffer.add.step1']}"
+				action="#{solutionOfferMananger.gotoAddSubscriptionStep1}" update=":appContent"
+				rendered="#{infoSessionBean.operator.role.catalogueWrite}" />
+		</div>
+		<div id="barDataGrid">
+			<div class="barButtomOpenFilter" style="margin: 0 0 0 14px;">Filter</div>
+		</div>
+
+		<p:dataTable id="solutionOfferList" var="item" value="#{solutionOfferMananger.solutionOffers}"
+			rowKey="#{item.solutionOfferName}" paginator="true" rows="10"
+			paginatorTemplate="#{msgs['paginator.paginatorTemplate']}" selection="#{solutionOfferMananger.selectedList}"
+			rowsPerPageTemplate="#{msgs['paginator.rowsPerPageTemplate']}" pageLinks="3" paginatorPosition="bottom"
+			styleClass="fixedTableStyle" filteredValue="#{solutionOfferMananger.filteredList}">
+
+			<p:column selectionMode="multiple" styleClass="selectionCheckBox" disabledSelection="#{item.inactive}" />
+
+			<p:column filterBy="#{item.solutionOfferName}" sortBy="#{item.solutionOfferName}" width="140">
+				<f:facet name="header">
+					<h:outputText value="#{msgs['solutionOffer.viewSolutionOffer.solutionOfferNameColumn']}" />
+				</f:facet>
+				<h:outputText styleClass="solutionOfferCellStyle" value="#{item.solutionOfferName}"
+					title="#{item.solutionOfferName}" />
+			</p:column>
+			<p:column sortBy="#{item.solutionOfferDesc}">
+				<f:facet name="header">
+					<h:outputText value="#{msgs['solutionOffer.viewSolutionOffer.solutionOfferDescColumn']}" />
+				</f:facet>
+				<h:outputText styleClass="solutionOfferCellStyle" value="#{item.solutionOfferDesc}"
+					title="#{item.solutionOfferDesc}" />
+			</p:column>
+			<p:column sortBy="#{item.solutionOfferType}" filterBy="#{item.solutionOfferType}">
+				<f:facet name="header">
+					<h:outputText value="#{msgs['solutionOffer.solutionOfferType']}" />
+				</f:facet>
+				<h:outputText styleClass="solutionOfferCellStyle" value="#{item.solutionOfferType}"
+					title="#{item.solutionOfferType}" />
+			</p:column>
+
+			<p:column sortBy="#{item.solutionOfferStatus}" styleClass="alignCenter">
+				<f:facet name="header">
+					<h:outputText value="#{msgs['solutionOffer.viewSolutionOffer.solutionOfferStatusColumn']}" />
+				</f:facet>
+				<h:outputText value="#{item.solutionOfferStatus}" />
+			</p:column>
+
+
+			<!-- <p:column sortBy="#{item.iTunes}" styleClass="alignCenter">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['solutionOffer.iTunes']}" />
+					</f:facet>
+					<h:outputText  value="#{item.iTunes}" />
+				</p:column>
+				<p:column sortBy="#{item.googlePlay}" styleClass="alignCenter">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['solutionOffer.viewSolutionOffer.googlePlay']}" />
+					</f:facet>
+					<h:outputText  value="#{item.googlePlay}" />
+				</p:column> -->
+
+			<!-- 
+				<p:column filterBy="#{item.offerName}" sortBy="#{item.offerName}">
+							<h:outputText value="#{msgs['solutionOffer.viewSolutionOffer.solutionOfferExtIdColumn']}" />
+					</f:facet>
+					<h:outputText styleClass="solutionOfferCellStyle" value="#{item.solutionOfferExtId}" title="#{item.solutionOfferExtId}" />
+
+				</p:column>
+				 -->
+			<p:column sortBy="#{item.solutionOfferStartDate}" styleClass="alignCenter">
+				<f:facet name="header">
+					<h:outputText value="#{msgs['solutionOffer.viewSolutionOffer.solutionOfferStartDateColumn']}" />
+				</f:facet>
+				<h:outputText styleClass="genericDateColumnStyle" value="#{item.solutionOfferStartDate}"
+					title="#{item.solutionOfferStartDate}">
+					<f:convertDateTime timeZone="#{msgs['application.timeZone']}" pattern="#{msgs['date.pattern']}" />
+				</h:outputText>
+			</p:column>
+			<p:column sortBy="#{item.solutionOfferEndDate}">
+				<f:facet name="header">
+					<h:outputText value="#{msgs['solutionOffer.viewSolutionOffer.solutionOfferEndDateColumn']}" />
+				</f:facet>
+				<h:outputText styleClass="genericDateColumnStyle" value="#{item.solutionOfferEndDate}"
+					title="#{item.solutionOfferEndDate}">
+					<f:convertDateTime timeZone="#{msgs['application.timeZone']}" pattern="#{msgs['date.pattern']}" />
+				</h:outputText>
+			</p:column>
+			<!--  				<p:column rendered="true">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['solutionOffer.viewSolutionOffer.solutionOfferProfileLbl']}"></h:outputText>
+					</f:facet>
+					<center>
+						<h:panelGrid>
+							<h:menuBar rendered="true">
+								<h:menuItem id="viewProfile" icon="./images/zoom.png" styleClass="viewProfileMenu" value="" actionListener="#{profilePopupBean.openPopup}">
+									<f:attribute name="profileValue" value="#{item.solutionOfferProfile}" />
+								</h:menuItem>
+							</h:menuBar>
+						</h:panelGrid>
+					</center>
+				</p:column>
+
+				<p:column sortBy="#{item.solutionOfferCreationDate}">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['solutionOffer.viewSolutionOffer.solutionOfferCreationDateColumn']}" />
+					</f:facet>
+					<h:outputText styleClass="creationDateColumnStyle" value="#{item.solutionOfferCreationDate}">
+						<f:convertDateTime timeZone="#{msgs['application.timeZone']}" pattern="#{msgs['date.pattern']}" />
+					</h:outputText>
+				</p:column>
+-->
+
+			<p:column styleClass="operationsColumn" rendered="#{infoSessionBean.operator.role.catalogueWrite}">
+				<center>
+					<p:commandButton id="menuButton" value="Actions" styleClass="actionButton" />
+					<p:menu overlay="true" trigger="menuButton" my="left top" at="left bottom" styleClass="menuOption">
+						<p:menuitem id="relatedService" value="#{msgs['solutionOffer.package.view']}"
+							actionListener="#{solutionOfferMananger.relatedPackages}" update=":appContent">
+							<f:attribute name="item" value="#{item}" />
+						</p:menuitem>
+						<p:menuitem value="#{msgs['solutionOffer.update']}"
+							actionListener="#{solutionOfferMananger.gotoUpdateSubscription}" rendered="${item.active}" update=":appContent">
+							<f:attribute name="item" value="#{item}" />
+						</p:menuitem>
+						<p:menuitem value="#{msgs['solutionOffer.operations.updatePartyGroups']}"
+							actionListener="#{solutionOfferMananger.gotoUpdateSolutionOfferPartyGroups}" rendered="${item.active}"
+							update=":appContent">
+							<f:attribute name="item" value="#{item}" />
+						</p:menuitem>
+						<p:separator rendered="${item.active}" />
+						<p:menuitem value="#{msgs['solutionOffer.discount.view']}"
+							actionListener="#{solutionOfferMananger.viewRelatedDiscount}" rendered="${item.active}" update=":appContent">
+							<f:attribute name="item" value="#{item}" />
+						</p:menuitem>
+							<p:separator />  
+							<p:menuitem value="#{msgs['solutionOffer.campaign.add']}" actionListener="#{solutionOfferMananger.gotoCreateVoucherCampaign}"
+								rendered="${item.active}" update=":appContent" oncomplete="handlePopupVisibility(xhr, status, args)">
+								<f:attribute name="item" value="#{item}" />
+							</p:menuitem>
+							<p:menuitem value="#{msgs['solutionOffer.voucher.viewLabel']}" actionListener="#{solutionOfferMananger.gotoVoucherList}" update=":appContent">
+								<f:attribute name="item" value="#{item}" />
+							</p:menuitem>
+						<p:separator rendered="${item.suspended or item.inactive}" />
+						<ui:include src="../../../changeStatusMenu.xhtml" />
+					</p:menu>
+				</center>
+			</p:column>
+
+			<p:column styleClass="operationsColumn" rendered="#{not infoSessionBean.operator.role.catalogueWrite}">
+				<center>
+					<p:commandButton value="Actions" styleClass="actionButton" />
+					<p:menu overlay="true" trigger="menuButtonRead" my="left top" at="left bottom" styleClass="menuOption">
+						<p:menuitem value="#{msgs['solutionOffer.package.view']}" actionListener="#{solutionOfferMananger.relatedPackages}"
+							update=":appContent">
+							<f:attribute name="item" value="#{item}" />
+						</p:menuitem>
+						<p:separator />
+						<p:menuitem value="#{msgs['solutionOffer.voucher.viewLabel']}"
+							actionListener="#{solutionOfferMananger.gotoVoucherList}" update=":appContent">
+							<f:attribute name="item" value="#{item}" />
+						</p:menuitem>
+					</p:menu>
+				</center>
+			</p:column>
+
+
+
+		</p:dataTable>
+
+		<p:commandButton value="#{msgs['operations.inactivate']}" rendered="#{infoSessionBean.operator.role.catalogueWrite}"
+			styleClass="darkButton" actionListener="#{solutionOfferMananger.askChangeStatus}"
+			oncomplete="handlePopupVisibility(xhr, status, args)" update=":appContent">
+			<f:attribute name="status" value="Inactive" />
+		</p:commandButton>
+
+		<!-- 
+		<center>	
+		<p:commandButton value="#{msgs['solutionOffer.add.step1']}" action="#{solutionOfferMananger.gotoAddSubscriptionStep1}"
+				update=":appContent" rendered="#{infoSessionBean.operator.role.catalogueWrite}" />
+		</center>
+		 -->
+	</h:form>
+</p:outputPanel>
+</html>

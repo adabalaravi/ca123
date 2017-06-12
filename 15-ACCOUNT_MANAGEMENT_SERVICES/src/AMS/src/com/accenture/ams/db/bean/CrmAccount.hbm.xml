@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<class name="com.accenture.ams.db.bean.CrmAccount" lazy="false"  table="CRM_ACCOUNT">
+	<id
+        name="username"
+        type="long"
+        column="USER_ID"
+        length="38"
+    >
+		<generator class="assigned" />
+	</id>
+	<property
+        name="articleId"
+        type="string"
+        column="ARTICLE_ID"
+        length="50"
+    />
+	<property
+        name="birthDate"
+        type="timestamp"
+        column="BIRTH_DATE"
+        length="7"
+    />
+	<property
+        name="cap"
+        type="string"
+        column="CAP"
+        length="50"
+    />
+	<property
+        name="consensoPctvottv"
+        type="string"
+        column="CONSENSO_PCTVOTTV"
+        length="50"
+    />
+	<!--<property
+        name="creationDate"
+        type="timestamp"
+        column="CREATION_DATE"
+        not-null="true"
+        length="7"
+    />
+	--><property
+        name="crmaccountid"
+        type="string"
+        column="CRM_ACCOUNT_ID"
+        length="50"
+    />
+	<property
+        name="email"
+        type="string"
+        column="EMAIL"
+        length="1000"
+    />
+	<property
+        name="mobilePhone"
+        type="string"
+        column="MOBILE_PHONE"
+        length="50"
+    />
+	<property
+        name="name"
+        type="string"
+        column="NAME"
+        length="256"
+    />
+	<property
+        name="registrazioneWeb"
+        type="string"
+        column="REGISTRAZIONE_WEB"
+        length="50"
+    />
+	<property
+        name="sesso"
+        type="string"
+        column="SESSO"
+        length="1"
+    />
+	<property
+        name="smartcardNumber"
+        type="string"
+        column="SMARTCARD_NUMBER"
+        length="50"
+    />
+	<property
+        name="smartcardPaymentType"
+        type="string"
+        column="SMARTCARD_PAYMENT_TYPE"
+        length="50"
+    />
+	<property
+        name="smartcardStatus"
+        type="string"
+        column="SMARTCARD_STATUS"
+        length="50"
+    />
+	<property
+        name="statoMorosita"
+        type="string"
+        column="STATO_MOROSITA"
+        length="50"
+    />
+	<property
+        name="surname"
+        type="string"
+        column="SURNAME"
+        length="50"
+    />
+	<!--<property
+        name="updateDate"
+        type="timestamp"
+        column="UPDATE_DATE"
+        not-null="true"
+        length="7"
+    />
+	--><property
+        name="vip"
+        type="string"
+        column="VIP"
+        length="1"
+    />
+
+	<!-- Associations -->
+	<!-- bi-directional one-to-one association to AccountUser -->
+	<one-to-one
+        name="accountUser"
+        class="com.accenture.ams.db.bean.AccountUser"
+        lazy="false"
+        outer-join="auto"
+    />
+
+</class>
+</hibernate-mapping>

@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html" />
+<h:head>
+	<title>AVS Account Management Console</title>
+	<link rel="shortcut icon" href="./images/favicon.ico" />
+	<h:outputScript library="js" name="consoleUtil.js" />
+</h:head>
+<h:body styleClass="avsStyle">
+	<!-- style in body to override prime default -->
+	<h:outputStylesheet library="css" name="avs.css" />
+	<h:outputStylesheet library="css" name="customStyle.css" />
+	<h:outputStylesheet library="css" name="customStyleMenu.css" />
+
+	<div id="main">
+		<f:view locale="#{layoutController.localeController.currentLocale}">
+			<p:outputPanel id="allView">
+				<p:panel id="content" align="right" styleClass="minHeightPanelClass">
+					
+					<p:outputPanel id="appContainer">
+					<!--  <ui:include src="breadCrumb.xhtml" /> -->
+					<div id="menucolumn">
+						<ui:include src="../main/menuBar.xhtml" />
+						<h:form id="userDetailsDiv">
+							<div class="UserDetails">
+								<div class="UserDetailsTitle">User Details <br/>
+									<div class="separator"></div></div>
+								<h:outputText value="Username" /> <br/>
+								<h:outputText value="#{infoSessionBean.operator.username}" styleClass="orange"/> <br/>
+								<h:outputText value="Customers" /> <br/>
+								<h:outputText value="#{infoSessionBean.customersCounter}" styleClass="orange"/> <br/>
+								<h:outputText value="Tenants"  /> <br/>
+								<h:outputText value="#{infoSessionBean.tenantsCounter}" styleClass="orange"/>
+							</div>
+						</h:form>
+					</div>
+					<div id="contentcolumn">
+						<p:outputPanel id="appContent">
+							<ui:include src="#{layoutController.contentInclude}">This page has no content.</ui:include>
+						</p:outputPanel>
+					</div>
+					<!-- popups -->
+					<ui:include src="popupPage.xhtml" />
+					</p:outputPanel>
+				</p:panel>
+			</p:outputPanel>
+		</f:view>
+	</div>
+	<!-- 
+	<div id="footer">
+		<h:outputText id="appFooterLabel" value="#{msgs['footer.label']}" />
+	</div>
+ -->
+</h:body>
+</html>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+                                   
+ <hibernate-mapping >
+   <class name="com.accenture.avs.ca.be.db.bean.UserConcurrentStreamingCA" 
+		table="user_concurrent_streaming">
+		<id name="sno" type="long" column="sno" length="11">
+			<generator class="identity"/>
+		</id>
+		<property name="creation_date" type="timestamp" column="creation_date"  not-null="true" />
+		<property name="update_date" type="timestamp" column="update_date"  not-null="true" />		
+		<property name="crmAccountId" type="string" column="crm_account_id" 
+			not-null="true"  length="256" />	
+		<property name="deviceType" type="string" column="device_type" 
+			not-null="true"  length="256" />	
+		<property name="sessionid" type="string" column="session_id" 
+			not-null="true"  length="50" />		 
+		<property name="is_disabled" type="string" column="is_disabled" 
+			not-null="true"  length="5" />	
+		<property name="channel" type="string" column="channel_id" 
+			not-null="true"/>
+		
+	</class>
+	
+</hibernate-mapping>

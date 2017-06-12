@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.accenture.ams.db.bean.AccountUser" lazy="false"
+		table="ACCOUNT_USER">
+		<id name="username" type="long" column="USER_ID" length="38">
+			<generator class="assigned" />
+		</id>
+		<property name="bloccoAcquisti" type="string" column="BLOCCO_ACQUISTI"
+			length="1" />
+		<property name="consumption" type="integer" column="CONSUMPTION"
+			not-null="true" length="7" />
+		<property name="consumptionThreshold" type="integer"
+			column="CONSUMPTION_THRESHOLD" not-null="true" length="7" />
+		<property name="crmaccountid" type="string" column="CRM_ACCOUNT_ID"
+			unique="true" length="50" />
+		<property name="dataPrimoAccesso" type="timestamp" column="DATA_PRIMO_ACCESSO"
+			length="7" />
+		<property name="flagInvioSmsAlerting" type="string"
+			column="FLAG_INVIO_SMS_ALERTING" length="1" />
+		<property name="flagInvioSmsBlocking" type="string"
+			column="FLAG_INVIO_SMS_BLOCKING" length="1" />
+		<property name="name" type="string" column="NAME" length="256" />
+		<property name="partyDescription" type="string" column="PARTY_DESCRIPTION"
+			length="50" />
+		<property name="purchaseAlerting" type="double" column="PURCHASE_ALERTING"
+			not-null="true" length="7" />
+		<property name="purchaseThresholdBlocking" type="double"
+			column="PURCHASE_THRESHOLD_BLOCKING" not-null="true" length="7" />
+		<property name="purchaseValue" type="double" column="PURCHASE_VALUE"
+			not-null="true" length="7" />
+		<property name="smartcardNumber" type="string" column="SMARTCARD_NUMBER"
+			unique="true" length="50" />
+		<property name="smsAlerting" type="string" column="SMS_ALERTING"
+			length="1" />
+		<!-- Associations -->
+		<!-- bi-directional many-to-one association to AccountAttribute -->
+		<set name="accountAttributes" inverse="true" lazy="true">
+			<key>
+				<column name="USER_ID" />
+				<!--
+					a foreign key in ACCOUNT_ATTRIBUTE referencing the primary key of
+					this table.
+				-->
+			</key>
+			<one-to-many class="com.accenture.ams.db.bean.AccountAttribute" />
+		</set>
+		<!-- bi-directional many-to-one association to AccountProduct -->
+		<set name="accountProducts" inverse="true" lazy="true">
+			<key>
+				<column name="USER_ID" />
+				<!--
+					a foreign key in ACCOUNT_PRODUCT referencing the primary key of
+					this table.
+				-->
+			</key>
+			<one-to-many class="com.accenture.ams.db.bean.AccountProduct" />
+		</set>
+		<!-- bi-directional many-to-one association to AccountPromo -->
+		<set name="accountPromos" inverse="true" lazy="true">
+			<key>
+				<column name="USER_ID" />
+				<!--
+					a foreign key in ACCOUNT_PROMO referencing the primary key of this
+					table.
+				-->
+			</key>
+			<one-to-many class="com.accenture.ams.db.bean.AccountPromo" />
+		</set>
+		<!-- bi-directional many-to-one association to AccountTechnicalPkg -->
+		<set name="accountTechnicalPkgs" inverse="true" lazy="true">
+			<key>
+				<column name="USER_ID" />
+				<!--
+					a foreign key in ACCOUNT_TECHNICAL_PKG referencing the primary key
+					of this table.
+				-->
+			</key>
+			<one-to-many class="com.accenture.ams.db.bean.AccountTechnicalPkg" />
+		</set>
+		<!-- bi-directional many-to-one association to StatusType -->
+		<many-to-one name="statusType"
+			class="com.accenture.ams.db.bean.StatusType" lazy="false">
+			<column name="STATUS_ID" not-null="true" length="38" />
+		</many-to-one>
+		<!-- bi-directional one-to-one association to CrmAccount -->
+		<one-to-one name="crmAccount" class="com.accenture.ams.db.bean.CrmAccount"
+			lazy="false" outer-join="auto" cascade="all" />
+		<set name="device" inverse="true" lazy="true">
+			<key>
+				<column name="USER_ID" />
+			</key>
+			<one-to-many class="com.accenture.ams.db.bean.AccountDeviceAMS" />
+		</set>
+	</class>
+</hibernate-mapping>

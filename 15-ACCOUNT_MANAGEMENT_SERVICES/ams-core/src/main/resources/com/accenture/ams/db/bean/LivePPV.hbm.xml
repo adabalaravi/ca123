@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="com.accenture.ams.db.bean.LivePPV" table="LIVE_PPV"
+		lazy="false">
+		
+	  <id column="PPV_ID" length="11" name="ppvId" type="long">
+	   <generator class="assigned"/>
+	  </id>
+		
+		
+	  <property column="LIVE_CONTENT_ID" generated="never" lazy="false" length="11"
+	   name="liveContentId" not-null="true" type="long"/>		
+		
+	  <property column="CHANNEL_ID" generated="never" lazy="false" length="11"
+	   name="channelId" not-null="true" type="long"/>		
+		
+	  <property column="PLAYLIST_PUBLISHED_DATE" generated="never" lazy="false" length="22"
+	   name="playlistPublishedDate" not-null="true" type="date"/>		
+		
+	  <property column="PACKAGE_ID" generated="never" lazy="false" length="11"
+	   name="packageId" not-null="true" type="long"/>		
+        
+		
+		<!--
+		<key-property name="channelId" type="long"
+				column="CHANNEL_ID" length="11" />
+				
+			<key-property name="liveContentId" type="long"
+				column="LIVE_CONTENT_ID" length="11" />
+			<key-property name="playlistPublishedDate" type="date"
+				column="PLAYLIST_PUBLISHED_DATE" length="22" />
+			<key-property name="packageId" type="long" column="PACKAGE_ID"
+				length="22" />-->
+
+		<property name="price" type="long" column="PRICE" length="11"
+			not-null="true" />
+	
+		<property name="externalId" type="string" column="EXTERNAL_ID" length="50"
+			not-null="true" />			
+
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<class name="com.accenture.ams.db.bean.Platform" lazy="false"  table="PLATFORM">
+	<id
+        name="platformId"
+        type="long"
+        column="PLATFORM_ID"
+        length="22"
+    >
+		<generator class="assigned" />
+	</id>
+	<!--<property
+        name="creationDate"
+        type="timestamp"
+        column="CREATION_DATE"
+        not-null="true"
+        length="7"
+    />
+	--><property
+        name="platformName"
+        type="string"
+        column="PLATFORM_NAME"
+        not-null="true"
+        unique="true"
+        length="10"
+    />
+		<property
+        name="updateDate"
+        type="timestamp"
+        column="UPDATE_DATE"
+        not-null="true"
+        length="7"
+    />
+
+	<!-- Associations -->
+
+</class>
+</hibernate-mapping>

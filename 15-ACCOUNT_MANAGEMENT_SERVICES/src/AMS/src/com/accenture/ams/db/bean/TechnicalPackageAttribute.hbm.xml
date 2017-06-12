@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.accenture.ams.db.bean.TechnicalPackageAttribute" lazy="false" table="TECHNICAL_PACKAGE_ATTRIBUTE">
+
+		<id name="id" type="long" column="ID" length="11">
+			<generator class="native" />
+		</id>
+
+		<property name="packageId" type="long" length="11" column="PACKAGE_ID"/>
+
+		<property name="attributeDetailId" type="long" length="11" column="ATTRIBUTE_DETAIL_ID"/>
+		
+		<property name="attributeValue" type="string" length="512" column="ATTRIBUTE_VALUE"/>
+		
+	</class>
+</hibernate-mapping>

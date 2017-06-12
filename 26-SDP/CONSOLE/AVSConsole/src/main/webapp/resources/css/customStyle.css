@@ -1,0 +1,663 @@
+
+#localContent{
+	font-family: "Trebuchet MS",Verdana,serif;
+	background-color: #000000;
+	background-image: url("../images/bck.jpg");
+	
+}
+
+.orange{
+	color: #FF9900;
+}
+
+.pageTitle {
+	font-weight: bold;
+	color: #FF9900;
+	font-size: 21.6px;
+}
+
+.separator{
+	height: 1px;
+	width: 98%;
+	background-color: #A8A8A8;
+}
+
+.UserDetails{
+	text-align: left;
+	font-size: 13px;
+	white-space: nowrap;
+	
+}
+.UserDetailsTitle{
+	width: 110px; 
+	color: black;
+}
+
+/* ----- HEADER ----- */
+.languageMenu {
+	background-color: #507590;
+	color: white;
+	width: 90px;
+	border: 1px solid #D9D9D9;
+	margin: 2px;
+	padding: 3px;
+}
+
+/* ----- MENU ----- */
+.menuContainerClass {
+	width: auto;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.menuBarClass .ui-menuitem-text {
+	text-align: center;
+	width: 100%;
+}
+
+.menuBarClass .ui-menu-parent .ui-menuitem-text {
+	text-align: center;
+	width: 90%;
+}
+
+.menuBarClass .ui-menuitem-link {
+	width: 200px;
+}
+
+.menuBarClass .ui-menu-parent .ui-menu-child {
+	width: 200px;
+}
+
+.menuBarClass .ui-menu-parent .ui-menu-child .ui-menuitem-text {
+	text-align: left;
+	width: 200px;
+}
+
+#menucolumn{
+	border: 0 solid #000000;
+    float: left;
+    width: 18%;
+}
+
+#contentcolumn {
+    border: 0 solid #000000;
+    margin-left: 190.5px;
+    width: 729px;
+}
+
+.contentSubMenu {
+    border: 0 solid #CCCCCC;
+    float: right;
+    font-weight: bold;
+    padding: 4px;
+    /* width: 365px; */
+}
+
+.avsStyle .contentSubMenu a{
+	 font-size: 11px;
+	 color: #666666;
+}
+
+
+/* ----- BREADCRUMB ----- */
+.breadCrumbStyle {
+	padding-top: 40px;
+	margin-left: 10px;
+	padding-bottom: 10px;
+	font-weight: bold;
+	color: #2779AA;
+}
+
+.breadCrumbStyle a {
+	color: #2779AA;
+	text-decoration: none;
+}
+
+/* ----- CONTENT ----- */
+#content {
+	width: 975px;
+	text-align: left;
+	margin: 20px auto 0;
+	margin-top: 20px;
+	border-radius: none;
+}
+
+#appContent {
+	margin: 20px auto 0;
+	border-radius: 0 0 0 0;
+	padding: 0px;
+	
+}
+
+#appContainer {
+	margin-left: 27px;
+	padding: 0px;
+}
+
+.fixedHeightPanelClass {
+	height: 500px;
+	margin: auto;
+}
+
+.minHeightPanelClass {
+	min-height: 720px;
+	margin: auto;
+}
+
+.horizontalAlignClass {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.alignCenterClass {
+	text-align: center;
+}
+.alignLeftClass {
+	text-align: left;
+}
+
+.alignRightClass {
+	text-align: right;
+}
+
+/* ----- FORMS ----- */
+.searchBorderPanel {
+	widht: auto;
+	border: 1px solid #d9d9d9;
+	padding: 10px;
+}
+
+.firstColumnFormClass {
+	width: 130px;
+	white-space: nowrap;
+	text-align: left;
+}
+
+.avsStyle .ui-inputfield.ui-state-disabled {
+	opacity: 0.7;
+}
+
+.avsStyle .ui-selectonemenu.ui-state-disabled {
+	opacity: 0.7;
+	background: white;
+}
+
+/* ----- TABLES -----*/
+.avsStyle .fixedTableStyle table {
+	table-layout: fixed;
+}
+
+.avsStyle .operationsColumn {
+	border: 0px;
+	width: 80px;
+	background: none;
+	
+}
+
+.avsStyle .statusColumn {
+	width: 80px;
+	text-align: center;
+
+}
+
+.tenantColumn{
+	vertical-align: top;
+}
+
+.menuOption {
+	text-align: left;
+}
+
+.avsStyle .darkButton{
+	color: white;
+	top: -25px;
+	background-image: url("../images/btnDataGridNo.gif");
+	border-radius: 0 0 0 0;
+	text-shadow: none;
+	border: 0px;
+	font-size: 13px;
+	font-weight: lighter;
+	box-shadow: none;
+}
+
+.avsStyle .darkButtonSyle{
+	color: white;
+	background-image: url("../images/btnDataGridNo.gif");
+	border-radius: 0 0 0 0;
+	text-shadow: none;
+	border: 0px;
+	font-size: 13px;
+	font-weight: lighter;
+	box-shadow: none;
+}
+
+.addCommandLink {
+	position: absolute;
+	left: 50%;
+	background-color: red;
+	width: 40%;
+	top: 0px;
+}
+
+.currencyRow{
+	width: 20px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	text-align: center;
+	
+}
+
+
+
+/* PRIME STYLE */
+
+.avsStyle .ui-panel .ui-panel-content{
+	padding: 0px;
+}
+
+.avsStyle .ui-picklist .ui-picklist-list {
+    height: 150px;
+    list-style-type: none;
+    margin: 0;
+    overflow: auto;
+    padding: 0;
+    width: 300px;
+    border: 1px solid #D7D7D7;
+}
+
+.avsStyle .ui-picklist .ui-picklist-list .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight{
+	background-color: blue;
+	color: #FFFFFF;
+	border: 0px;
+}
+
+.avsStyle .ui-picklist .ui-picklist-caption {
+	text-align: left;
+}
+
+.avsStyle .fixedTableStyle table {
+	table-layout: fixed;
+}
+
+
+.avsStyle .fixedTableStyle td {
+	white-space: nowrap;
+	color: black;
+	font-size: 11px;
+	text-overflow: ellipsis;
+}
+
+.avsStyle .normalTableStyle td {
+	white-space: normal;
+	color: black;
+	font-size: 11px;
+	text-overflow: ellipsis;
+}
+
+
+.avsStyle .ui-datatable th{
+	vertical-align: top;
+	background: none;
+ 	border: none;
+ 	text-overflow: ellipsis;
+}
+
+.avsStyle .ui-datatable th .ui-dt-c{
+	overflow: hidden;
+	text-overflow: ellipsis; 
+	padding: 4px 5px;
+	
+}
+
+.avsStyle .ui-datatable th .ui-dt-c span{
+	text-decoration: underline;
+}
+
+
+.avsStyle .ui-datatable tfoot td {
+	background: none;
+	border: 0px;
+	color: #FF9900;
+	vertical-align: middle;
+	 
+}
+.avsStyle .ui-widget-header .ui-state-default{
+	background: none;
+	
+}
+
+
+.avsStyle .ui-selectonemenu.ui-state-disabled {
+	opacity: 0.7;
+}
+
+.avsStyle .actionButton{
+	color: #ffffff;
+	background: #6DC8E7;
+	border: 0px;
+	border-radius: 0px 0px 0px 0px;
+	text-shadow: none;
+	font-size: 13px;
+	font-weight: lighter;
+	box-shadow: none;
+
+}
+
+.avsStyle .ui-datatable .ui-selection-column {
+	width: 35px;
+}
+ 
+.avsStyle .ui-datatable .ui-selection-column .ui-chkbox-all{
+	width: 11px;
+	height: 11px;
+	background-color: #F4F4F4;
+}
+
+.avsStyle .ui-chkbox .ui-chkbox-box {
+	width: 11px;
+	height: 11px;
+	margin: 0 auto;
+	background-color: #F4F4F4;
+}
+
+.avsStyle .ui-icon-check {
+    background-position: -65.5px -148px;
+    width: 11px;
+	height: 11px;
+	background-color: #F4F4F4;
+}
+
+.avsStyle .selectionCheckBox{
+	border: 0px;
+	background: none;
+}
+
+
+#barDataGrid {
+    background: url("../images/bckBarDataGrid.jpg") repeat-x scroll center bottom transparent;
+    color: #767B78;
+    font-size: 0.9em;
+    font-weight: bold;
+    height: 20px;
+    padding: 12px 8px;
+}
+
+.barButtomOpenFilter {
+    background-image: url("../images/glass-filter.gif");
+    background-repeat: no-repeat;
+    border: 0 solid;
+    color: #000000;
+    display: inline;
+    margin: 0 0 0 20px;
+    padding-left: 18px;
+    width: 60px;
+    font-size: 13px;
+}
+
+
+/* ----- PRIME THEME OVERRIDE ----- */
+
+/*
+.avsStyle .ui-icon {
+    background-image: url("../images/ui-icons_a1ddff_256x240.png");
+    height: 16px;
+    width: 16px;
+}
+
+*/
+
+
+.avsStyle .ui-widget-content {
+	border: 0px;
+	background: white;
+}
+
+
+.avsStyle .ui-widget{
+	font-family: "Trebuchet MS",Verdana,serif;
+	font-size: 9pt;
+}
+
+.ui-datatable .ui-selection-column{
+	vertical-align: middle;
+	text-align: center;
+}
+
+.ui-datatable .ui-datatable-data td, .ui-datatable .ui-datatable-data-empty td{
+	border-width: 0px;
+}
+
+.avsStyle .ui-datatable-even, .avsStyle  .ui-datatable-odd{
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-style: solid;
+    border-color: #D5EBCB;
+    border-width: 0px 0px 1px 0px;
+    color: #4F4F4F;
+}
+
+.avsStyle .ui-datatable tr.ui-state-hover{
+	border-style: solid;
+    border-color: #D5EBCB;
+    border-width: 0px 0px 1px 0px;
+}
+
+.avsStyle .ui-datatable thead tr{
+	border-style: solid;
+    border-color: #D5EBCB;
+    border-width: 0px 0px 1px 0px;
+}
+
+.avsStyle .ui-datatable .ui-sortable-column {
+	cursor: pointer;
+    vertical-align: top;
+    background: none;
+    color: #666666;  
+}
+
+.avsStyle .ui-widget-header{
+	background: none; 
+	border: 0px;
+}
+.avsStyle .ui-datatable th ui-dt-c span{
+	text-decoration: underline;
+}
+.avsStyle .ui-datatable .ui-column-filter {
+    display: block;
+    margin: 0px;
+    width: 90%;
+    background: none;
+    text-decoration: none;
+}
+
+.avsStyle .ui-datatable .ui-dt-c .ui-inputtext {
+	height: 10px;
+}
+
+.ui-datatable .ui-paginator, .ui-datatable .ui-paginator {
+    text-align: right;
+}
+
+.avsStyle .ui-paginator .ui-paginator-current, .ui-paginator .ui-paginator-rpp-options {
+	background: none;
+}
+
+.ui-chkbox .ui-chkbox-box {
+	color: black;
+	background: white;
+}
+
+.avsStyle .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight{
+	background: none repeat scroll 0 0 #FFFFFF;
+    border:  solid #D5EBCB;
+    border-width: 0px 0px 1px 0px;
+    color: #4F4F4F;
+    text-shadow: none;
+}
+
+.ui-paginator .ui-paginator-page, .ui-paginator .ui-paginator-next, .ui-paginator .ui-paginator-last, .ui-paginator .ui-paginator-first, .ui-paginator .ui-paginator-prev {
+    cursor: pointer;
+    background: none;
+    color: #FF9900;
+    border: 0px;
+}
+
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active{
+	text-decoration: underline;
+}
+
+.menuContainerClass  .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header {
+	box-shadow:none;
+}
+
+
+.avsStyle .ui-icon-seek-next {
+    background: white;
+    color: white;
+    width: 18px;
+    background-image: url("../images/p.arrow.2.gif");
+	background-repeat: none;
+}
+
+.avsStyle .ui-icon-seek-prev {
+    background: white;
+    color: white;
+    width: 19px;
+    background-image: url("../images/p.arrow.gif");
+    background-repeat: none;
+	
+}
+
+.avsStyle .ui-datepicker {
+    display: none;
+    padding: 0.2em 0.2em 0;
+    width: 17em;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.avsStyle .ui-datepicker .ui-datepicker-calendar .ui-state-default {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    color: #1C94C4;
+    border: 1px solid #CCCCCC;
+    font-weight: normal;
+    background: url("../images/ui-bg_glass_100_f6f6f6_1x400.png") repeat-x scroll 50% 50% #F6F6F6;
+}
+
+.avsStyle .ui-datepicker .ui-datepicker-calendar .ui-state-hover {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    color: #C77405;
+    border: 1px solid #CCCCCC;
+    background: url("../images/ui-bg_gloss-wave_35_ff9900_500x100.png") repeat-x scroll 50% 50% #F6F6F6;
+}
+
+.avsStyle .ui-datepicker .ui-datepicker-current-day .ui-state-highlight,.avsStyle .ui-datepicker .ui-datepicker-current-day .ui-state-default {
+	background: none;
+    border: 1px solid #FF9900;
+    color: #FF9900 !important;
+    font-weight: normal;
+    text-shadow: none;
+}
+
+.avsStyle .ui-datepicker .ui-datepicker-header {
+    background: url("../images/ui-bg_gloss-wave_35_ff9900_500x100.png") repeat-x scroll 50% 50% #F6F6F6;
+	padding: 0.2em 0;
+    position: relative;
+	border-radius: 4px;
+}
+
+.secondColumnFormClass, .thirdColumnFormClass{
+	width: 130px;
+	white-space: nowrap;
+	text-align: center;
+}
+
+.borderDotted{
+	border-bottom: 1px dotted gray;
+	border-top: 1px dotted gray;
+}
+
+.operationsColumn .imageInfo{
+	background:  transparent ;
+	border: none;
+}
+
+.avsStyle .ui-selectonemenu-panel li.ui-state-active{
+	background-color: blue;
+    border: 0 none;
+    color: #FFFFFF;
+    
+}
+
+.avsStyle .ui-selectonemenu-panel li.ui-state-highlight{
+	border-width: 0px; 
+	background: -moz-linear-gradient(center top , rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4)) repeat scroll 0 0 #85B2CB;
+	background-color: #85B2CB;
+    color: #FFF;
+    
+}
+
+.avsStyle .ui-inputfield{
+	box-shadow:none;
+	border-radius: 0 0 0 0;
+	border: 1px solid #D7D7D7;
+    font-size: 12px;
+    height: 18px;
+    padding: 0px;
+    line-height: 18px;
+}
+
+
+
+.avsStyle .ui-autocomplete{
+	vertical-align: middle;
+}
+
+.avsStyle .ui-autocomplete .ui-button-icon-only{
+	height: 20px;
+	width: 20px;
+	border-radius: 0 0 0 0;
+	border: 1px solid #A8A8A8;
+}
+
+.avsStyle .ui-autocomplete .ui-button-icon-only .ui-button-text{
+	padding: 0px;
+	line-height: 0px;
+}
+
+.avsStyle .ui-inputfield.ui-state-focus{
+	box-shadow:none;
+}
+
+.avsStyle .ui-autocomplete-panel li.ui-state-highlight{
+	border-width: 0px; 
+	background: -moz-linear-gradient(center top , rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4)) repeat scroll 0 0 #85B2CB;
+	background-color: #85B2CB;
+    color: #FFF;   
+}
+.avsStyle .ui-selectonemenu {
+	border-radius: 0 0 0 0;
+}
+.avsStyle .ui-selectonemenu .ui-inputfield{
+	border: 1px solid #FFF;
+	height: 19px;
+    padding: 0px;
+    line-height: 18px;
+    margin: 0px;
+    font-size: 12px;
+}
+.avsStyle .ui-selectonemenu-panel .ui-selectonemenu-list{
+	border: 1px solid #CCCCCC;
+    
+}
+
+.avsStyle .alignLeftClass .ui-state-focus{
+	box-shadow:none;
+}
+
+
+

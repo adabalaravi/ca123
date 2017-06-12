@@ -1,0 +1,30 @@
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+	
+	
+	<p:menuitem value="#{msgs['operations.activate']}" actionListener="#{infoSessionBean.tableBean.askChangeStatus}"
+		rendered="${item.suspended or item.inactive}" oncomplete="handlePopupVisibility(xhr, status, args)" >
+		<f:attribute name="item" value="#{item}" />
+		<f:attribute name="status" value="Active" />
+	</p:menuitem>
+<!-- 
+<p:menuitem id="suspend" value="#{msgs['operations.suspend']}" actionListener="#{infoSessionBean.tableBean.askChangeStatus}"
+		rendered="${item.active or item.inactive}" oncomplete="handlePopupVisibility(xhr, status, args)" >
+		<f:attribute name="item" value="#{item}" />
+		<f:attribute name="status" value="Suspended" />
+	</p:menuitem>
+ 	
+	<p:menuitem id="inactive" value="#{msgs['operations.inactivate']}" actionListener="#{infoSessionBean.tableBean.askChangeStatus}"
+		rendered="${item.active or item.suspended}" oncomplete="handlePopupVisibility(xhr, status, args)" >
+		<f:attribute name="item" value="#{item}" />
+		<f:attribute name="status" value="Inactive" />
+	</p:menuitem>
+	
+	<p:menuitem id="delete"  value="#{msgs['operations.delete']}" actionListener="#{infoSessionBean.tableBean.askChangeStatus}"
+		rendered="${item.inactive}" oncomplete="handlePopupVisibility(xhr, status, args)" >
+		<f:attribute name="item" value="#{item}" />
+		<f:attribute name="status" value="Deleted" />
+	</p:menuitem>
+  -->
+	
+</div>

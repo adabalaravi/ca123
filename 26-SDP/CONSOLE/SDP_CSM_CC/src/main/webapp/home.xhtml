@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html" />
+<h:head>
+	<title>AVS Product Monetization Console</title>
+	<link rel="shortcut icon" href="./images/favicon.ico" />
+	<!--
+	<link rel="stylesheet" type="text/css" href="./css/general.css" />
+	<link rel="stylesheet" type="text/css" href="./css/dataTables.css" />
+	<link rel="stylesheet" type="text/css" href="./css/menu.css" />
+-->
+	<link rel="stylesheet" type="text/css" href="./css/avs.css" />
+	<link rel="stylesheet" type="text/css" href="./css/customstyle.css" />
+	<link rel="stylesheet" type="text/css" href="./css/customStyleMenu.css" />
+	
+</h:head>
+<h:body styleClass="avsStyle">
+
+	<!--  
+	<div id="consoleLinkHeader">
+		<div id="realConsoleLinkHeader">
+			<h:outputLink value="#{loginBean.catalogueConsoleUrl}">
+				<h:outputText value="#{msgs['header.catalogueConsoleUrl']}" style="color:white; font-weight: 900;" />
+			</h:outputLink>
+			<h:outputLink value="#{loginBean.assuranceConsoleUrl}">
+				<h:outputText value="#{msgs['header.assuranceConsoleUrl']}" style="color:white; font-weight: 900;" />
+			</h:outputLink>
+		</div>
+	</div>
+	-->
+	<div class="drop-shadow" id="main">
+
+
+		<f:view locale="#{pageBean.currentLocale}">
+			<!-- 
+			<div id="header">
+				<div id="headerBar">
+					<ui:include src="main/header.xhtml" />
+				</div>
+			</div>
+			-->
+			<p:panel id="content" align="right" styleClass="minHeightPanelClass" >
+				
+				<p:outputPanel id="appContainer">
+					<div id="menucolumn">
+						<ui:include src="main/menuBar.xhtml" />
+						<h:form id="userDetailsDiv">
+						<div class="UserDetails">
+							<div class="UserDetailsTitle">User Details <br/>
+							<div class="separator"></div></div>
+							<h:outputText value="Username" /> <br/>
+							<h:outputText value="#{infoSessionBean.operator.username}" styleClass="orange"/> <br/>
+							<h:outputText value="Commercial packages" /> <br/>
+							<h:outputText value="#{infoSessionBean.commercialPackageCounter}" styleClass="orange"/> <br/>
+							<h:outputText value="Technical packages"  /> <br/>
+							<h:outputText value="#{infoSessionBean.technicalPackageCounter}" styleClass="orange"/>
+						</div>
+						</h:form>
+					</div>
+					<div id="contentcolumn">
+					<p:outputPanel id="appContent">
+						
+							<!--  
+						<h:form id="breadCrumbForm">
+						<div id="mainForm:j_idt200_header" class="ui-breadcrumb ui-module ui-widget ui-widget-header ui-helper-clearfix ui-corner-all">
+						</div>
+						
+						
+							<h:panelGroup styleClass="breadCrumbStyle"
+								visible="#{layoutController.menuVisible}">
+								<ui:repeat value="#{infoSessionBean.breadCrumb}" var="t"
+									varStatus="status">
+
+									<ui:fragment rendered="${!status.first}">
+										<h:outputText value=" &#9658;" style="color: #FF9900" />
+									</ui:fragment>
+
+									<ui:fragment rendered="${t.link == null}">
+										<h:outputText value="#{t.title}"></h:outputText>
+									</ui:fragment>
+
+									<ui:fragment rendered="${t.link != null}">
+										<h:commandLink id="bread" value="#{t.title}"
+											action="#{menuBean.dispatchRequest}">
+											<f:param name="breadParam" value="#{t.link}" />
+										</h:commandLink>
+									</ui:fragment>
+								</ui:repeat>
+							</h:panelGroup>
+						</h:form>
+						-->
+						<ui:include src="#{layoutController.contentInclude}">This page has no content.</ui:include>
+					</p:outputPanel>
+					</div>
+				</p:outputPanel>
+				<div>
+					<ui:include src="main/popupPage.xhtml" />
+				</div>
+			</p:panel>
+		</f:view>
+	</div>
+	<!-- 
+	<div id="footer">
+		<h:outputText id="appFooterLabel" value="#{msgs['footer.label']}" />
+	</div>
+	 -->
+</h:body>
+</html>

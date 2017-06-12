@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+
+
+<h:form id="mainForm">
+	<p:outputPanel>
+	<h:outputText value="#{msgs['frequency.addFrequency.header']}" styleClass="pageTitle"/>
+		<center>
+			<h:panelGrid columns="1" styleClass="GenericFormPanelClass">
+				<h:panelGroup>
+					<center>
+						<h:panelGrid columns="3" styleClass="alignLeftClass">
+							<h:panelGroup>
+								<h:outputLabel for="frequencyName" value="#{msgs['frequency.addFrequency.FrequencyNameLbl']}" />
+								<h:outputLabel value="#{msgs['validator.requiredMark']}" />
+							</h:panelGroup>
+							<p:inputText id="frequencyName" value="#{frequencyManager.selectedBean.frequencyName}" size="50" maxlength="50">
+								<f:validateLength minimum="0" maximum="50" />
+							</p:inputText>
+							<p:message for="frequencyName" />
+
+							<h:outputLabel for="frequencyDays" value="#{msgs['frequency.addFrequency.FrequencyDaysLbl']}" />
+							<p:inputText id="frequencyDays" value="#{frequencyManager.selectedBean.frequencyDaysString}" size="50" maxlength="5" />
+							<p:message for="frequencyDays"/>
+
+							<h:outputLabel for="frequencyDescription" value="#{msgs['frequency.addFrequency.FrequencyDescLbl']}" />
+							<p:inputText id="frequencyDescription" value="#{frequencyManager.selectedBean.frequencyDesc}" size="50" maxlength="4095">
+								<f:validateLength minimum="0" maximum="4095" />
+							</p:inputText>
+							<p:message for="frequencyDescription" />
+
+						</h:panelGrid>
+						<h:panelGrid columns="2">
+							<p:commandButton value="#{msgs['button.cancelLabel']}"  
+								update=":appContent" type="reset" styleClass="darkButtonSyle">
+											<f:param name="breadParam" value="frequency.view" />
+							</p:commandButton>
+							<!-- action="#{menuBean.dispatchRequest}" --> 
+							<p:commandButton value="#{msgs['button.insertLabel']}" actionListener="#{frequencyManager.addFrequency}" styleClass="actionButton"
+								oncomplete="handlePopupVisibility(xhr, status, args)" update=":appContent :popupBeanContent" />
+						</h:panelGrid>
+						<h:outputText value="#{msgs['validator.requiredFields']}" />
+					</center>
+				</h:panelGroup>
+			</h:panelGrid>
+		</center>
+	</p:outputPanel>
+</h:form>
+</html>
+

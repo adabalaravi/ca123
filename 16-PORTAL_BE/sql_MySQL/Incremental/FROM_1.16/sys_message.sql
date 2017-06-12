@@ -1,0 +1,1 @@
+INSERT INTO `avs_be`.`sys_messages` (`message_key`, `type`, `language`, `message_text`, `message_code`) VALUES ('ERROR_BE_ACTION_CA_3036_INCORRECT_USER_PASSWORD', 'ERROR', 'en', 'Please reset your password.', 'CA_3036');

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.accenture.avs.ca.be.db.bean.SolutionOfferinclDurationDetailsBean"
+		table="SDP_SOLUTION_OFFER_VIEW">
+		<id name="solutionOfferID" column="SOLUTION_OFFER_ID">
+			<generator class="assigned" />
+		</id>
+		<property name="duration" column="DURATION" />
+		<property name="solutionOfferType" column="SOLUTION_OFFER_TYPE" />
+
+	</class>
+	<sql-query name="getDurationInfoSolutionOffer">
+	
+	<return alias="solOff"
+			class="com.accenture.avs.ca.be.db.bean.SolutionOfferinclDurationDetailsBean" />
+				<![CDATA[	
+				SELECT 
+				sov.SOLUTION_OFFER_ID as {solOff.solutionOfferID},
+				sov.DURATION as {solOff.duration}  ,   
+				sov.SOLUTION_OFFER_TYPE  as {solOff.solutionOfferType}
+				FROM sdp_solution_offer_view sov
+				WHERE sov.SOLUTION_OFFER_ID = ?
+				
+]]>
+	
+	</sql-query>
+
+</hibernate-mapping>

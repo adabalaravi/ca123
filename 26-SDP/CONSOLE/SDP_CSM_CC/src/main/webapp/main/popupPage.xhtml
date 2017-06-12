@@ -1,0 +1,53 @@
+<h:panelGroup xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+	<!-- Modal Panel Popup -->
+
+	<script type="text/javascript">
+		function handlePopupVisibility(xhr, status, args) {
+			if ( !args.validationFailed) {
+				if (args.openPopup) {
+					PrimeFaces.ajax.AjaxRequest({formId:'popupBeanContent', update:'popupBeanContent'});
+					popupBean.initPosition();
+                    popupBean.show();
+                } else if (args.openConfirmPopup) {
+                    PrimeFaces.ajax.AjaxRequest({formId:'confirmPopupBeanContent', update:'confirmPopupBeanContent'});
+                    confirmPopup.initPosition();
+                    confirmPopup.show();
+				}
+			}
+		}
+
+	
+		
+	</script>
+
+	<p:dialog id="pupupBeanId" header="#{msgs['popup.title']}" widgetVar="popupBean" modal="true" 
+		closable="false" draggable="false" resizable="false" >
+		<p:ajax event="close" update=":appContent :userDetailsDiv" />
+		<h:form id="popupBeanContent">
+			<center>
+				<h:outputText value="#{popupBean.modalMessage}" />
+				<br />
+				<p:commandButton type="submit" styleClass="actionButton" value="#{msgs['popup.comfirm']}" action="#{popupBean.closeAndGoNext}" 
+					oncomplete="popupBean.hide()" update = ":appContent"/>
+			</center>
+		</h:form>
+	</p:dialog>
+
+	<p:dialog id="confirmDialog" header="#{msgs['popup.title']}" widgetVar="confirmPopup" modal="true" closable="false" draggable="false" resizable="false">
+		<p:ajax event="close" />
+		<h:form id="confirmPopupBeanContent">
+			<center>
+				<h:outputText value="#{confirmPopupBean.message}" />
+			</center>
+			<br />
+			<h:panelGrid columns = "2" width = "100%" columnClasses = "alignLeft, alignRight">
+				<p:commandButton value="#{msgs['button.cancelLabel']}" styleClass="darkButtonSyle" onclick="confirmPopup.hide()" />
+				<p:commandButton type="submit" value="#{msgs['popup.comfirm']}" styleClass="actionButton" action="#{confirmPopupBean.confirm}" oncomplete="confirmPopup.hide();handlePopupVisibility(xhr, status, args)" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+
+
+</h:panelGroup>

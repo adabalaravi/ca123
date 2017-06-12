@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.accenture.ams.db.bean.Channel" lazy="false"    
+		table="CHANNEL">
+		<id name="channelId" type="long" column="CHANNEL_ID" length="22">
+			<generator class="assigned" />
+		</id>
+		<!--<property name="creationDate" type="timestamp" column="CREATION_DATE"
+			not-null="true" length="7" />-->
+		<property name="externalId" type="string" column="EXTERNAL_ID"
+			length="50" />
+		<property name="isAdult" type="string" column="IS_ADULT"
+			length="1" />
+		<property name="name" type="string" column="NAME" not-null="true"
+			length="50" />
+		<property name="orderId" type="long" column="ORDER_ID"
+			length="22" />
+		<property name="type" type="string" column="TYPE" not-null="true"
+			length="50" />
+		<!--<property name="updateDate" type="timestamp" column="UPDATE_DATE"
+			not-null="true" length="7" />-->
+		<property name="videoUrl" type="string" column="VIDEO_URL"
+			not-null="true" length="100" />
+
+
+		<!-- Associations -->
+		<!-- bi-directional many-to-one association to ChannelPlatform -->
+		<set name="channelPlatforms" inverse="true" lazy="false">
+			<key>
+				<column name="CHANNEL_ID" />
+			</key>
+			<one-to-many class="com.accenture.ams.db.bean.ChannelPlatform" />
+		</set>
+		<!-- bi-directional many-to-one association to ChannelTechnicalPkg -->
+		<set name="channelTechnicalPkgs" inverse="true" lazy="false" >
+			<key>
+				<column name="CHANNEL_ID" />
+				<!--
+					a foreign key in CHANNEL_TECHNICAL_PKG referencing the primary key
+					of this table.
+				-->
+			</key>
+			<one-to-many class="com.accenture.ams.db.bean.ChannelTechnicalPkg" />
+		</set>
+		<!-- bi-directional many-to-one association to LiveContent -->
+		<set name="liveContents" inverse="true" lazy="true" order-by="START_TIME asc" batch-size="20">
+			<key>
+				<column name="CHANNEL_ID" />
+			
+			</key>
+			<one-to-many class="com.accenture.ams.db.bean.LiveContent" />
+		</set>
+
+	</class>
+</hibernate-mapping>

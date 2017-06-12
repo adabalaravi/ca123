@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+<h:form>
+	<div id="barDataGrid" align="left">
+		<div class="barButtomOpenFilter" style="margin: 0 0 0 14px;">Filter</div>
+	</div>
+	<p:dataTable id="solutionOfferList" styleClass="fixedTableStyle" paginator="true" paginatorPosition="bottom"
+		rowKey="#{item.name}" rowsPerPageTemplate="#{msgs['paginator.rowsPerPageTemplate']}"
+		rows="#{msgs['paginator.rowsPerPageDefault']}" value="#{solutionOfferManager.commOffers}" var="item"
+		selection="#{solutionOfferManager.selectedCommOffer}" paginatorTemplate="#{msgs['paginator.paginatorTemplate']}"
+		paginatorAlwaysVisible="true" pageLinks="3">
+		<p:column id="solutionOfferName" sortBy="#{item.name}" filterBy="#{item.name}"
+			headerText="#{msgs['solutionOffer.solutionOfferNameColumn']}" styleClass="viewColumn">
+			<h:outputText value="#{item.name}" title="#{item.name}" />
+		</p:column>
+		<p:column id="solutionOfferDesc" sortBy="#{item.description}"
+			headerText="#{msgs['solutionOffer.solutionOfferDescColumn']}" styleClass="viewColumn">
+			<h:outputText value="#{item.description}" title="#{item.description}" />
+		</p:column>
+		<p:column id="solutionOfferStatus" sortBy="#{item.statusName}"
+			headerText="#{msgs['solutionOffer.solutionOfferStatusColumn']}" styleClass="viewColumn">
+			<h:outputText value="#{item.statusName}" title="#{item.statusName}" />
+		</p:column>
+		<p:column id="solutionOfferStartDate" sortBy="#{item.startDate}"
+			headerText="#{msgs['solutionOffer.solutionOfferStartDateColumn']}" styleClass="viewColumn">
+			<h:outputText value="#{item.startDate}" title="#{item.startDate}">
+				<f:convertDateTime timeZone="#{msgs['application.timeZone']}" pattern="#{msgs['date.pattern']}" />
+			</h:outputText>
+		</p:column>
+		<p:column id="solutionOfferEndDate" sortBy="#{item.endDate}"
+			headerText="#{msgs['solutionOffer.solutionOfferEndDateColumn']}" styleClass="viewColumn">
+			<h:outputText value="#{item.endDate}" title="#{item.endDate}">
+				<f:convertDateTime timeZone="#{msgs['application.timeZone']}" pattern="#{msgs['date.pattern']}" />
+			</h:outputText>
+		</p:column>
+		<p:column id="solutionOfferCreationDate" sortBy="#{item.creationDate}"
+			headerText="#{msgs['solutionOffer.solutionOfferCreationDateColumn']}" styleClass="viewColumn">
+			<h:outputText value="#{item.creationDate}" title="#{item.creationDate}">
+				<f:convertDateTime timeZone="#{msgs['application.timeZone']}" pattern="#{msgs['date.pattern']}" />
+			</h:outputText>
+		</p:column>
+		<p:column id="operationMenu" styleClass="operationsColumn">
+			<center>
+				<p:commandButton id="menuButton" value="Actions" styleClass="actionButton" />
+				<p:menu overlay="true" trigger="menuButton" my="left top" at="left bottom" styleClass="menuOption">
+					<p:menuitem id="subsscribe" value="#{msgs['operationMenu.subscribe']}"
+						actionListener="#{subscriptionManager.subscribeCommOffer}" oncomplete="handlePopupVisibility(xhr, status, args)"
+						update=":appContent" process="@this">
+						<f:attribute name="item" value="#{item}" />
+					</p:menuitem>
+				</p:menu>
+			</center>
+		</p:column>
+	</p:dataTable>
+	<h:panelGrid styleClass="horizontalAlignClass">
+		<p:commandButton value="#{msgs['button.cancelLabel']}" process="@this" update=":appContent"
+			actionListener="#{menuBean.dispatchRequest}" styleClass="darkButtonSyle">
+			<f:param name="breadParam" value="partyDetailsView" />
+		</p:commandButton>
+	</h:panelGrid>
+</h:form>
+</html>

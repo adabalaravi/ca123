@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:outputText value="#{msgs['user.detailsPage']}" styleClass="pageTitle"/>
+	<div class="contentSubMenu">
+	<h:form>
+	<p:commandButton value="Result List" process="@this"  icon="ui-icon-arrowreturnthick-1-w"  styleClass="backResultButton"
+		update=":appContent" actionListener="#{menuBean.dispatchRequest}">
+		<f:param name="breadParam" value="partyView" />
+	</p:commandButton>
+	</h:form>
+	</div>
+			
+	<h:panelGrid styleClass = "userDetailBorder">
+	<p:tabView id="tabset" effect="fade" effectDuration="fast"
+		styleClass="minHeightPanelClass" dynamic="true" cache="false"
+		activeIndex="#{partyManager.tabIndex}">
+		<!-- AjaxRequest evita che i selectOneMenu si restringano -->
+		<p:ajax event="tabChange"
+			listener="#{partyManager.tabChanged}" process="@this"
+			oncomplete="PrimeFaces.ajax.AjaxRequest({source:'tabset', update:'tabset'});" />
+		<p:tab id="partyDetails" title="#{msgs['tab.details']}">
+			<ui:include src="partyDetails.xhtml">This page has no content.</ui:include>
+		</p:tab>
+		<p:tab id="deviceTab" title="#{msgs['avsuser.device']}" disabled="true">
+			<ui:include src="manageDevices.xhtml">This page has no content.</ui:include>
+		</p:tab>
+		<!--p:tab id="deviceRulesTab" title="#{msgs['avsuser.device.rules']}">
+			<ui:include src="manageRules.xhtml">This page has no content.</ui:include>
+		</p:tab-->
+		<p:tab id="partySubscriptionsCommOffer"
+			title="#{msgs['tab.soloffers']}">
+			<ui:fragment
+				rendered="#{empty partyManager.tabInnerPage}">
+				<ui:include
+					src="../subscription/partySubscriptionViewCommOffer.xhtml" />
+			</ui:fragment>
+			<ui:fragment
+				rendered="#{not empty partyManager.tabInnerPage}">
+				<ui:include src="#{partyManager.tabInnerPage}" />
+			</ui:fragment>
+		</p:tab>
+		 
+		<p:tab id="partySubscriptionsVoucher" title="#{msgs['tab.vouchers']}">
+			<ui:fragment
+				rendered="#{empty partyManager.tabInnerPage}">
+				<ui:include src="../subscription/partySubscriptionViewVoucher.xhtml" />
+			</ui:fragment>
+			<ui:fragment
+				rendered="#{not empty partyManager.tabInnerPage}">
+				<ui:include src="#{partyManager.tabInnerPage}" />
+			</ui:fragment>
+		</p:tab>
+		 	</p:tabView>
+	</h:panelGrid>
+	<!-- 
+	
+ 	 -->
+</ui:composition>

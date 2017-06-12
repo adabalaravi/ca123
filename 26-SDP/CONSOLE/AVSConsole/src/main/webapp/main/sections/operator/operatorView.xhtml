@@ -1,0 +1,219 @@
+<h:panelGroup xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="operatorViewForm">
+	 <h:outputText value="#{msgs['menu.operators']}" styleClass="pageTitle"/>
+	 <div class="contentSubMenu">
+				<p:commandLink update=":appContent" process="@this"
+				rendered="#{infoSessionBean.operator.role.operatorsWrite}"
+				value="+ #{msgs['operator.addOperator']}"
+				actionListener="#{operatorManager.gotoAddOperatorStep1}" />
+			</div>
+		<div id="barDataGrid" > 
+			   <div class="barButtomOpenFilter" style="margin: 0 0 0 14px;"> Filter </div> 
+			 </div>
+		<p:dataTable id="listaOperator" styleClass="fixedTableStyle"
+			paginatorTemplate="#{msgs['paginator.paginatorTemplate']}"
+			paginator="true" paginatorPosition="bottom" rowKey="#{item.username}"
+			rowsPerPageTemplate="#{msgs['paginator.rowsPerPageTemplate']}"
+			rows="#{msgs['paginator.rowsPerPageDefault']}"
+			value="#{operatorManager.operators}" var="item"
+			paginatorAlwaysVisible="true">
+			<p:column id="usernameColumn" sortBy="#{item.username}"
+				filterBy="#{item.username}"
+				headerText="#{msgs['operator.username']}">
+				<h:outputText value="#{item.username}" title="#{item.username}" />
+			</p:column>
+			<p:column id="firstNameColumn" sortBy="#{item.firstName}"
+				filterBy="#{item.firstName}"
+				headerText="#{msgs['operator.firstName']}">
+				<h:outputText value="#{item.firstName}" title="#{item.firstName}" />
+			</p:column>
+			<p:column id="lastNameColumn" sortBy="#{item.lastName}"
+				filterBy="#{item.lastName}"
+				headerText="#{msgs['operator.lastName']}">
+				<h:outputText value="#{item.lastName}" title="#{item.lastName}" />
+			</p:column>
+			<!-- i ruoli non esistono piu'
+			<p:column id="roleNameColumn" sortBy="#{item.roleName}"
+				headerText="#{msgs['operator.role']}">
+				<h:outputText value="#{item.roleName}" title="#{item.roleName}" />
+			</p:column>
+			 -->
+			
+			<p:column id="tenantColumn" headerText="#{msgs['operator.tenant']}" styleClass="tenantColumn"
+				filterBy="#{item.tenantNames}" filterMatchMode="contains"
+				filterOptions="#{operatorManager.tenantList}">
+				<h:outputText escape="false" value="#{item.tenantNames}" />
+			</p:column>
+			
+			<p:column id="emailColumn" sortBy="#{item.email}"
+				headerText="#{msgs['operator.email']}">
+				<h:outputText value="#{item.email}" title="#{item.email}" />
+			</p:column>
+			
+			<p:column id="statusColumn" sortBy="#{item.statusName}"
+				headerText="#{msgs['operator.status']}" styleClass="statusColumn">
+				<h:outputText styleClass="statusColumnStyle"
+					value="#{item.statusName}" title="#{item.statusName}" />
+			</p:column>
+			
+			<p:column id="roleColum" style="width: 75px;" >
+				<center>
+					<p:commandButton value="View Rights" styleClass="actionButton"
+						actionListener="#{operatorManager.selectOperator}"
+						oncomplete="operatorRole.show()"
+						title="#{msgs['operator.operations.viewRights']}"
+						update=":operatorViewForm:operatorRoleDialog">
+						<f:attribute name="item" value="#{item}" />
+					</p:commandButton>
+				</center>
+			</p:column>
+			<p:column id="operationMenu" styleClass="operationsColumn">
+				<center>
+					<p:commandButton id="menuButton" value="Actions" styleClass="actionButton"/>
+					<p:menu overlay="true" trigger="menuButton" my="left top"
+						at="left bottom" styleClass="menuOption">
+						<p:menuitem id="modify" process="@this"
+							value="#{msgs['operator.operations.update']}"
+							actionListener="#{operatorManager.goToUpdatePage}"
+							update=":appContent"
+							rendered="#{infoSessionBean.operator.role.operatorsWrite}">
+							<f:attribute name="item" value="#{item}" />
+						</p:menuitem>
+						<p:menuitem process="@this"
+							value="#{msgs['operator.operations.updateRights']}"
+							actionListener="#{operatorManager.goToUpdateOperatorRights}"
+							update=":appContent"
+							rendered="#{infoSessionBean.operator.role.operatorsWrite}">
+							<f:attribute name="item" value="#{item}" />
+						</p:menuitem>
+						<p:menuitem id="modifyTenant" process="@this"
+							value="#{msgs['operator.operations.modifytenant']}"
+							actionListener="#{operatorManager.goToUpdateTenants}"
+							update=":appContent"
+							rendered="#{infoSessionBean.operator.role.operatorsWrite}">
+							<f:attribute name="item" value="#{item}" />
+						</p:menuitem>
+						<p:menuitem id="delete" process="@this"
+							value="#{msgs['operator.operations.delete']}"
+							actionListener="#{operatorManager.selectOperator}"
+							oncomplete="confirmDelete.show()"
+							update=":operatorViewForm:confirmDeleteDialog"
+							rendered="#{infoSessionBean.operator.role.operatorsWrite}">
+							<f:attribute name="item" value="#{item}" />
+						</p:menuitem>
+						<p:menuitem id="resetPassword" process="@this"
+							value="#{msgs['operator.operations.resetPassword']}"
+							actionListener="#{operatorManager.selectOperator}"
+							oncomplete="confirmReset.show()"
+							update=":operatorViewForm:confirmResetDialog"
+							rendered="#{infoSessionBean.operator.role.operatorsWrite}">
+							<f:attribute name="item" value="#{item}" />
+						</p:menuitem>
+					</p:menu>
+				</center>
+			</p:column>
+		</p:dataTable>
+<!--  
+		<h:panelGrid styleClass="horizontalAlignClass">
+			<p:commandButton update=":appContent" process="@this"
+				rendered="#{infoSessionBean.operator.role.operatorsWrite}"
+				value="#{msgs['operator.addOperator']}"
+				actionListener="#{operatorManager.gotoAddOperatorStep1}" />
+		</h:panelGrid>
+-->
+		<p:confirmDialog id="confirmDeleteDialog" widgetVar="confirmDelete"
+			message="#{msgs['operator.operations.delete']} #{operatorManager.selectedInfo.username} ?"
+			header="Confirmation" draggable="false" closable="false"
+			closeOnEscape="false" position="center" modal="true">
+			<center>
+				<h:panelGrid columns="2" styleClass="centeredPanelGrid">
+					<p:commandButton id="no" value="No" 	
+						onclick="confirmDelete.hide()" styleClass = "darkButtonSyle"/>
+					<p:commandButton id="yes" value="Yes"	
+						styleClass = "actionButton"
+						onclick="confirmDelete.hide()"
+						actionListener="#{operatorManager.deleteOperator}"
+						update="listaOperator" process="@this"
+						oncomplete="handlePopupVisibility(xhr, status, args)" />
+					
+				</h:panelGrid>
+			</center>
+		</p:confirmDialog>
+
+		<p:confirmDialog id="confirmResetDialog" widgetVar="confirmReset"
+			message="#{msgs['operator.operations.resetPassword']} #{operatorManager.selectedInfo.username} ?"
+			header="Confirmation" draggable="false" closable="false"
+			closeOnEscape="false" position="center" modal="true">
+			<h:panelGrid columns="2" styleClass="horizontalAlignClass">
+				<p:commandButton id="resetNo" value="No"
+					onclick="confirmReset.hide()" styleClass = "darkButtonSyle" />
+				<p:commandButton id="resetYes" value="Yes"
+					styleClass = "actionButton"
+					onclick="confirmReset.hide()"
+					actionListener="#{operatorManager.selectedBean.resetPassword}"
+					update="listaOperator" process="@this"
+					oncomplete="handlePopupVisibility(xhr, status, args)" />
+			</h:panelGrid>
+		</p:confirmDialog>
+
+		<p:dialog id="operatorRoleDialog" widgetVar="operatorRole" closable="false"
+			draggable="false" position="center" modal="true" resizable="false"><!-- header="#{operatorManager.selectedInfo.username}"  -->
+			<h:outputLabel value = "#{operatorManager.selectedInfo.username}" styleClass="orange" style= "font-size:18px"/>
+			
+			<h:panelGrid columns="3" styleClass="horizontalAlignClass borderDotted" 
+				columnClasses="firstColumnFormClass,secondColumnFormClass,thirdColumnFormClass"
+				rendered="#{not empty operatorManager.selectedBean}">
+				<p:spacer />
+				<h:outputText value="#{msgs['operator.rights.read']}"
+					style="font-weight:bold;" />
+				<h:outputText value="#{msgs['operator.rights.write']}"
+					style="font-weight:bold;" />
+
+				<h:outputText value="#{msgs['operator.rights.commercialCataloge']}" />
+				<p:selectBooleanCheckbox disabled="true"
+					value="#{operatorManager.selectedBean.info.role.catalogueRead}" />
+				<p:selectBooleanCheckbox disabled="true"
+					value="#{operatorManager.selectedBean.info.role.catalogueWrite}" />
+
+				<h:outputText value="#{msgs['operator.rights.customerEntitlement']}" />
+				<p:selectBooleanCheckbox disabled="true"
+					value="#{operatorManager.selectedBean.info.role.assuranceRead}" />
+				<p:selectBooleanCheckbox disabled="true"
+					value="#{operatorManager.selectedBean.info.role.assuranceWrite}" />
+<!-- 
+				<h:outputText value="#{msgs['operator.rights.catchUp']}" />
+				<p:selectBooleanCheckbox disabled="true"
+					value="#{operatorManager.selectedBean.info.role.catchupRead}" />
+				<p:selectBooleanCheckbox disabled="true"
+					value="#{operatorManager.selectedBean.info.role.catchupWrite}" />
+
+				<h:outputText value="#{msgs['operator.rights.multicamera']}" />
+				<p:selectBooleanCheckbox disabled="true"
+					value="#{operatorManager.selectedBean.info.role.multicameraRead}" />
+				<p:selectBooleanCheckbox disabled="true"
+					value="#{operatorManager.selectedBean.info.role.multicameraWrite}" />
+ -->
+				<h:outputText value="#{msgs['operator.rights.operators']}" />
+				<p:selectBooleanCheckbox
+					value="#{operatorManager.selectedBean.info.role.operatorsRead}"
+					disabled="true" />
+				<p:selectBooleanCheckbox
+					value="#{operatorManager.selectedBean.info.role.operatorsWrite}"
+					disabled="true" />
+
+			</h:panelGrid>
+			<br />
+			<h:panelGrid styleClass="horizontalAlignClass">
+				<p:commandButton id="closeRole" value="#{msgs['button.close']}"
+					styleClass="darkButtonSyle"
+					onclick="operatorRole.hide()" />
+			</h:panelGrid>
+		</p:dialog>
+	</h:form>
+</h:panelGroup>
+

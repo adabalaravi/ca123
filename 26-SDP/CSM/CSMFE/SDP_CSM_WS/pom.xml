@@ -1,0 +1,241 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.accenture.sdp</groupId>
+		<version>1.0</version>
+		<artifactId>CSMFE</artifactId>
+	</parent>
+	<artifactId>SDP_CSM_WS</artifactId>
+	<packaging>war</packaging>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.accenture.sdp</groupId>
+			<artifactId>SDP_CSM_CORE</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.18</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<version>1.0.1.Final</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-api</artifactId>
+			<version>2.3.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>6.0.35</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- RESTEASY DEPENDENCIES -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+			<version>2.1.0.GA</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxb-provider</artifactId>
+			<version>2.1.0.GA</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>2.2.4</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>SDP_CSM_FE</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<compilerArgument>-Xlint:all</compilerArgument>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<compilerArgument>-Xlint:all</compilerArgument>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+					<warName>SDP_CSM_FE</warName>
+					<outputDirectory>${project.build.directory}/dist</outputDirectory>
+					<webappDirectory>${project.build.directory}/build</webappDirectory>
+					<warSourceExcludes>**/.copyarea.db</warSourceExcludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+							<overWriteReleases>true</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<includeArtifactIds>mysql-connector-java,resteasy-jaxrs,resteasy-jaxb-provider,scannotation,jaxrs-api</includeArtifactIds>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>clean</id>
+						<phase>pre-clean</phase>
+						<configuration>
+							<target>
+								<property file="${basedir}/../build.properties" />
+								<condition property="build.dir" value="${basedir}/../DIST">
+									<not>
+										<isset property="SDP_DEPLOY_HOME" />
+									</not>
+								</condition>
+								<condition property="build.dir" value="${SDP_DEPLOY_HOME}">
+									<isset property="SDP_DEPLOY_HOME" />
+								</condition>
+								<delete dir="${build.dir}" failonerror="false" />
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+					<execution>
+						<phase>install</phase>
+						<configuration>
+							<target>
+								<property file="${basedir}/build.properties" />
+								<condition property="build.dir" value="${basedir}/../DIST">
+									<not>
+										<isset property="SDP_DEPLOY_HOME" />
+									</not>
+								</condition>
+								<condition property="build.dir" value="${SDP_DEPLOY_HOME}">
+									<isset property="SDP_DEPLOY_HOME" />
+								</condition>
+								<delete dir="${build.dir}" failonerror="false" />
+								<mkdir dir="${build.dir}" />
+								<mkdir dir="${build.dir}/lib" />
+								<copy todir="${build.dir}/lib" overwrite="true">
+									<fileset dir="${project.build.directory}/lib">
+										<filename name="**/*.jar" />
+									</fileset>
+								</copy>
+								<mkdir dir="${build.dir}/sql" />
+								<copy todir="${build.dir}/sql" overwrite="true">
+									<fileset dir="${basedir}/../../DATABASE/INSTALLER">
+										<filename name="**/*" />
+									</fileset>
+								</copy>
+								<mkdir dir="${build.dir}/conf" />
+								<copy todir="${build.dir}/conf" overwrite="true">
+									<fileset dir="${basedir}/../SDP_CSM_CORE/CONF">
+										<filename name="**/*" />
+										<exclude name="**/.copyarea.db" />
+									</fileset>
+									<fileset dir="${basedir}/../PersistenceModel/src/main/resources">
+										<filename name="**/*" />
+										<exclude name="**/.copyarea.db" />
+									</fileset>
+								</copy>
+								<mkdir dir="${build.dir}/dist" />
+								<copy todir="${build.dir}/dist" overwrite="true">
+									<fileset dir="${project.build.directory}/dist">
+										<filename name="SDP_CSM_FE.war" />
+									</fileset>
+								</copy>
+								<delete dir="${project.build.directory}" />
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-dependency-plugin</artifactId>
+										<versionRange>[2.0,)</versionRange>
+										<goals>
+											<goal>copy-dependencies</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-antrun-plugin</artifactId>
+										<versionRange>[1.7,)</versionRange>
+										<goals>
+											<goal>run</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<class name="com.accenture.ams.db.bean.Product" lazy="false"  table="PRODUCT">
+	<id
+        name="solutionOfferId"
+        type="long"
+        column="SOLUTION_OFFER_ID"
+        length="38"
+    >
+		<generator class="assigned" />
+	</id>
+	<property
+        name="approved"
+        type="string"
+        column="APPROVED"
+        length="50"
+    />
+	<!--<property
+        name="creationDate"
+        type="timestamp"
+        column="CREATION_DATE"
+        not-null="true"
+        length="7"
+    />
+	--><property
+        name="endDate"
+        type="timestamp"
+        column="END_DATE"
+        length="7"
+    />
+	<property
+        name="externalId"
+        type="long"
+        column="EXTERNAL_ID"
+        length="38"
+    />
+	<property
+        name="offerDescription"
+        type="string"
+        column="OFFER_DESCRIPTION"
+        not-null="true"
+        length="255"
+    />
+	<property
+        name="offerName"
+        type="string"
+        column="OFFER_NAME"
+        not-null="true"
+        length="100"
+    />
+	<property
+        name="startDate"
+        type="timestamp"
+        column="START_DATE"
+        length="7"
+    />
+	<!--<property
+        name="updateDate"
+        type="timestamp"
+        column="UPDATE_DATE"
+        not-null="true"
+        length="7"
+    />
+
+	--><!-- Associations -->
+	<!-- bi-directional many-to-one association to StatusType -->
+	<many-to-one
+        name="statusType"
+        class="com.accenture.ams.db.bean.StatusType"
+        lazy="false"
+    >
+		<column name="STATUS_ID" not-null="true" length="38"/>
+	</many-to-one>
+	<!-- bi-directional many-to-one association to PromoOffer -->
+	<set
+        name="promoOffers"
+        inverse="true"
+        lazy="false"
+    >
+		<key>
+			<column name="SOLUTION_OFFER_ID" />
+			 <!-- a foreign key in PROMO_OFFER referencing the primary key of this table. -->
+		</key>
+		<one-to-many class="com.accenture.ams.db.bean.PromoOffer" />
+	</set>
+
+</class>
+</hibernate-mapping>

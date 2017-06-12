@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 20 Jun, 2012 5:56:46 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+ <class name="com.accenture.avs.ca.be.db.bean.UserPurchasesCA" table="user_purchases_view">
+  <id name="sequenceId" type="java.lang.Long">
+   <column name="SEQUENCE_ID"/>
+   <generator class="assigned"/>
+  </id>
+  <property generated="never" lazy="false" name="itemId" type="java.lang.Long">
+   <column name="ITEMID"/>
+  </property>
+  <property generated="never" lazy="false" name="user_id" type="long">
+   <column name="USER_ID"/>
+  </property>
+  <property generated="never" lazy="false" name="item_name" type="java.lang.String">
+   <column name="ITEM_NAME"/>
+  </property>
+  <property generated="never" lazy="false" name="item_type" type="java.lang.String">
+   <column name="ITEM_TYPE"/>
+  </property>
+  <property generated="never" lazy="false" name="item_description" type="java.lang.String">
+   <column name="ITEM_DESCRIPTION"/>
+  </property>
+  <property generated="never" lazy="false" name="start_date" type="java.sql.Timestamp">
+   <column name="START_DATE"/>
+  </property>
+  <property generated="never" lazy="false" name="end_date" type="java.sql.Timestamp">
+   <column name="END_DATE"/>
+  </property>
+  <property generated="never" lazy="false" name="status_description" type="java.lang.String">
+   <column name="STATUS_DESCRIPTION"/>
+  </property>
+  <property generated="never" lazy="false" name="broadcast_channel" type="java.lang.String">
+   <column name="BROADCAST_CHANNEL"/>
+  </property>
+  <property generated="never" lazy="false" name="original_price" type="java.lang.String">
+   <column name="ORIGINAL_PRICE"/>
+  </property>
+  <property generated="never" lazy="false" name="price" type="java.lang.String">
+   <column name="PRICE"/>
+  </property>
+  <property generated="never" lazy="false" name="max_views" type="java.lang.String">
+   <column name="MAX_VIEWS"/>
+  </property>
+  <property generated="never" lazy="false" name="views_number" type="java.lang.String">
+   <column name="VIEWS_NUMBER"/>
+  </property>
+  <property generated="never" lazy="false" name="transaction_price" type="java.lang.String">
+   <column name="TRANSACTION_PRICE"/>
+  </property>
+  <property generated="never" lazy="false" name="refund_date" type="java.lang.String">
+   <column name="REFUND_DATE"/>
+  </property>
+  <property generated="never" lazy="false" name="refund_price" type="java.lang.String">
+   <column name="REFUND_PRICE"/>
+  </property>
+  <property generated="never" lazy="false" name="currency" type="java.lang.String">
+   <column name="CURRENCY"/>
+  </property>
+  <property generated="never" lazy="false" name="tech_pkg_id" type="java.lang.Long">
+   <column name="TECH_PKG_ID"/>
+  </property>
+  
+ </class>
+  
+ 
+ 
+   <sql-query name="getActiveSubscriptionDetailsCA">
+		<return alias="userPurchasesNoMonth"
+			class="com.accenture.avs.ca.be.db.bean.UserPurchasesCA" />
+		<![CDATA[
+				 SELECT pt.sequence_id AS {userPurchasesNoMonth.sequenceId},                                  
+			       ssov.SOLUTION_OFFER_ID AS {userPurchasesNoMonth.itemId},                               
+			       pt.user_id AS {userPurchasesNoMonth.user_id},
+			       pt.item_id AS {userPurchasesNoMonth.tech_pkg_id},                                          
+			       'Subscription' AS {userPurchasesNoMonth.item_type},                              
+			       ssov.SOLUTION_OFFER_NAME AS {userPurchasesNoMonth.item_name},                          
+			       ssov.SOLUTION_OFFER_DESCRIPTION AS {userPurchasesNoMonth.item_description},            
+			       pt.start_date AS {userPurchasesNoMonth.start_date},                                    
+			       pt.end_date AS {userPurchasesNoMonth.end_date},                                        
+			       s.status_description AS {userPurchasesNoMonth.status_description},                     
+			       '' AS {userPurchasesNoMonth.broadcast_channel},                                            
+			       pt.original_price AS {userPurchasesNoMonth.original_price},                            
+			        0 AS {userPurchasesNoMonth.price},                                            
+			       pt.currency AS {userPurchasesNoMonth.currency},                                        
+			       '' AS {userPurchasesNoMonth.max_views},                                                    
+			       '' AS {userPurchasesNoMonth.views_number},                                                 
+			       pt.transaction_price AS {userPurchasesNoMonth.transaction_price},                      
+			       pt.refund_date AS {userPurchasesNoMonth.refund_date},                                  
+			       pt.refund_price AS {userPurchasesNoMonth.refund_price}                                 
+					  FROM (  (   sdp_solution_offer_view ssov     
+					                JOIN  purchase_transaction pt)                     
+					        JOIN                                                                 
+					           status_type s)                                       
+					 WHERE (                                                                     
+					        pt.user_id =?                                                
+					        AND (s.status_id = pt.state)                                 
+					          AND (ssov.SOLUTION_OFFER_ID = pt.parent_item_id)                    
+					        and pt.item_type in (4,5)  
+					        and pt.state in (1,12)  
+					        AND pt.end_date >= current_timestamp) order by pt.sequence_id desc;                            
+					 
+			  
+	       ]]>
+
+	</sql-query>
+ 
+ 
+ 
+</hibernate-mapping>

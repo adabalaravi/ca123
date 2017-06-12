@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conf>
+
+	<!-- needed by the test cases -->
+	<goofy>walter</goofy>
+	<!-- Altre 2 sezioni: segnalazioni e reportistica -->
+	<messages>
+		<ERR-001>Configuration problem:</ERR-001>
+		<ERR-002>Couldn't commit Transaction</ERR-002>
+		<ERR-003>Couldn't rollback Transaction</ERR-003>
+		<ERR-004>Error anomaly writing one dimension</ERR-004>
+		<ERR-005>Error executing sql</ERR-005>
+		<ERR-006>Procedure error</ERR-006>
+		<ERR-007>Error executing: </ERR-007>
+		<ERR-008>Error processing marketing data</ERR-008>
+		<ERR-009>Error processing CSV data</ERR-009>
+		<ERR-010>Error decodind duration</ERR-010>
+		<ERR-011>Error Processing Content Id:</ERR-011>
+		<ERR-012>Error executing thread.</ERR-012>
+		<ERR-013>Wait time exceeded</ERR-013>
+		<ERR-014>Error invoking function</ERR-014>
+		<ERR-015>Trying to log an error but the list is null</ERR-015>
+		<ERR-016>getAnomalyAllDimensions ERROR writeCSVAnomaly</ERR-016>
+		<ERR-017>Error processing report data</ERR-017>
+		<ERR-018>Number error: </ERR-018>
+		<ERR-019>error processing row: </ERR-019>
+		<ERR-020>skipping row: </ERR-020>
+		<ERR-021>No data to import. Check the database links and that the content table is not empty.</ERR-021>
+		
+		<WAR-001>WARNING: error in the database: duplicate name</WAR-001>
+		
+		<INF-001>query anomaly for dimension: </INF-001>
+		<INF-002>query anomaly for all dimensions</INF-002>
+		<INF-003>reading hibernate configuration from : </INF-003>
+		<INF-004>instantiating class : </INF-004>
+		<INF-005>executing : </INF-005>
+		<INF-006>Thread Completed</INF-006>
+		<INF-007>Total: </INF-007>
+		<INF-008>Errors: </INF-008>
+		<INF-009>starting ThreadPoolExecutor - chunks : </INF-009>
+		<INF-010>starting ThreadPoolExecutor - pool   : </INF-010>
+		<INF-011>starting ThreadPoolExecutor - max    : </INF-011>
+		<INF-012>Procedure: </INF-012>
+		<INF-013>Thread Started</INF-013>
+		
+		<DEB-001>USER ANONYMOUS</DEB-001>
+		<DEB-002>SQL: </DEB-002>
+		<DEB-003>ContentID: </DEB-003>
+		<DEB-004>LIST NULL, reading default list</DEB-004>
+		<DEB-005>ChannelID: </DEB-005>
+		<DEB-006>UserID: </DEB-006>
+		<DEB-007>CategoryId: </DEB-007>
+		<DEB-008>UserSeq: </DEB-008>
+		<DEB-009>List : </DEB-009>
+		<DEB-010>LIST NOT NULL</DEB-010>
+		<DEB-011>rec = </DEB-011>
+		<DEB-012>DIMENSION : </DEB-012>
+		<DEB-013>Value for weight is: </DEB-013>
+		<DEB-014>Record added</DEB-014>
+		<DEB-015>Record already exists</DEB-015>
+		<DEB-016>id </DEB-016>
+		<DEB-017>Before query</DEB-017>
+		<DEB-018>setID = </DEB-018>
+		<DEB-019>Value module: </DEB-019>
+		<DEB-020>Value numTotParall: </DEB-020>
+		<DEB-021>fetching configuration data</DEB-021>
+		<DEB-022>opening file   : </DEB-022>
+		<DEB-023>reading file   : </DEB-023>
+		<DEB-024>number of rows : </DEB-024>
+		<DEB-025>fileName : </DEB-025>
+		<DEB-026>seqRec = </DEB-026>
+		<DEB-027>about to execute: </DEB-027>
+		<DEB-028>Value debug: </DEB-028>
+		<DEB-029>Value limitRows: </DEB-029>
+
+	</messages>
+	<orchestrator>
+		<class>com.accenture.avs.rec.plsql.RunProcs</class>
+		<importProcs>
+			<params>
+				<logLevel>0</logLevel>
+				<threshold>20</threshold>
+				<!-- number of chunks in which to split the user base for processing -->
+				<chunks>1</chunks>
+				<!-- maximum number of concurrent threads -->
+				<poolsize>1</poolsize>
+				<!--<timestart>
+					<sql><![CDATA[ select sysdate-31 as dd from dual ]]></sql>
+				</timestart>
+				<timeend>
+					<sql><![CDATA[ select sysdate-1 as dd from dual ]]></sql>
+				</timeend> -->
+			</params>
+			<proc>
+				<sql><![CDATA[{call P_INS_USER_ACTION(30)}
+				]]></sql>
+				<type>S
+				</type>
+			</proc>
+			<proc>
+				<sql><![CDATA[{call P_INS_USER()}
+				]]></sql>
+				<type>S
+				</type>
+			</proc>
+			<proc>
+				<sql><![CDATA[{call P_PURGE_USER_ACTION(100000000)}
+				]]></sql>
+				<type>S
+				</type>
+			</proc>
+		</importProcs>
+
+		<all>
+			<params>
+				<logLevel>0</logLevel>
+				<threshold>20</threshold>
+				<!-- number of chunks in which to split the user base for processing -->
+				<chunks>0</chunks>
+				<!-- maximum number of concurrent threads -->
+				<poolsize>0</poolsize>
+				<timestart></timestart>
+				<timeend></timeend>
+			</params>
+			<!--
+				contentType, category, contentYear, language, country, pack,
+				pcLevel, director, actor, genre
+			-->
+			<weights>0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+			</weights>
+			<proc>
+				<sql><![CDATA[
+				{call P_START_RECOM()}
+				]]></sql>
+				<type>S
+				</type>
+			</proc>
+			<proc>
+				<sql><![CDATA[
+				{call P_STAT_REC()}
+				]]></sql>
+				<type>S
+				</type>
+			</proc>
+		</all>
+
+		<user>
+			<params>
+				<logLevel>0</logLevel>
+				<threshold>20</threshold>
+				<!-- number of chunks in which to split the user base for processing -->
+				<chunks>10</chunks>
+				<!-- maximum number of concurrent threads -->
+				<poolsize>2</poolsize>
+				<timestart>
+					<sql><![CDATA[ select sysdate-31 as dd from dual ]]></sql>
+				</timestart>
+				<timeend>
+					<sql><![CDATA[ select sysdate-1 as dd from dual ]]></sql>
+				</timeend>
+			</params>
+			<!--
+				contentType, category, contentYear, language, country, pack,
+				pcLevel, director, actor, genre
+			-->
+			<weights>
+				1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
+	   		</weights>
+			<proc>
+				<sql><![CDATA[
+				{call P_INS_ACTION_CONTENT(30)}
+				]]></sql>
+				<type>S
+				</type>
+			</proc>
+			<proc>
+				<sql><![CDATA[
+				{call P_PRE_INS_USR_TB_PRF()}
+				]]></sql>
+				<type>S
+				</type>
+			</proc>
+			<proc>
+				<sql><![CDATA[
+				{call P_INS_USR_TB_PRF(?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?)}
+				]]></sql>
+				<type>X
+				</type>
+			</proc>
+			<proc>
+				<sql><![CDATA[
+				{call P_POST_INS_USR_TB_PRF()}
+				]]></sql>
+				<type>S
+				</type>
+			</proc>
+			<proc>
+				<sql><![CDATA[
+				{call P_PRE_INS_RECOM_CONTENT('USER')}
+				]]></sql>
+				<type>S
+				</type>
+			</proc>
+			<proc>
+				<sql><![CDATA[
+				{call P_TOTAL_RECOM(?\, ?\, ?\, ?\, ?\, ?)}
+				]]></sql>
+				<type>P
+				</type>
+			</proc>
+			<proc>
+				<sql><![CDATA[
+				{call P_STAT_RECOM_CONTENT('USER')}
+				]]></sql>
+				<type>S
+				</type>
+			</proc>
+		</user>
+
+		<community>
+			<params>
+				<logLevel>0</logLevel>
+				<threshold>20</threshold>
+				<!-- number of chunks in which to split the user base for processing -->
+				<chunks>1</chunks>
+				<!-- maximum number of concurrent threads -->
+				<poolsize>0</poolsize>
+				<timestart>
+					<sql><![CDATA[ select sysdate-7 as dd from dual ]]></sql>
+				</timestart>
+				<timeend>
+					<sql><![CDATA[ select sysdate-1 as dd from dual ]]></sql>
+				</timeend>
+			</params>
+			<!--
+				contentType, category, contentYear, language, country, pack,
+				pcLevel, director, actor, genre
+			-->
+			<weights>
+				1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
+			</weights>
+			<proc>
+				<sql><![CDATA[
+				{call P_INS_ACTION_CONTENT(30)}
+				]]></sql>
+				<type>S
+				</type>
+			</proc>
+			<proc>
+				<sql><![CDATA[
+				{call P_PRE_INS_USR_TB_PRF()}
+				]]></sql>
+				<type>S
+				</type>
+			</proc>
+			<proc>
+				<sql><![CDATA[
+				{call P_INS_COMMUNITY_TB_PRF(?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?)}
+				]]></sql>
+				<type>X
+				</type>
+			</proc>
+			<proc>
+				<sql><![CDATA[
+				{call P_POST_INS_USR_TB_PRF()}
+				]]></sql>
+				<type>S
+				</type>
+			</proc>
+			<proc>
+				<sql><![CDATA[
+				{call P_PRE_INS_RECOM_CONTENT('COMMUNITY')}
+				]]></sql>
+				<type>S
+				</type>
+			</proc>
+			<proc>
+				<sql><![CDATA[
+				{call P_INS_COMMUNITY_CONTENT()}
+				]]></sql>
+				<type>S
+				</type>
+			</proc>
+			<proc>
+				<sql><![CDATA[
+				{call P_STAT_RECOM_CONTENT('COMMUNITY')}
+				]]></sql>
+				<type>S
+				</type>
+			</proc>
+		</community>
+	</orchestrator>
+
+	<dataparser>
+		<class>com.accenture.avs.rec.dataparser.DataParser</class>
+	</dataparser>
+
+	<mapping>
+		<duration>
+			<input>s</input>
+			<bins>0, 30, 60, 120, 200, 99999999</bins>
+			<output>m</output>
+		</duration>
+	</mapping>
+
+	<recom>
+		<threshold>
+			<usercontent>50</usercontent>
+			<profile>20</profile>
+		</threshold>
+	</recom>
+
+	<mixer>
+		<results>30</results>
+		<userseq><![CDATA[select user_seq from rec_user_history where user_id = :userID]]></userseq>
+		<components>
+			<component>
+				<class>com.accenture.avs.rec.mixer.impl.UserBased</class>
+				<results>15</results>
+				<userbased>
+					<sql><![CDATA[ select content_id from (select DISTINCT a.content_id\,score
+                                    from recom_engine.SYN_USER_content r\,
+                                    imp_CONTENT a\, imp_CATEGORY_AGGREGATION b\,
+                                    imp_content_platform c\, imp_CONTENT_category z
+                                    where
+                                    r.content_id = a.content_id
+                                    and sysdate between a.CONTRACT_START and a.CONTRACT_end
+                                    and z.category_id =  b.LEAF_CATEGORY_ID
+                                    and b.category_id = NVL(:categoryId\, b.category_id)
+                                    and c.content_id = R.CONTENT_ID and platform in (NVL(:channelID\,platform))
+                                    and sysdate between contract_start and contract_end and is_adult = 'N'
+                                    and z.content_id = a.content_id                                    
+                                    and a.type in (NVL(:typeID\,a.type)) 
+                                    --and a.type = 'TVOD' 
+                                    --and c.video_url NOT in ('MDP-WEBTV-PREPROD/MTP-WEBTV-PC/ERRORVIDEOS/error99.ism')
+                                    and r.user_id = :userID
+                                    order by score desc)
+                                    where rownum <=30
+									]]></sql>
+					<timeout>1</timeout>
+				</userbased>
+			</component>
+			<component>
+				<class>com.accenture.avs.rec.mixer.impl.Community</class>
+				<results>10</results>
+				<community>
+					<sql><![CDATA[ select * from (select content_id from SYN_COMMUNITY_CONTENT where content_id in  (
+                                    select content_id from SYN_COMMUNITY_CONTENT
+                                    where  content_id in 
+                                 (select a.content_id from imp_CONTENT_category a\, imp_CATEGORY_AGGREGATION b\,imp_content_platform c
+                                   where a.category_id =  b.LEAF_CATEGORY_ID
+                                and b.category_id = NVL(:categoryId\, b.category_id)
+                                and c.content_id = a.content_id
+                               -- and  c.video_url NOT in ('MDP-WEBTV-PREPROD/MTP-WEBTV-PC/ERRORVIDEOS/error99.ism')
+                                )
+                               minus
+                            ( select content_id from iot_action_history a 
+                               where a.user_seq   =:userSeq
+                               union
+                              select content_id from rec_content where serial_id in
+                              ( select r.serial_id from rec_content r\,syn_user_content s
+                                       where s.user_id =:userID  and serial_id < 0 
+                                     and r.content_id  = s.content_id 
+                                     union
+                                            select r.serial_id from rec_content r\, iot_action_history a 
+                                       where   serial_id < 0    and 
+                                   A.USER_seq= :userSeq and r.content_id  =  a.content_id  ) 
+                                   union 
+                                select content_id from rec_content where serial_id in
+                              ( select r.serial_id from rec_content r\,rec_marketing s
+                                       where   r.content_id  = s.content_id   )
+                                  union 
+                                select content_id from imp_content where (is_adult = 'Y' 
+                               -- OR  type!= 'TVOD'
+                                )
+                               )
+                                ) 
+                               order by score desc) where rownum <=30
+                               ]]></sql>
+					<!--
+						<sql><![CDATA[select * from (
+                                select content_id from SYN_COMMUNITY_CONTENT where
+                        content_id in (select content_id from imp_CONTENT_category a\,
+                        imp_CATEGORY_AGGREGATION b where a.category_id =
+                        b.LEAF_CATEGORY_ID and b.category_id = NVL(:categoryId\,
+                        b.category_id) ) minus ( select content_id from rec_content where
+                        serial_id in ( select r.serial_id from rec_content
+                        r\,syn_user_content s where s.user_id =:userID and serial_id < 0
+                        and r.content_id = s.content_id ) 
+                        union 
+                                select content_id from imp_content where (is_adult = 'Y'  OR  type!= 'TVOD' ) )
+                         ) where rownum < :limit ]]></sql>
+					-->
+					<timeout>1</timeout>
+				</community>
+			</component>
+			<component>
+
+				<class>com.accenture.avs.rec.mixer.impl.Marketing</class>
+				<results>5</results>
+				<marketing>
+					<sql><![CDATA[ select * from (
+                         select content_id from REC_MARKETING
+                               where   content_id in  
+                                 (select a.content_id from imp_CONTENT_category a\, imp_CATEGORY_AGGREGATION b\,imp_content_platform c
+                                   where a.category_id =  b.LEAF_CATEGORY_ID
+                                and b.category_id = NVL(:categoryId\, b.category_id)
+                                and c.content_id = a.content_id
+                               -- and  c.video_url NOT in ('MDP-WEBTV-PREPROD/MTP-WEBTV-PC/ERRORVIDEOS/error99.ism')
+                                )
+                                   minus
+                             ( select content_id from iot_action_history a 
+                               where a.user_seq  =:userSeq
+                               union
+                              select content_id from rec_content where serial_id in
+                              ( select r.serial_id from rec_content r\,syn_user_content s
+                                       where s.user_id =:userID  and serial_id < 0 
+                                     and r.content_id  = s.content_id 
+                                      )
+                               union 
+                                select content_id from imp_content where (is_adult = 'Y' 
+                                --OR  type!= 'TVOD'
+                                )
+                               ) 
+                               )  where rownum <=30
+                               ]]></sql>
+					<!--
+						<sql><![CDATA[select * from (
+                              select content_id from REC_MARKETING where
+                        content_id in (select content_id from imp_CONTENT_category a\,
+                        imp_CATEGORY_AGGREGATION b where a.category_id =
+                        b.LEAF_CATEGORY_ID and b.category_id = NVL(:categoryId\,
+                        b.category_id) ) minus ( select content_id from rec_content where
+                        serial_id in ( select r.serial_id from rec_content
+                        r\,syn_user_content s where s.user_id =:userID and serial_id < 0
+                        and r.content_id = s.content_id union select r.serial_id from
+                        rec_content r\, iot_action_history a where serial_id < 0 and
+                        A.USER_seq= :userSeq and r.content_id = a.content_id )
+                        union 
+                                select content_id from imp_content where (is_adult = 'Y' OR  type!= 'TVOD') )
+                         ) where rownum < :limit ]]></sql>
+					-->
+					<timeout>1</timeout>
+				</marketing>
+			</component>
+		</components>
+	</mixer>
+
+	<csv>
+		<class>com.accenture.avs.rec.csv.CSVImport</class>
+		<path-file><![CDATA[/data/batch/RecEngine/mkt/mkt.csv]]></path-file>
+		<proc-before>
+			<sql>
+		    <![CDATA[
+				{call P_PRE_MARKETING()}
+				]]>
+			</sql>
+		</proc-before>
+		<proc-after>
+			<sql>
+		     <![CDATA[
+				{call P_POST_MARKETING()}
+				]]>
+			</sql>
+		</proc-after>
+	</csv>
+
+	<report>
+		<reports>
+			<class>com.accenture.avs.rec.report.Report</class>
+			<params>
+				<logLevel>0</logLevel>
+				<threshold>20</threshold>
+				<!-- number of chunks in which to split the user base for processing -->
+				<chunks>1</chunks>
+				<!-- maximum number of concurrent threads -->
+				<poolsize>0</poolsize>
+				<!--<timestart>
+					<sql><![CDATA[ select sysdate-7 as dd from dual ]]></sql>
+				</timestart>
+				<timeend>
+					<sql><![CDATA[ select sysdate-1 as dd from dual ]]></sql>
+				</timeend> -->
+			</params>
+			<!--
+				contentType, category, contentYear, language, country, pack,
+				pcLevel, director, actor, genre
+			-->
+			<weights>
+				1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
+			</weights>
+			<proc>
+				<sql><![CDATA[
+				{call P_INS_COMMUNITY_REP_PRF(?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?\, ?)}
+				]]></sql>
+				<type>X
+				</type>
+			</proc>
+			<proc>
+				<sql><![CDATA[
+				{call P_INS_REP_COMMUNITY_CONTENT}
+				]]></sql>
+				<type>S
+				</type>
+			</proc>
+		</reports>
+		<anomaly>
+			<class>com.accenture.avs.rec.report.AnomalyWriting</class>
+			<all>
+				<sql><![CDATA[SELECT * FROM 
+							(SELECT TO_CHAR (CATEGORY_ID) ID\, rtrim(TYPE_CODE\,'_ID')\, nvl(name\,' ') name\, COUNT (1) conta
+						    FROM REC_content\,  DIC_ALL 
+						    WHERE ID = CATEGORY_ID AND TYPE_CODE =  'CATEGORY_ID'
+							GROUP BY name\, CATEGORY_ID\, rtrim(TYPE_CODE\,'_ID')
+							UNION
+							SELECT TO_CHAR (CONTENT_YEAR_ID)\, rtrim(TYPE_CODE\,'_ID')\, nvl(name\,' ') name\, COUNT (1)
+							FROM REC_content\,  DIC_ALL 
+							WHERE ID = CONTENT_YEAR_ID AND TYPE_CODE =  'CONTENT_YEAR_ID'
+							GROUP BY name\, CONTENT_YEAR_ID\, rtrim(TYPE_CODE\,'_ID')
+							UNION
+							SELECT TO_CHAR (COUNTRY_ID)\, rtrim(TYPE_CODE\,'_ID')\, nvl(name\,' ') name\, COUNT (1)
+						    FROM REC_content\,  DIC_ALL 
+						    WHERE ID = COUNTRY_ID AND TYPE_CODE =  'COUNTRY_ID'
+							GROUP BY name\, COUNTRY_ID\, rtrim(TYPE_CODE\,'_ID')
+							UNION
+							SELECT TO_CHAR (GENRE_ID)\, rtrim(TYPE_CODE\,'_ID')\, nvl(name\,' ') name\, COUNT (1)
+						    FROM REC_content\,  DIC_ALL 
+						    WHERE ID = GENRE_ID AND TYPE_CODE =  'GENRE_ID'
+							GROUP BY name\, GENRE_ID\, rtrim(TYPE_CODE\,'_ID')
+							UNION
+							SELECT TO_CHAR (LANGUAGE_ID)\, rtrim(TYPE_CODE\,'_ID')\, nvl(name\,' ') name\, COUNT (1)
+						    FROM REC_content\,  DIC_ALL 
+						    WHERE ID = LANGUAGE_ID AND TYPE_CODE =  'LANGUAGE_ID'
+							GROUP BY name\, LANGUAGE_ID\, rtrim(TYPE_CODE\,'_ID')
+							UNION
+							SELECT TO_CHAR (PC_LEVEL_ID)\, rtrim(TYPE_CODE\,'_ID')\, nvl(name\,' ') name\, COUNT (1)
+						    FROM REC_content\,  DIC_ALL 
+						    WHERE ID = PC_LEVEL_ID AND TYPE_CODE =  'PC_LEVEL'
+							GROUP BY name\, PC_LEVEL_ID\, rtrim(TYPE_CODE\,'_ID')
+							UNION
+							SELECT TO_CHAR (CONTENT_TYPE_ID)\, rtrim(TYPE_CODE\,'_ID')\, nvl(name\,' ') name\, COUNT (1)
+						    FROM REC_content\,  DIC_ALL 
+						    WHERE ID = CONTENT_TYPE_ID AND TYPE_CODE =  'CONTENT_TYPE_ID'
+							GROUP BY name\, CONTENT_TYPE_ID\, rtrim(TYPE_CODE\,'_ID')
+							union
+							select to_char(ACTOR_ID)\, rtrim(TYPE_CODE\,'_ID')\, nvl(name\,' ') name\, count(1) 
+							from REC_ACTOR\,  DIC_ALL 
+							WHERE ID = ACTOR_ID AND TYPE_CODE =  'ACTOR_ID' group by name\, ACTOR_ID\, rtrim(TYPE_CODE\,'_ID') 
+							union
+							select to_char(ANCHORS_ID)\, rtrim(TYPE_CODE\,'_ID')\, nvl(name\,' ') name\, count(1) 
+							from REC_ANCHORS\,  DIC_ALL 
+							WHERE ID = ANCHORS_ID AND TYPE_CODE =  'ANCHORS_ID' group by name\, ANCHORS_ID\, rtrim(TYPE_CODE\,'_ID')       
+							union
+							select to_char(AUTHORS_ID)\, rtrim(TYPE_CODE\,'_ID')\, nvl(name\,' ') name\, count(1) 
+							from REC_AUTHORS\,  DIC_ALL  
+							WHERE ID = AUTHORS_ID AND TYPE_CODE =  'AUTHORS_ID' group by name\, AUTHORS_ID\, rtrim(TYPE_CODE\,'_ID')       
+							union
+							select to_char(DIRECTOR_ID)\, rtrim(TYPE_CODE\,'_ID')\, nvl(name\,' ') name\, count(1) 
+							from REC_DIRECTOR\,  DIC_ALL  
+							WHERE ID = DIRECTOR_ID AND TYPE_CODE =  'DIRECTOR_ID' group by name\, DIRECTOR_ID\, rtrim(TYPE_CODE\,'_ID')
+							union
+							select to_char(DURATION_ID)\, rtrim(TYPE_CODE\,'_ID')\, nvl(name\,' ') name\, count(1) 
+							from REC_content\,  DIC_ALL   
+							WHERE ID = DURATION_ID AND TYPE_CODE =  'DURATION_ID' group by name\, DURATION_ID\, rtrim(TYPE_CODE\,'_ID')
+							) WHERE CONTA < 3]]>
+				</sql>
+			</all>
+			<dimensions>
+				<dim>
+					<dimension>GENRE_ID</dimension>
+					<dimension>CATEGORY_ID</dimension>
+					<dimension>CONTENT_YEAR_ID</dimension>
+					<dimension>COUNTRY_ID</dimension>
+					<dimension>LANGUAGE_ID</dimension>
+					<dimension>PC_LEVEL_ID</dimension>
+					<dimension>CONTENT_TYPE_ID</dimension>
+					<dimension>DURATION_ID</dimension>
+				</dim>
+				<vect>
+					<dimension>ACTOR_ID</dimension>
+					<dimension>ANCHORS_ID</dimension>
+					<dimension>AUTHORS_ID</dimension>
+					<dimension>DIRECTOR_ID</dimension>
+				</vect>
+			</dimensions>
+			<csv>
+				<path-file>
+				<![CDATA[/data/batch/RecEngine/reports/]]> 
+				</path-file>
+				<title>CATEGORY_ID\, TYPE\, NAME\, COUNT</title>
+			</csv>
+		</anomaly>
+		<mail>
+			<email></email>
+		</mail>
+	</report>
+
+</conf>

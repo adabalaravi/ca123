@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.accenture.ams.db.bean.AccountTechnicalPkg" lazy="false" table="ACCOUNT_TECHNICAL_PKG">
+		
+		<id name="subscriptionOfferId" type="long" column="SUBSCRIPTION_OFFER_ID" length="11">
+			<generator class="native" />
+		</id>
+		
+		<property name="userId" type="long" column="USER_ID"
+			length="11" not-null="true" />
+			
+		<property name="techPackageId" type="long" column="TECH_PACKAGE_ID"
+			length="11" not-null="true" />		
+
+		<property name="viewsNumber" type="long" column="VIEWS_NUMBER"
+			length="11" not-null="false" />	
+			
+		<property name="techPackageValue" type="string" column="TECH_PACKAGE_VALUE"
+			length="50" not-null="false" />	
+			
+		<property name="creationDate" type="timestamp" column="CREATION_DATE"
+			length="7" not-null="false" />	
+
+		<property name="validityPeriod" type="timestamp" column="VALIDITY_PERIOD"
+			length="7" not-null="false" />
+
+		<property name="crmAccountId" type="string" column="CRM_ACCOUNT_ID"
+			length="100" not-null="true" />
+						
+		<property name="updateDate" type="timestamp" column="UPDATE_DATE"
+			length="7" not-null="false" />
+													
+	</class>
+</hibernate-mapping>

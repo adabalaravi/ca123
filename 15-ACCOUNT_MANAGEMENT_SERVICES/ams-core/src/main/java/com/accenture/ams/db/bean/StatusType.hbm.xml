@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<class name="com.accenture.ams.db.bean.StatusType" lazy="false"  table="STATUS_TYPE">
+	<id
+        name="statusId"
+        type="long"
+        column="STATUS_ID"
+        length="38"
+    >
+		<generator class="assigned" />
+	</id>
+	<!--<property
+        name="creationDate"
+        type="timestamp"
+        column="CREATION_DATE"
+        not-null="true"
+        length="7"
+    />
+	--><property
+        name="statusDescription"
+        type="string"
+        column="STATUS_DESCRIPTION"
+        length="256"
+    />
+	<property
+        name="statusName"
+        type="string"
+        column="STATUS_NAME"
+        not-null="true"
+        length="100"
+    />
+	<!--<property
+        name="updateDate"
+        type="timestamp"
+        column="UPDATE_DATE"
+        not-null="true"
+        length="7"
+    />
+
+	--><!-- Associations -->
+	<!-- bi-directional many-to-one association to AccountContent -->
+	<set
+        name="accountContents"
+        inverse="true"
+        lazy="true"
+    >
+		<key>
+			<column name="STATUS_ID" />
+			 <!-- a foreign key in ACCOUNT_CONTENT referencing the primary key of this table. -->
+		</key>
+		<one-to-many class="com.accenture.ams.db.bean.AccountContent" />
+	</set>
+	<!-- bi-directional many-to-one association to AccountUser -->
+	<set
+        name="accountUsers"
+        inverse="true"
+        lazy="true"
+    >
+		<key>
+			<column name="STATUS_ID" />
+			 <!-- a foreign key in ACCOUNT_USER referencing the primary key of this table. -->
+		</key>
+		<one-to-many class="com.accenture.ams.db.bean.AccountUser" />
+	</set>
+	<!-- bi-directional many-to-one association to Product -->
+	<set
+        name="products"
+        inverse="true"
+        lazy="true"
+    >
+		<key>
+			<column name="STATUS_ID" />
+			 <!-- a foreign key in PRODUCT referencing the primary key of this table. -->
+		</key>
+		<one-to-many class="com.accenture.ams.db.bean.Product" />
+	</set>
+
+</class>
+</hibernate-mapping>

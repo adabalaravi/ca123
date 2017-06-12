@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<class name="com.accenture.ams.db.bean.DeviceIdType" lazy="false"  table="DEVICE_ID_TYPE">
+	<id
+        name="typeId"
+        type="long"
+        column="TYPE_ID"
+        length="38"
+    >
+		<generator class="assigned" />
+	</id>
+	<property
+        name="value"
+        type="string"
+        column="VALUE"
+        not-null="true"
+        length="4"
+    />
+    <property
+        name="typeDescription"
+        type="string"
+        column="TYPE_DESCRIPTION"
+        not-null="true"
+        length="4"
+    />
+	<set
+        name="device"
+        inverse="true"
+        lazy="false"
+    >
+		<key>
+			<column name="USER_ID" />
+		</key>
+		<one-to-many class="com.accenture.ams.db.bean.AccountDeviceAMS" />
+	</set>
+
+</class>
+</hibernate-mapping>

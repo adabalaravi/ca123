@@ -1,0 +1,108 @@
+<h:panelGroup xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<script type="text/javascript">
+		function handlePopupVisibility(xhr, status, args) {
+			if ( !args.validationFailed ) {
+				if (args.openPopup) {
+					PrimeFaces.ajax.AjaxRequest({
+						formId:'messagePopupForm', update:'messagePopupForm'});
+					messageDlg.initPosition();
+					messageDlg.show();
+				}
+			}
+		}
+
+		function handleCompleteChangePassword(xhr, status, args) {
+			pwdDlg.initPosition();
+			if ( !args.validationFailed ) {
+				if (args.pwChanged) {
+					pwdDlg.hide();
+				}
+			}
+		}
+	</script>
+
+	<!-- Modal Panel Popup -->
+	<p:dialog id="messageDialog" header="#{msgs['popup.title']}"
+		widgetVar="messageDlg" modal="true" style="max-width: 500px;"
+		closable="false" draggable="false" resizable="false">
+		<!-- p:ajax event="close" update=":appContent"/-->
+		<h:form id="messagePopupForm">
+			<h:panelGrid columns="1" style="text-align:center">
+				<h:outputText value="#{popupBean.message}" escape="false" />
+				<br />
+				<ui:fragment rendered="${popupBean.showClose}">
+					<p:commandButton id="modalPnlCloseButton" type="submit"
+						styleClass="darkButtonSyle"
+						value="#{msgs['button.close']}" oncomplete="messageDlg.hide()"
+						action="#{popupBean.closePopup}" />
+				</ui:fragment>
+				<ui:fragment rendered="${popupBean.showOk}">
+					<p:commandButton id="modalPnlOkButton" type="submit"
+						styleClass = "actionButton"
+						value="#{msgs['button.confirm']}" oncomplete="messageDlg.hide()"
+						action="#{popupBean.closePopup}" />
+				</ui:fragment>
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+
+	<!-- Change Password Popup -->
+	<p:dialog id="passwordDialog" header="#{msgs['header.changePassword']}"
+		widgetVar="pwdDlg" modal="true" style="max-width: 1000px;"
+		closable="false" draggable="false" resizable="false">
+		<h:form id="passwordForm">
+			<h:outputText escape="false" style="font-size:10px;"
+				value="#{msgs['operator.password.rules']}" />
+
+			<h:panelGrid columns="3" styleClass="alignLeftClass"
+				columnClasses="firstColumnFormClass">
+				<p:outputLabel for="username" value="#{msgs['operator.username']}" />
+				<p:inputText id="username" disabled="true" readonly="true"
+					value="#{operatorManager.changePwBean.info.username}"
+					required="false" size="50" maxlength="50">
+					<f:validateLength minimum="0" maximum="50" />
+				</p:inputText>
+				<p:message for="username" />
+
+				<p:outputLabel for="oldPassword"
+					value="#{msgs['operator.oldPassword']}" />
+				<p:password id="oldPassword"
+					value="#{operatorManager.changePwBean.oldPassword}" size="50"
+					maxlength="50" required="true" />
+				<p:message for="oldPassword" />
+
+				<p:outputLabel for="newPassword"
+					value="#{msgs['operator.newPassword']}" />
+				<p:password id="newPassword" required="true"
+					value="#{operatorManager.changePwBean.newPassword}" size="50"
+					maxlength="50" match="confirmPassword" />
+				<p:message for="newPassword" />
+
+				<p:outputLabel for="confirmPassword"
+					value="#{msgs['operator.confirmNewPassword']}" />
+				<p:password id="confirmPassword" required="true"
+					value="#{operatorManager.changePwBean.confirmPassword}" size="50"
+					maxlength="50" />
+				<p:message for="confirmPassword" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="2" styleClass="horizontalAlignClass">
+				<p:commandButton value="#{msgs['button.cancel']}" process="@this"
+					styleClass="darkButtonSyle"
+					onclick="pwdDlg.hide();">
+					<p:resetInput target="passwordForm" />
+				<p:commandButton value="#{msgs['button.update']}" update="@form"
+					styleClass = "actionButton"
+					oncomplete="handleCompleteChangePassword(xhr, status, args); handlePopupVisibility(xhr, status, args)"
+					actionListener="#{operatorManager.changePwBean.changePassword}" />
+				</p:commandButton>
+			</h:panelGrid>
+			<h:outputText value="#{msgs['validator.requiredFields']}" />
+		</h:form>
+	</p:dialog>
+</h:panelGroup>

@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+<h:form id="mainForm" onkeypress="if (event.keyCode == 13)  return false;">
+	<p:outputPanel header="#{msgs['subscription.offer.add.step3']}">
+		<h:outputText value="#{msgs['solutionOffer.discount.package.update']}" styleClass="pageTitle" />
+		<div id="barDataGrid">
+			<div class="barButtomOpenFilter" style="margin: 0 0 0 14px;">Filter</div>
+		</div>
+
+		<!-- <center> -->
+		<!-- 	<h:panelGrid columns="1" styleClass="GenericFormPanelClass">
+				<h:panelGroup> -->
+		<center>
+
+			<p:dataTable id="offerList" var="item" value="#{solutionOfferDiscountedManager.selectedBean.offerDetailList}"
+				rowKey="#{item.offerName}" paginator="true" rows="10" paginatorTemplate="#{msgs['paginator.paginatorTemplate']}"
+				rowsPerPageTemplate="#{msgs['paginator.rowsPerPageTemplate']}" pageLinks="3" paginatorPosition="bottom"
+				styleClass="fixedTableStyle">
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['offerDetail.offerName']}" />
+					</f:facet>
+					<h:outputText styleClass="offerNameStepClass" value="#{item.offerName}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['offerDetail.nrc']}" />
+					</f:facet>
+					<h:outputText id="newSetupFee" value="#{item.newSetupFee}">
+						<f:convertNumber minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['offerDetail.rcPrice']}" />
+					</f:facet>
+					<h:outputText id="newRecurringFee" value="#{item.newRecurringFee}">
+						<f:convertNumber minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['offerDetail.currency']}" />
+					</f:facet>
+					<h:outputText value="#{item.currencyPriceName}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['offerDetail.rcFrequency']}" />
+					</f:facet>
+					<h:outputText value="#{item.frequencyName}" />
+				</p:column>
+
+				<!--  CAMPI NASCOSTI
+							
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{msgs['offerDetail.days']}" />
+								</f:facet>
+								<h:outputText value="#{item.frequencyDays}" />
+							</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{msgs['offerDetail.type']}" />
+							</f:facet>
+							<ice:selectOneMenu value="#{item.mandatory}" style="width:80px;" disabled="true">
+								<f:selectItems value="#{subscriptionOfferTableBean.formUtil.typeList}" />
+							</ice:selectOneMenu>
+						</p:column>
+			
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{msgs['offerDetail.packageLink']}" />
+							</f:facet>
+							<ui:fragment rendered="${item.basicFlag == false}">
+								<ice:selectOneMenu value="#{item.basePackageId}" partialSubmit="true" immediate="true">
+									<f:selectItems value="#{subscriptionOfferTableBean.formUtil.packageLinkList}" />
+								</ice:selectOneMenu>
+							</ui:fragment>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{msgs['offerDetail.offerGroupNameLabel']}" />
+							</f:facet>
+							<ui:fragment rendered="${item.basicFlag == false}">
+								<ice:selectOneMenu value="#{item.groupId}" partialSubmit="true" immediate="true">
+									<f:selectItems value="#{subscriptionOfferTableBean.formUtil.offerGroupNameList}" />
+								</ice:selectOneMenu>
+							</ui:fragment>
+						</p:column>
+			-->
+				<!-- DISCOUNTS -->
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['offerDetail.setupFeeDiscount']}" />
+					</f:facet>
+					<p:inputText id="setupFeeDiscount" disabled="#{not empty item.setupFeeDiscountPercentage}"
+						value="#{item.setupFeeDiscount}" size="10" maxlength="10">
+						<p:ajax update="@this setupFeeDiscountPercentage newSetupFee" listener="#{item.calcultateNewPrice}" />
+						<f:validateDoubleRange minimum="0" maximum="99999999.99" />
+						<f:validateRegex pattern="^[0-9]+(|\.[0-9]{0,2})$" />
+
+					</p:inputText>
+				</p:column>
+
+				<p:column headerText="#{msgs['offerDetail.recurringFeeDiscount']}">
+					<p:inputText id="recurringFeeDiscount" disabled="#{not empty item.recurringFeeDiscountPercentage}"
+						value="#{item.recurringFeeDiscount}" size="10" maxlength="10">
+						<p:ajax update="@this recurringFeeDiscountPercentage newRecurringFee" listener="#{item.calcultateNewPrice}" />
+						<f:validateDoubleRange minimum="0" maximum="99999999.99" />
+						<f:validateRegex pattern="^[0-9]+(|\.[0-9]{0,2})$" />
+					</p:inputText>
+				</p:column>
+
+				<p:column headerText="#{msgs['offerDetail.setupFeeDiscountPercentage']}">
+					<p:inputText id="setupFeeDiscountPercentage" disabled="#{not empty item.setupFeeDiscount}"
+						value="#{item.setupFeeDiscountPercentage}" size="6" maxlength="6">
+						<p:ajax update="@this setupFeeDiscount newSetupFee" listener="#{item.calcultateNewPrice}" />
+						<f:validateDoubleRange minimum="0" maximum="100" />
+						<f:validateRegex pattern="^[0-9]+(|\.[0-9]{0,2})$" />
+					</p:inputText>
+					<p:spacer width="10px" />
+					<h:outputText value="%" />
+				</p:column>
+
+				<p:column headerText="#{msgs['offerDetail.recurringFeeDiscountPercentage']}">
+					<p:inputText id="recurringFeeDiscountPercentage" disabled="#{not empty item.recurringFeeDiscount}"
+						value="#{item.recurringFeeDiscountPercentage}" size="6" maxlength="6">
+						<p:ajax update="@this recurringFeeDiscount newRecurringFee" listener="#{item.calcultateNewPrice}" />
+						<f:validateDoubleRange minimum="0" maximum="100" />
+						<f:validateRegex pattern="^[0-9]+(|\.[0-9]{0,2})$" />
+					</p:inputText>
+					<p:spacer width="10px" />
+					<h:outputText value="%" />
+				</p:column>
+
+			</p:dataTable>
+			<h:panelGrid columns="2">
+				<p:commandButton value="#{msgs['button.cancelLabel']}" styleClass="darkButtonSyle"
+					action="#{menuBean.dispatchRequest}" update=":appContent">
+					<f:param name="breadParam" value="solutionOffer.discount.view" />
+				</p:commandButton>
+				<p:commandButton value="#{msgs['button.updateLabel']}" styleClass="actionButton"
+					actionListener="#{solutionOfferDiscountedManager.updateDiscountPackages}"
+					oncomplete="handlePopupVisibility(xhr, status, args)" update=":appContent" />
+			</h:panelGrid>
+		</center>
+		<!-- 	</h:panelGroup>
+			</h:panelGrid> -->
+		<!-- </center> -->
+	</p:outputPanel>
+</h:form>
+</html>
