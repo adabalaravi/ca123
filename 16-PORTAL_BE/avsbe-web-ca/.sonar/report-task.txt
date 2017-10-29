@@ -1,0 +1,5 @@
+projectKey=caproject1
+serverUrl=http://localhost:9090/devops
+dashboardUrl=http://localhost:9090/devops/dashboard/index/caproject1
+ceTaskId=AV9nL35R0rKwSzopmms_
+ceTaskUrl=http://localhost:9090/devops/api/ce/task?id=AV9nL35R0rKwSzopmms_
